@@ -1,3 +1,4 @@
 Django==2.2
+django-environ==0.4.5
 pytz==2018.9
 sqlparse==0.3.0
