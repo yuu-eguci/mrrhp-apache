@@ -8,12 +8,14 @@ $ git clone https://gitlab.com/midori-mate/mrrhpapache.git
 ```
 
 
-## Open on virtual environment
+## Open on virtual environment THROUGH Apache
 
 Install them.
 
 - [Vagrant](https://www.vagrantup.com/)
 - [Virtualbox](https://www.virtualbox.org/)
+
+**Windows user has to open Powershell as Administrator!** Or you cannot create symbolic links and setup will fail.
 
 ```
 $ vagrant up
@@ -39,3 +41,9 @@ Close the env.
 $ exit
 $ vagrant halt
 ```
+
+
+## Open on local
+
+Access [localhost:8000/](http://localhost:8000/) then.  
+Access [localhost:8000/admin/](http://localhost:8000/admin/) as well.
