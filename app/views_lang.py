@@ -24,7 +24,7 @@ def search_en(request):
 #     return tags(request, consts.Lang.JA, code)
 # def tags_en(request, code):
 #     return tags(request, consts.Lang.EN, code)
-# def years_ja(request, code):
-#     return years(request, consts.Lang.JA, code)
-# def years_en(request, code):
-#     return years(request, consts.Lang.EN, code)
+def year_ja(request, code):
+    return views.year(request, consts.Lang.JA, code)
+def year_en(request, code):
+    return views.year(request, consts.Lang.EN, code)

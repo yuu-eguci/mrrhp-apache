@@ -29,4 +29,6 @@ urlpatterns = [
     path('en/<str:code>', views_lang.post_en),
     path('ja/search/', views_lang.search_ja),
     path('en/search/', views_lang.search_en),
+    path('ja/years/<str:code>', views_lang.year_ja),
+    path('en/years/<str:code>', views_lang.year_en),
 ]
