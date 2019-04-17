@@ -27,5 +27,6 @@ urlpatterns = [
     path('en/latest/', views_lang.latest_en),
     path('ja/<str:code>', views_lang.post_ja),
     path('en/<str:code>', views_lang.post_en),
-
+    path('ja/search/', views_lang.search_ja),
+    path('en/search/', views_lang.search_en),
 ]

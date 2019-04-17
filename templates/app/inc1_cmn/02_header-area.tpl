@@ -54,7 +54,7 @@
             </ul>
             <!-- Search Form  -->
             <div id="search-wrapper">
-              <form action="#">
+              <form action="/ja/search/">
                 <input type="text" id="search" placeholder="Search something...">
                 <div id="close-icon"></div>
                 <input class="d-none" type="submit" value="">

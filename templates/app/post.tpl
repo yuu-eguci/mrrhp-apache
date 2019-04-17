@@ -56,7 +56,6 @@
 
   {% include 'app/inc1_cmn/09_footer-area.tpl' %}
   {% include 'app/inc3_post/09_link-button.tpl' %}
-
 </body>
 
 </html>
