@@ -12,6 +12,10 @@ def latest_ja(request):
     return views.latest(request, consts.Lang.JA)
 def latest_en(request):
     return views.latest(request, consts.Lang.EN)
+def post_ja(request, code):
+    return views.post(request, consts.Lang.JA, code)
+def post_en(request, code):
+    return views.post(request, consts.Lang.EN, code)
 # def search_ja(request):
 #     return search(request, consts.Lang.JA)
 # def search_en(request):
@@ -24,7 +28,3 @@ def latest_en(request):
 #     return years(request, consts.Lang.JA, code)
 # def years_en(request, code):
 #     return years(request, consts.Lang.EN, code)
-# def post_ja(request, code):
-#     return post(request, consts.Lang.JA, code)
-# def post_en(request, code):
-#     return post(request, consts.Lang.EN, code)
