@@ -20,10 +20,10 @@ def search_ja(request):
     return views.search(request, consts.Lang.JA)
 def search_en(request):
     return views.search(request, consts.Lang.EN)
-# def tags_ja(request, code):
-#     return tags(request, consts.Lang.JA, code)
-# def tags_en(request, code):
-#     return tags(request, consts.Lang.EN, code)
+def tag_ja(request, code):
+    return views.tag(request, consts.Lang.JA, code)
+def tag_en(request, code):
+    return views.tag(request, consts.Lang.EN, code)
 def year_ja(request, code):
     return views.year(request, consts.Lang.JA, code)
 def year_en(request, code):
