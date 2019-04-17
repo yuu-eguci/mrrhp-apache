@@ -22,30 +22,34 @@
           <div class="collapse navbar-collapse" id="worldNav">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/ja/">
+                  <i class="fa fa-home"></i> HOME
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/ja/latest/">
+                  <i class="fa fa-flag"></i> LATEST
+                </a>
               </li>
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fa fa-tags"></i> TAGS
+                </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="/">Home</a>
-                  <a class="dropdown-item" href="catagory.html">Catagory</a>
-                  <a class="dropdown-item" href="my-single-blog.html">Single Blog</a>
-                  <a class="dropdown-item" href="my-post-list.html">Post List</a>
-                  <a class="dropdown-item" href="regular-page.html">Regular Page</a>
-                  <a class="dropdown-item" href="contact.html">Contact</a>
+                  <a class="dropdown-item" href="/ja/tags/test">
+                    Test
+                  </a>
                 </div>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Gadgets</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Lifestyle</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Video</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Contact</a>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fa fa-calendar"></i> YEAR
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/ja/years/test">
+                    Test
+                  </a>
+                </div>
               </li>
             </ul>
             <!-- Search Form  -->
