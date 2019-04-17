@@ -9,3 +9,8 @@ def top(request, lang):
 def latest(request, lang):
     data = {}
     return render(request, 'app/post.tpl', data)
+
+
+def post(request, lang, code):
+    data = {}
+    return render(request, 'app/post.tpl', data)

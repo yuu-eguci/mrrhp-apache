@@ -25,5 +25,7 @@ urlpatterns = [
     path('en/', views_lang.top_en),
     path('ja/latest/', views_lang.latest_ja),
     path('en/latest/', views_lang.latest_en),
+    path('ja/<str:code>', views_lang.post_ja),
+    path('en/<str:code>', views_lang.post_en),
 
 ]
