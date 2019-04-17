@@ -19,3 +19,8 @@ def post(request, lang, code):
 def search(request, lang):
     data = {}
     return render(request, 'app/list.tpl', data)
+
+
+def year(request, lang, code):
+    data = {}
+    return render(request, 'app/list.tpl', data)
