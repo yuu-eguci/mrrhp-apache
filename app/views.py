@@ -21,6 +21,11 @@ def search(request, lang):
     return render(request, 'app/list.tpl', data)
 
 
+def tag(request, lang, code):
+    data = {}
+    return render(request, 'app/list.tpl', data)
+
+
 def year(request, lang, code):
     data = {}
     return render(request, 'app/list.tpl', data)
