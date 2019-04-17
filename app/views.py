@@ -14,3 +14,8 @@ def latest(request, lang):
 def post(request, lang, code):
     data = {}
     return render(request, 'app/post.tpl', data)
+
+
+def search(request, lang):
+    data = {}
+    return render(request, 'app/list.tpl', data)

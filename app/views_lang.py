@@ -16,10 +16,10 @@ def post_ja(request, code):
     return views.post(request, consts.Lang.JA, code)
 def post_en(request, code):
     return views.post(request, consts.Lang.EN, code)
-# def search_ja(request):
-#     return search(request, consts.Lang.JA)
-# def search_en(request):
-#     return search(request, consts.Lang.EN)
+def search_ja(request):
+    return views.search(request, consts.Lang.JA)
+def search_en(request):
+    return views.search(request, consts.Lang.EN)
 # def tags_ja(request, code):
 #     return tags(request, consts.Lang.JA, code)
 # def tags_en(request, code):
