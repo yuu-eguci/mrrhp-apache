@@ -41,3 +41,7 @@
 <script src="{% static 'app/js/plugins.js' %}"></script>
 <!-- Active js -->
 <script src="{% static 'app/js/active.js' %}"></script>
+<!-- highlight.js -->
+<!-- https://laboradian.com/how-to-use-highlightjs/ -->
+<script src="{% static 'app/vendor/highlight/highlight.pack.js' %}"></script>
+<script>hljs.initHighlightingOnLoad();</script>

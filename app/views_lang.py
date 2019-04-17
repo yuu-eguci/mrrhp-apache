@@ -8,6 +8,10 @@ def top_ja(request):
     return views.top(request, consts.Lang.JA)
 def top_en(request):
     return views.top(request, consts.Lang.EN)
+def latest_ja(request):
+    return views.latest(request, consts.Lang.JA)
+def latest_en(request):
+    return views.latest(request, consts.Lang.EN)
 # def search_ja(request):
 #     return search(request, consts.Lang.JA)
 # def search_en(request):
@@ -24,7 +28,3 @@ def top_en(request):
 #     return post(request, consts.Lang.JA, code)
 # def post_en(request, code):
 #     return post(request, consts.Lang.EN, code)
-# def latest_ja(request):
-#     return latest(request, consts.Lang.JA)
-# def latest_en(request):
-#     return latest(request, consts.Lang.EN)
