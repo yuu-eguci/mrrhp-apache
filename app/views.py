@@ -1,3 +1,6 @@
 from django.shortcuts import render
+from app.lib import consts
 
-# Create your views here.
+def top(request, lang):
+    data = {}
+    return render(request, 'app/top.tpl', data)

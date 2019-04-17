@@ -43,6 +43,21 @@ $ vagrant halt
 ```
 
 
+## After tweating static files
+
+You have to check that there are no 404 files with `runserver` and through Apache as well.
+
+Before checking through Apache you have to use these commands.
+
+```
+$ source /vagrant/env3.6/bin/activate
+$ python /vagrant/manage.py collectstatic -c --noinput
+$ sudo apachectl restart
+```
+
+And then you can commit!
+
+
 ## Open on local
 
 Access [localhost:8000/](http://localhost:8000/) then.  

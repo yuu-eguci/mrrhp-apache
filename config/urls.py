@@ -15,7 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from app import views, views_lang
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    path('', views_lang.top_ja),
+    path('ja/', views_lang.top_ja),
+    path('en/', views_lang.top_en),
 ]
