@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from app.lib import consts
+from app.usrlib import consts
 from app import views
 
 
