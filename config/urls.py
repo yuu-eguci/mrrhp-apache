@@ -36,6 +36,7 @@ urlpatterns = [
     path('en/years/<str:code>', views_lang.year_en),
 ]
 
+handler404 = views.page_not_found
 from config.settings import production
 if production.SHOW_500_ERROR:
     handler500 = views.page_server_error
