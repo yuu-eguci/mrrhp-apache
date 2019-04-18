@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from app import views, views_lang
+from django.conf.urls import handler404, handler500
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -34,3 +35,7 @@ urlpatterns = [
     path('ja/years/<str:code>', views_lang.year_ja),
     path('en/years/<str:code>', views_lang.year_en),
 ]
+
+from config.settings import production
+if production.SHOW_500_ERROR:
+    handler500 = views.page_server_error
