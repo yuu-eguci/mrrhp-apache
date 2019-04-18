@@ -33,6 +33,10 @@ def year(request, lang, code):
     return render(request, 'app/list.tpl', data)
 
 
+def page_not_found(request, *args, **kw):
+    return redirect('/')
+
+
 def page_server_error(request, *args, **kw):
 
     # Write error info in /var/log/httpd/error_log
