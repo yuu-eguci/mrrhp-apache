@@ -25,6 +25,13 @@ $ vagrant ssh
 In the virtual env.
 
 ```
+$ sudo mysql -u root -p
+password
+MariaDB > SET character_set_database=utf8;
+MariaDB > SET character_set_server=utf8;
+MariaDB > create database app;
+MariaDB > exit
+
 $ source /vagrant/env3.6/bin/activate
 $ python /vagrant/manage.py migrate
 $ python /vagrant/manage.py createsuperuser
@@ -56,6 +63,14 @@ $ sudo apachectl restart
 ```
 
 And then you can commit!
+
+
+## Useful commands
+
+```
+(env3.6) [~]$ sudo apachectl restart
+(env3.6) [~]$ sudo systemctl restart mysqld
+```
 
 
 ## Open on local

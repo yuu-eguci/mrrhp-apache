@@ -12,6 +12,29 @@ echo '----- Install Apache -----'
 yum install -y httpd httpd-devel
 httpd -v
 
+echo '----- Install Mariadb -----'
+touch     /etc/yum.repos.d/MariaDB.repo
+chmod 777 /etc/yum.repos.d/MariaDB.repo
+echo "# MariaDB 10.3 CentOS repository list - created 2018-05-12 03:19 UTC" >  /etc/yum.repos.d/MariaDB.repo
+echo "# http://downloads.mariadb.org/mariadb/repositories/"                 >> /etc/yum.repos.d/MariaDB.repo
+echo "[mariadb]"                                                            >> /etc/yum.repos.d/MariaDB.repo
+echo "name = MariaDB"                                                       >> /etc/yum.repos.d/MariaDB.repo
+echo "baseurl = http://yum.mariadb.org/10.3/centos7-amd64"                  >> /etc/yum.repos.d/MariaDB.repo
+echo "gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB"                   >> /etc/yum.repos.d/MariaDB.repo
+echo "gpgcheck=1"                                                           >> /etc/yum.repos.d/MariaDB.repo
+yum install -y MariaDB-server MariaDB-client
+mysqld --version
+systemctl start mysqld
+mysqladmin -u root password 'password'
+
+# README に書くけどこのあとこれを手打ちする必要ある。
+# $ sudo mysql -u root -p
+# password
+# MariaDB > SET character_set_database=utf8;
+# MariaDB > SET character_set_server=utf8;
+# MariaDB > create database app;
+# MariaDB > exit
+
 echo '----- Install Python -----'
 yum install -y https://centos7.iuscommunity.org/ius-release.rpm
 yum install -y python36u python36u-libs python36u-devel python36u-pip
