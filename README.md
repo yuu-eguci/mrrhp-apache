@@ -70,6 +70,8 @@ And then you can commit!
 ```
 (env3.6) [~]$ sudo apachectl restart
 (env3.6) [~]$ sudo systemctl restart mysqld
+(env3.6) [~]$ python /vagrant/manage.py makemigrations --settings=config.settings.production
+(env3.6) [~]$ python /vagrant/manage.py migrate --settings=config.settings.production
 ```
 
 
