@@ -36,6 +36,7 @@ $ source /vagrant/env3.6/bin/activate
 $ python /vagrant/manage.py migrate --settings=config.settings.production
 $ python /vagrant/manage.py createsuperuser --settings=config.settings.production
 $ python /vagrant/manage.py collectstatic -c --noinput
+$ python /vagrant/manage.py loaddata /vagrant/fixtures/initial_db_data.json --settings=config.settings.production
 $ sudo apachectl restart
 ```
 
@@ -65,13 +66,32 @@ $ sudo apachectl restart
 And then you can commit!
 
 
+## After /fixtures/initial_db_data.json modified
+
+You have to run the command below to register data to your own db.
+
+On local env.
+
+```
+$ python manage.py loaddata initial_db_data.json
+```
+
+On virtual env.
+
+```
+$ source /vagrant/env3.6/bin/activate
+(env3.6) [~]$ python /vagrant/manage.py loaddata /vagrant/initial_db_data.json --settings=config.settings.production
+```
+
 ## Useful commands
 
 ```
-(env3.6) [~]$ sudo apachectl restart
-(env3.6) [~]$ sudo systemctl restart mysqld
-(env3.6) [~]$ python /vagrant/manage.py makemigrations --settings=config.settings.production
-(env3.6) [~]$ python /vagrant/manage.py migrate --settings=config.settings.production
+$ sudo apachectl restart
+$ sudo systemctl restart mysqld
+$ python /vagrant/manage.py makemigrations --settings=config.settings.production
+$ python /vagrant/manage.py migrate --settings=config.settings.production
+$ python /vagrant/manage.py dumpdata app > /vagrant/fixtures/initial_db_data.json --settings=config.settings.production
+$ python /vagrant/manage.py loaddata /vagrant/fixtures/initial_db_data.json --settings=config.settings.production
 ```
 
 
