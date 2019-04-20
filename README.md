@@ -33,8 +33,8 @@ MariaDB > create database app;
 MariaDB > exit
 
 $ source /vagrant/env3.6/bin/activate
-$ python /vagrant/manage.py migrate
-$ python /vagrant/manage.py createsuperuser
+$ python /vagrant/manage.py migrate --settings=config.settings.production
+$ python /vagrant/manage.py createsuperuser --settings=config.settings.production
 $ python /vagrant/manage.py collectstatic -c --noinput
 $ sudo apachectl restart
 ```
@@ -77,3 +77,28 @@ And then you can commit!
 
 Access [localhost:8000/](http://localhost:8000/) then.  
 Access [localhost:8000/admin/](http://localhost:8000/admin/) as well.
+
+
+## Open DB with MySQLworkbench
+
+```
+$ vagrant ssh
+```
+
+```
+$ sudo mysql -u root -p
+password
+MariaDB [(none)]> GRANT ALL PRIVILEGES ON *.* TO root@'192.168.33.1' IDENTIFIED BY 'password';
+```
+
+Access through Workbench.
+
+| Hostname      | Username | Password | Default Schema |
+| ------------- | -------- | -------- | -------------- |
+| 192.168.33.12 | root     | password | app            |
+
+If you fail to access, check the error message to remake access user again.
+
+```
+MariaDB [(none)]> DROP USER 'root'@'192.168.33.1';
+```

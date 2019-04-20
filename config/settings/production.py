@@ -1,3 +1,4 @@
+import pymysql
 from .base import *
 
 DEBUG = False
@@ -22,3 +23,5 @@ DATABASES = {
         #                     'cert' : 'cert_path'}},
     }
 }
+
+pymysql.install_as_MySQLdb()
