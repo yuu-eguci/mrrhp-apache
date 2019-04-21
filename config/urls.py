@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from app import views, views_lang
 from django.conf.urls import handler404, handler500
+from app.usrlib import common
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -37,6 +38,5 @@ urlpatterns = [
 ]
 
 handler404 = views.page_not_found
-from config.settings import production
-if production.SHOW_500_ERROR:
+if common.enable_show_500_error():
     handler500 = views.page_server_error

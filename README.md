@@ -80,7 +80,7 @@ On virtual env.
 
 ```
 $ source /vagrant/env3.6/bin/activate
-(env3.6) [~]$ python /vagrant/manage.py loaddata /vagrant/initial_db_data.json --settings=config.settings.production
+(env3.6) [~]$ python /vagrant/manage.py loaddata /vagrant/fixtures/initial_db_data.json --settings=config.settings.production
 ```
 
 ## Useful commands
@@ -92,6 +92,8 @@ $ python /vagrant/manage.py makemigrations --settings=config.settings.production
 $ python /vagrant/manage.py migrate --settings=config.settings.production
 $ python /vagrant/manage.py dumpdata app > /vagrant/fixtures/initial_db_data.json --settings=config.settings.production
 $ python /vagrant/manage.py loaddata /vagrant/fixtures/initial_db_data.json --settings=config.settings.production
+$ sudo tail -f /var/log/httpd/error_log
+$ sudo tail -f /var/log/httpd/access_log
 ```
 
 
