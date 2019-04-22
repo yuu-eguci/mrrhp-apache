@@ -38,5 +38,7 @@ urlpatterns = [
 ]
 
 handler404 = views.page_not_found
-if common.enable_show_500_error():
-    handler500 = views.page_server_error
+
+# TODO: You have to comment out this on the real production env.
+# Without comment out, it displays 500 error even on Apache env.
+handler500 = views.page_server_error

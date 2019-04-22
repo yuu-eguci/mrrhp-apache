@@ -3,10 +3,6 @@ from .base import *
 
 DEBUG = False
 
-# TODO: Must be False on the real production environment.
-# This status maybe set in DB.
-SHOW_500_ERROR = True
-
 ALLOWED_HOSTS = ['*']
 
 DATABASES = {
