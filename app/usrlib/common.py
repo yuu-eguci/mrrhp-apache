@@ -3,7 +3,6 @@
 """
 
 from app.models import *
-from app.usrlib import consts
 
 
 def _get_config_value(key):
@@ -12,7 +11,3 @@ def _get_config_value(key):
     if not row:
         return False
     return row.value
-
-
-def enable_show_500_error():
-    return _get_config_value(consts.ConfigKeys.SHOW_500_ERROR) == '1'

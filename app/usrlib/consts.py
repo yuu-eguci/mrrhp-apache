@@ -8,4 +8,4 @@ class Lang:
 
 
 class ConfigKeys:
-    SHOW_500_ERROR = 'show_500_error'
+    pass
