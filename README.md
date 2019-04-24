@@ -25,19 +25,8 @@ $ vagrant ssh
 In the virtual env.
 
 ```
-$ sudo mysql -u root -p
-password
-MariaDB > SET character_set_database=utf8;
-MariaDB > SET character_set_server=utf8;
-MariaDB > create database app;
-MariaDB > exit
-
 $ source /vagrant/env3.6/bin/activate
-$ python /vagrant/manage.py migrate --settings=config.settings.production
 $ python /vagrant/manage.py createsuperuser --settings=config.settings.production
-$ python /vagrant/manage.py collectstatic -c --noinput
-$ python /vagrant/manage.py loaddata /vagrant/fixtures/initial_db_data.json --settings=config.settings.production
-$ sudo apachectl restart
 ```
 
 Access [localhost:1991/](http://localhost:1991/) then.  
@@ -94,6 +83,9 @@ $ python /vagrant/manage.py dumpdata app > /vagrant/fixtures/initial_db_data.jso
 $ python /vagrant/manage.py loaddata /vagrant/fixtures/initial_db_data.json --settings=config.settings.production
 $ sudo tail -f /var/log/httpd/error_log
 $ sudo tail -f /var/log/httpd/access_log
+$ systemctl enable httpd.service
+$ systemctl disable httpd.service
+$ systemctl list-unit-files -t service | grep httpd
 ```
 
 

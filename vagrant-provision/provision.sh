@@ -4,6 +4,7 @@
 # Powershellを管理者権限で開くことで解決する。Winは相変わらず面倒。
 
 echo '----- Preparation -----'
+yum makecache fast
 yum update -y
 yum install -y yum-utils
 yum groupinstall -y development
@@ -15,25 +16,27 @@ httpd -v
 echo '----- Install Mariadb -----'
 touch     /etc/yum.repos.d/MariaDB.repo
 chmod 777 /etc/yum.repos.d/MariaDB.repo
-echo "# MariaDB 10.3 CentOS repository list - created 2018-05-12 03:19 UTC" >  /etc/yum.repos.d/MariaDB.repo
-echo "# http://downloads.mariadb.org/mariadb/repositories/"                 >> /etc/yum.repos.d/MariaDB.repo
-echo "[mariadb]"                                                            >> /etc/yum.repos.d/MariaDB.repo
-echo "name = MariaDB"                                                       >> /etc/yum.repos.d/MariaDB.repo
-echo "baseurl = http://yum.mariadb.org/10.3/centos7-amd64"                  >> /etc/yum.repos.d/MariaDB.repo
-echo "gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB"                   >> /etc/yum.repos.d/MariaDB.repo
-echo "gpgcheck=1"                                                           >> /etc/yum.repos.d/MariaDB.repo
+cat << __EOF__ > /etc/yum.repos.d/MariaDB.repo
+# MariaDB 10.3 CentOS repository list - created 2018-05-12 03:19 UTC
+# http://downloads.mariadb.org/mariadb/repositories/
+[mariadb]
+name = MariaDB
+baseurl = http://yum.mariadb.org/10.3/centos7-amd64
+gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
+gpgcheck=1
+__EOF__
 yum install -y MariaDB-server MariaDB-client
 mysqld --version
 systemctl start mysqld
 mysqladmin -u root password 'password'
 
-# README に書くけどこのあとこれを手打ちする必要ある。
-# $ sudo mysql -u root -p
-# password
-# MariaDB > SET character_set_database=utf8;
-# MariaDB > SET character_set_server=utf8;
-# MariaDB > create database app;
-# MariaDB > exit
+echo '----- Initial settings for Mariadb -----'
+mysql -u root -ppassword << __EOF__
+SET character_set_database=utf8;
+SET character_set_server=utf8;
+CREATE DATABASE app;
+GRANT ALL PRIVILEGES ON *.* TO root@'192.168.33.1' IDENTIFIED BY 'password';
+__EOF__
 
 echo '----- Install Python -----'
 yum install -y https://centos7.iuscommunity.org/ius-release.rpm
@@ -54,36 +57,46 @@ pip install -r requirements.txt
 #     https://it-engineer-lab.com/archives/161
 
 echo '----- Create django.conf -----'
-touch /etc/httpd/conf.d/django.conf
+touch     /etc/httpd/conf.d/django.conf
 chmod 777 /etc/httpd/conf.d/django.conf
 chmod 777 /var/www
-# Python パスの設定。
-echo "WSGIPythonHome     /vagrant/env3.6"                                      >  /etc/httpd/conf.d/django.conf
-echo "WSGIPythonPath     /vagrant:/vagrant/env3.6/lib/python3.6/site-packages" >> /etc/httpd/conf.d/django.conf
-echo "Alias /robots.txt  /var/www/static/robots.txt"                           >> /etc/httpd/conf.d/django.conf
-echo "Alias /favicon.ico /var/www/static/favicon.ico"                          >> /etc/httpd/conf.d/django.conf
-echo "Alias /media/      /vagrant/media/"                                      >> /etc/httpd/conf.d/django.conf
-echo "Alias /static/     /var/www/static/"                                     >> /etc/httpd/conf.d/django.conf
-echo "<Directory /var/www/static>"                                             >> /etc/httpd/conf.d/django.conf
-echo "    Require all granted"                                                 >> /etc/httpd/conf.d/django.conf
-echo "</Directory>"                                                            >> /etc/httpd/conf.d/django.conf
-echo "<Directory /vagrant/media>"                                              >> /etc/httpd/conf.d/django.conf
-echo "    Require all granted"                                                 >> /etc/httpd/conf.d/django.conf
-echo "</Directory>"                                                            >> /etc/httpd/conf.d/django.conf
-# wsgi の設定。
-echo "WSGIScriptAlias    / /vagrant/config/wsgi.py"                            >> /etc/httpd/conf.d/django.conf
-echo "<Directory /vagrant/config>"                                             >> /etc/httpd/conf.d/django.conf
-echo "    <Files wsgi.py>"                                                     >> /etc/httpd/conf.d/django.conf
-echo "        Require all granted"                                             >> /etc/httpd/conf.d/django.conf
-echo "    </Files>"                                                            >> /etc/httpd/conf.d/django.conf
-echo "</Directory>"                                                            >> /etc/httpd/conf.d/django.conf
+cat << __EOF__ > /etc/httpd/conf.d/django.conf
+WSGIPythonHome     /vagrant/env3.6
+WSGIPythonPath     /vagrant:/vagrant/env3.6/lib/python3.6/site-packages
+Alias /robots.txt  /var/www/static/robots.txt
+Alias /favicon.ico /var/www/static/favicon.ico
+Alias /media/      /vagrant/media/
+Alias /static/     /var/www/static/
+<Directory /var/www/static>
+    Require all granted
+</Directory>
+<Directory /vagrant/media>
+    Require all granted
+</Directory>
+WSGIScriptAlias    / /vagrant/config/wsgi.py
+<Directory /vagrant/config>
+    <Files wsgi.py>
+        Require all granted
+    </Files>
+</Directory>
+__EOF__
 
 echo '----- Create mod_wsgi.conf -----'
 # venv環境内soのパスを書く。
 find /vagrant/env3.6 -name 'mod_wsgi*.so'
-touch /etc/httpd/conf.modules.d/mod_wsgi.conf
+touch     /etc/httpd/conf.modules.d/mod_wsgi.conf
 chmod 777 /etc/httpd/conf.modules.d/mod_wsgi.conf
-echo "LoadModule wsgi_module /vagrant/env3.6/lib/python3.6/site-packages/mod_wsgi/server/mod_wsgi-py36.cpython-36m-x86_64-linux-gnu.so" > /etc/httpd/conf.modules.d/mod_wsgi.conf
+cat << __EOF__ > /etc/httpd/conf.modules.d/mod_wsgi.conf
+LoadModule wsgi_module /vagrant/env3.6/lib/python3.6/site-packages/mod_wsgi/server/mod_wsgi-py36.cpython-36m-x86_64-linux-gnu.so
+__EOF__
+
+echo '----- Django startup -----'
+python /vagrant/manage.py migrate --settings=config.settings.production
+python /vagrant/manage.py collectstatic -c --noinput
+python /vagrant/manage.py loaddata /vagrant/fixtures/initial_db_data.json --settings=config.settings.production
 
 echo '----- Start apache -----'
 apachectl start
+
+echo '----- Auto start -----'
+systemctl enable httpd.service
