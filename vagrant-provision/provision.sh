@@ -4,6 +4,7 @@
 # Powershellを管理者権限で開くことで解決する。Winは相変わらず面倒。
 
 echo '----- Preparation -----'
+yum makecache fast
 yum update -y
 yum install -y yum-utils
 yum groupinstall -y development
@@ -28,6 +29,14 @@ yum install -y MariaDB-server MariaDB-client
 mysqld --version
 systemctl start mysqld
 mysqladmin -u root password 'password'
+
+echo '----- Initial settings for Mariadb -----'
+mysql -u root -ppassword << __EOF__
+SET character_set_database=utf8;
+SET character_set_server=utf8;
+CREATE DATABASE app;
+GRANT ALL PRIVILEGES ON *.* TO root@'192.168.33.1' IDENTIFIED BY 'password';
+__EOF__
 
 echo '----- Install Python -----'
 yum install -y https://centos7.iuscommunity.org/ius-release.rpm
@@ -81,5 +90,13 @@ cat << __EOF__ > /etc/httpd/conf.modules.d/mod_wsgi.conf
 LoadModule wsgi_module /vagrant/env3.6/lib/python3.6/site-packages/mod_wsgi/server/mod_wsgi-py36.cpython-36m-x86_64-linux-gnu.so
 __EOF__
 
+echo '----- Django startup -----'
+python /vagrant/manage.py migrate --settings=config.settings.production
+python /vagrant/manage.py collectstatic -c --noinput
+python /vagrant/manage.py loaddata /vagrant/fixtures/initial_db_data.json --settings=config.settings.production
+
 echo '----- Start apache -----'
 apachectl start
+
+echo '----- Auto start -----'
+systemctl enable httpd.service
