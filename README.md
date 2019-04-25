@@ -86,6 +86,7 @@ $ sudo tail -f /var/log/httpd/access_log
 $ systemctl enable httpd.service
 $ systemctl disable httpd.service
 $ systemctl list-unit-files -t service | grep httpd
+$ systemctl status firewalld.service
 ```
 
 
