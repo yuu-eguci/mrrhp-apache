@@ -73,16 +73,12 @@ Alias /robots.txt  /var/www/static/robots.txt
 Alias /favicon.ico /var/www/static/favicon.ico
 Alias /media/      /vagrant/media/
 Alias /static/     /var/www/static/
-Alias /.well-known/ /var/www/for_certbot/
 <Directory /var/www/static>
     Require all granted
 </Directory>
 <Directory /vagrant/media>
     Require all granted
 </Directory>
-<Location /.well-known/>
-    Options -Indexes
-</Location>
 WSGIScriptAlias    / /vagrant/config/wsgi.py
 <Directory /vagrant/config>
     <Files wsgi.py>

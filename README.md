@@ -22,7 +22,7 @@ $ vagrant up
 $ vagrant ssh
 ```
 
-In the virtual env.
+In the virtual env, do below to register yourself as a superuser.
 
 ```
 $ source /vagrant/env3.6/bin/activate
@@ -32,13 +32,22 @@ $ python /vagrant/manage.py createsuperuser --settings=config.settings.productio
 Access [localhost:1991/](http://localhost:1991/) then.  
 Access [localhost:1991/admin/](http://localhost:1991/admin/) as well.
 
-Close the env.
+When you wanna close the env.
 
 ```
 $ exit
 $ vagrant halt
 ```
 
+
+## Open on local
+
+```
+$ python manage.py runserver
+```
+
+Access [localhost:8000/](http://localhost:8000/) then.  
+Access [localhost:8000/admin/](http://localhost:8000/admin/) as well.
 
 ## After tweating static files
 
@@ -49,13 +58,12 @@ Before checking through Apache you have to use these commands.
 ```
 $ source /vagrant/env3.6/bin/activate
 $ python /vagrant/manage.py collectstatic -c --noinput
-$ sudo apachectl restart
 ```
 
 And then you can commit!
 
 
-## After /fixtures/initial_db_data.json modified
+## After /fixtures/initial_db_data.json is modified
 
 You have to run the command below to register data to your own db.
 
@@ -72,31 +80,8 @@ $ source /vagrant/env3.6/bin/activate
 (env3.6) [~]$ python /vagrant/manage.py loaddata /vagrant/fixtures/initial_db_data.json --settings=config.settings.production
 ```
 
-## Useful commands
 
-```
-$ sudo apachectl restart
-$ sudo systemctl restart mysqld
-$ python /vagrant/manage.py makemigrations --settings=config.settings.production
-$ python /vagrant/manage.py migrate --settings=config.settings.production
-$ python /vagrant/manage.py dumpdata app > /vagrant/fixtures/initial_db_data.json --settings=config.settings.production
-$ python /vagrant/manage.py loaddata /vagrant/fixtures/initial_db_data.json --settings=config.settings.production
-$ sudo tail -f /var/log/httpd/error_log
-$ sudo tail -f /var/log/httpd/access_log
-$ systemctl enable httpd.service
-$ systemctl disable httpd.service
-$ systemctl list-unit-files -t service | grep httpd
-$ systemctl status firewalld.service
-```
-
-
-## Open on local
-
-Access [localhost:8000/](http://localhost:8000/) then.  
-Access [localhost:8000/admin/](http://localhost:8000/admin/) as well.
-
-
-## Open DB with MySQLworkbench
+## Open DB on your virtual env with MySQLworkbench
 
 ```
 $ vagrant ssh
@@ -118,4 +103,21 @@ If you fail to access, check the error message to remake access user again.
 
 ```
 MariaDB [(none)]> DROP USER 'root'@'192.168.33.1';
+```
+
+## Useful commands
+
+```
+$ sudo apachectl restart
+$ sudo systemctl restart mysqld
+$ python /vagrant/manage.py makemigrations --settings=config.settings.production
+$ python /vagrant/manage.py migrate --settings=config.settings.production
+$ python /vagrant/manage.py dumpdata app > /vagrant/fixtures/initial_db_data.json --settings=config.settings.production
+$ python /vagrant/manage.py loaddata /vagrant/fixtures/initial_db_data.json --settings=config.settings.production
+$ sudo tail -f /var/log/httpd/error_log
+$ sudo tail -f /var/log/httpd/access_log
+$ systemctl enable httpd.service
+$ systemctl disable httpd.service
+$ systemctl list-unit-files -t service | grep httpd
+$ systemctl status firewalld.service
 ```
