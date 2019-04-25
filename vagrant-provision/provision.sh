@@ -3,6 +3,11 @@
 # windows10でやる場合、errno 71 protocol error が出る。
 # Powershellを管理者権限で開くことで解決する。Winは相変わらず面倒。
 
+echo '----- Firewall setting -----'
+firewall-cmd --add-service=http  --zone=public --permanent
+firewall-cmd --add-service=https --zone=public --permanent
+systemctl restart firewalld
+
 echo '----- Preparation -----'
 yum makecache fast
 yum update -y
@@ -45,6 +50,7 @@ python -V
 python3.6 -V
 
 echo '----- Make Python3.6 environment -----'
+mkdir /vagrant/
 cd /vagrant/
 python3.6 -m venv env3.6
 source /vagrant/env3.6/bin/activate
