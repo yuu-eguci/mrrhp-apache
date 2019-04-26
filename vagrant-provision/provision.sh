@@ -7,6 +7,7 @@ echo '----- Firewall setting -----'
 systemctl restart firewalld  # Vagrant 環境のとき最初は起動してない。
 firewall-cmd --add-service=http  --zone=public --permanent
 firewall-cmd --add-service=https --zone=public --permanent
+firewall-cmd --add-service=mysql --zone=public --permanent
 systemctl restart firewalld
 
 echo '----- Preparation -----'
