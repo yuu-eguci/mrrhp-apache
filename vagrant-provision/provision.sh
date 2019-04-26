@@ -4,6 +4,7 @@
 # Powershellを管理者権限で開くことで解決する。Winは相変わらず面倒。
 
 echo '----- Firewall setting -----'
+systemctl restart firewalld  # Vagrant 環境のとき最初は起動してない。
 firewall-cmd --add-service=http  --zone=public --permanent
 firewall-cmd --add-service=https --zone=public --permanent
 systemctl restart firewalld
