@@ -41,3 +41,14 @@ class Tag(models.Model):
         blank=False,
         null=False,
     )
+
+
+class Year(models.Model):
+
+    code = models.CharField(
+        verbose_name='Year code, used for url for example',
+        max_length=20,
+        blank=False,
+        null=False,
+        unique=True,
+    )

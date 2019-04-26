@@ -108,6 +108,7 @@ MariaDB [(none)]> DROP USER 'root'@'192.168.33.1';
 ## Useful commands
 
 ```
+$ source /vagrant/env3.6/bin/activate
 $ sudo apachectl restart
 $ sudo systemctl restart mysqld
 $ python /vagrant/manage.py makemigrations --settings=config.settings.production
