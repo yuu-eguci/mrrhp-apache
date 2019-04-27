@@ -1,6 +1,7 @@
 from django.db import models
 from markdownx.models import MarkdownxField
 from markdownx.utils import markdownify
+from app.usrlib import date_utils
 
 
 class Config(models.Model):
@@ -21,6 +22,11 @@ class Config(models.Model):
 
 
 class Tag(models.Model):
+
+    def __str__(self):
+        """On the admin page of model which uses Tag as a foreignkey,
+        dropdown displays this."""
+        return self.code
 
     code = models.CharField(
         verbose_name='Tag code, used for url for example',
@@ -47,6 +53,11 @@ class Tag(models.Model):
 
 class Year(models.Model):
 
+    def __str__(self):
+        """On the admin page of model which uses Year as a foreignkey,
+        dropdown displays this."""
+        return self.code
+
     code = models.CharField(
         verbose_name='Year code, used for url for example',
         max_length=20,
@@ -66,12 +77,19 @@ class Post(models.Model):
         unique=True,
     )
 
+    publish_at = models.DateTimeField(
+        verbose_name='Date to publish',
+        blank=True,
+        null=True,
+    )
+
     tag = models.ForeignKey(
         Tag,
         verbose_name='Tag for this post',
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
+        default=1,
     )
 
     year = models.ForeignKey(
@@ -80,6 +98,7 @@ class Post(models.Model):
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
+        default=Year.objects.filter(code=date_utils.get_current_year()).first().id,
     )
 
     title_ja = models.CharField(
