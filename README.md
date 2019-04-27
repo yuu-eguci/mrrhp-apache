@@ -25,7 +25,7 @@ $ vagrant ssh
 In the virtual env, do below to register yourself as a superuser.
 
 ```
-$ source /vagrant/env3.6/bin/activate
+$ source /env3.6/bin/activate
 $ python /vagrant/manage.py createsuperuser --settings=config.settings.production
 ```
 
@@ -56,7 +56,7 @@ You have to check that there are no 404 files with `runserver` and through Apach
 Before checking through Apache you have to use these commands.
 
 ```
-$ source /vagrant/env3.6/bin/activate
+$ source /env3.6/bin/activate
 $ python /vagrant/manage.py collectstatic -c --noinput
 ```
 
@@ -76,7 +76,7 @@ $ python manage.py loaddata initial_db_data.json
 On virtual env.
 
 ```
-$ source /vagrant/env3.6/bin/activate
+$ source /env3.6/bin/activate
 (env3.6) [~]$ python /vagrant/manage.py loaddata /vagrant/fixtures/initial_db_data.json --settings=config.settings.production
 ```
 
@@ -108,7 +108,7 @@ MariaDB [(none)]> DROP USER 'root'@'192.168.33.1';
 ## Useful commands
 
 ```
-$ source /vagrant/env3.6/bin/activate
+$ source /env3.6/bin/activate
 $ sudo apachectl restart
 $ sudo systemctl restart mysqld
 $ python /vagrant/manage.py makemigrations --settings=config.settings.production

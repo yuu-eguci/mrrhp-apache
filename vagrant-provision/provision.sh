@@ -24,7 +24,7 @@ echo '----- Install Mariadb -----'
 touch     /etc/yum.repos.d/MariaDB.repo
 chmod 777 /etc/yum.repos.d/MariaDB.repo
 cat << __EOF__ > /etc/yum.repos.d/MariaDB.repo
-# MariaDB 10.3 CentOS repository list - created 2018-05-12 03:19 UTC
+# MariaDB 10.3 CentOS repository list - created 2019-04-26 10:54 UTC
 # http://downloads.mariadb.org/mariadb/repositories/
 [mariadb]
 name = MariaDB
@@ -47,19 +47,22 @@ __EOF__
 
 echo '----- Install Python -----'
 yum install -y https://centos7.iuscommunity.org/ius-release.rpm
-yum install -y python36u python36u-libs python36u-devel python36u-pip
-python -V
-python3.6 -V
+yum install -y python36u python36u-libs python36u-devel
+which python
+which python3.6
 
-echo '----- Make Python3.6 environment -----'
-mkdir /vagrant/
-cd /vagrant/
-python3.6 -m venv env3.6
-source /vagrant/env3.6/bin/activate
+echo '----- Create Python3.6 environment -----'
+python3.6 -m venv /env3.6  # python3.6仮想環境はルートに作ることにする。
+source /env3.6/bin/activate
+which python
 
-echo '----- Pip -----'
+# なんか Vagrant では yum で取得する pip に異常があるので別途仮想python3.6環境内へインストール。(ImportError main)
+echo '----- Install pip -----'
+curl https://bootstrap.pypa.io/get-pip.py -o /get-pip.py
+python /get-pip.py
+rm /get-pip.py -f
 pip install --upgrade pip setuptools
-pip install -r requirements.txt
+pip install -r /vagrant/requirements.txt
 
 # 参考: 【Django】Apacheとmod_wsgi環境でDjango2を使う方法を解説 – CentOS7
 #     https://it-engineer-lab.com/archives/161
@@ -69,8 +72,8 @@ touch     /etc/httpd/conf.d/django.conf
 chmod 777 /etc/httpd/conf.d/django.conf
 chmod 777 /var/www
 cat << __EOF__ > /etc/httpd/conf.d/django.conf
-WSGIPythonHome     /vagrant/env3.6
-WSGIPythonPath     /vagrant:/vagrant/env3.6/lib/python3.6/site-packages
+WSGIPythonHome     /env3.6
+WSGIPythonPath     /vagrant:/env3.6/lib/python3.6/site-packages
 Alias /robots.txt  /var/www/static/robots.txt
 Alias /favicon.ico /var/www/static/favicon.ico
 Alias /media/      /vagrant/media/
@@ -90,12 +93,11 @@ WSGIScriptAlias    / /vagrant/config/wsgi.py
 __EOF__
 
 echo '----- Create mod_wsgi.conf -----'
-# venv環境内soのパスを書く。
-find /vagrant/env3.6 -name 'mod_wsgi*.so'
+# venv環境内soのパスを書く。find /env3.6 -name 'mod_wsgi*.so' でわかる。
 touch     /etc/httpd/conf.modules.d/mod_wsgi.conf
 chmod 777 /etc/httpd/conf.modules.d/mod_wsgi.conf
 cat << __EOF__ > /etc/httpd/conf.modules.d/mod_wsgi.conf
-LoadModule wsgi_module /vagrant/env3.6/lib/python3.6/site-packages/mod_wsgi/server/mod_wsgi-py36.cpython-36m-x86_64-linux-gnu.so
+LoadModule wsgi_module /env3.6/lib/python3.6/site-packages/mod_wsgi/server/mod_wsgi-py36.cpython-36m-x86_64-linux-gnu.so
 __EOF__
 
 echo '----- Django startup -----'
