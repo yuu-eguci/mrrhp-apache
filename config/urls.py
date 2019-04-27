@@ -18,6 +18,8 @@ from django.urls import path, include
 from app import views, views_lang
 from django.conf.urls import handler404, handler500
 from app.usrlib import common
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -43,3 +45,9 @@ handler404 = views.page_not_found
 # TODO: You have to comment out this on the real production env.
 # Without comment out, it displays 500 error even on Apache env.
 handler500 = views.page_server_error
+
+# runserver 環境でのメディアファイルの配信設定。
+urlpatterns += static(
+    settings.MEDIA_URL,
+    document_root = settings.MEDIA_ROOT,
+)
