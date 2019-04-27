@@ -29,13 +29,24 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app',  # Without this, makemigrations doesn't work at least.
+    'markdownx',  # Without this, you can't use markdownx on admin at least.
 ]
+
+# markdownx が利用する markdown ライブラリの拡張。
+MARKDOWNX_MARKDOWN_EXTENSIONS = [
+    'markdown.extensions.toc',        # [TOC] で目次。
+    'markdown.extensions.extra',      # fenced_code tables がこれに含まれてるらしい。
+    'markdown.extensions.attr_list',  # ジッサイあんまり使うことないけど一度は感動したからいれとく。
+    # 'markdown.extensions.meta',     # metaはとても便利だったけど、このmarkdownxでは取り出し方がわからない。そしてわかる必要もないのかもしれない。
+]
+# デフォルトでは、アップロードした画像の最大サイズは500*500。2000*2000くらいにしとく。
+MARKDOWNX_IMAGE_MAX_SIZE = {'size': (2000, 2000), 'quality': 100}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -100,4 +111,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-STATIC_ROOT = os.path.join(BASE_DIR, '/var/www/static')
+MEDIA_URL = '/media/'
