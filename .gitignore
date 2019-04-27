@@ -89,8 +89,6 @@ local_settings.py
 .env
 db.sqlite3
 media
-staticfiles
 .vagrant
-env3.6
 .vscode
 .python-version
