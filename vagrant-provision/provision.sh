@@ -76,12 +76,12 @@ WSGIPythonHome     /env3.6
 WSGIPythonPath     /vagrant:/env3.6/lib/python3.6/site-packages
 Alias /robots.txt  /var/www/static/robots.txt
 Alias /favicon.ico /var/www/static/favicon.ico
-Alias /media/      /vagrant/media/
+Alias /media/      /var/www/media/
 Alias /static/     /var/www/static/
 <Directory /var/www/static>
     Require all granted
 </Directory>
-<Directory /vagrant/media>
+<Directory /var/www/media>
     Require all granted
 </Directory>
 WSGIScriptAlias    / /vagrant/config/wsgi.py
@@ -102,11 +102,11 @@ __EOF__
 
 echo '----- Django startup -----'
 python /vagrant/manage.py migrate --settings=config.settings.production
-python /vagrant/manage.py collectstatic -c --noinput
+python /vagrant/manage.py collectstatic -c --noinput --settings=config.settings.production
 python /vagrant/manage.py loaddata /vagrant/fixtures/initial_db_data.json --settings=config.settings.production
 
 echo '----- Start apache -----'
-apachectl start
+apachectl restart
 
 echo '----- Auto start -----'
 systemctl enable httpd.service

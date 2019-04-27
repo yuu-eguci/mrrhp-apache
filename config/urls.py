@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from app import views, views_lang
 from django.conf.urls import handler404, handler500
 from app.usrlib import common
@@ -35,6 +35,7 @@ urlpatterns = [
     path('en/tags/<str:code>', views_lang.tag_en),
     path('ja/years/<str:code>', views_lang.year_ja),
     path('en/years/<str:code>', views_lang.year_en),
+    path('markdownx/', include('markdownx.urls')),
 ]
 
 handler404 = views.page_not_found

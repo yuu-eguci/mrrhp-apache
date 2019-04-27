@@ -123,3 +123,9 @@ class Post(models.Model):
         null=True,
         auto_now=True,
     )
+
+    def get_markdownified_body_ja(self):
+        return markdownify(self.body_ja)
+
+    def get_markdownified_body_en(self):
+        return markdownify(self.body_en)
