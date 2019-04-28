@@ -1,6 +1,7 @@
 from django.contrib import admin
 from app.models import *
 from markdownx.admin import MarkdownxModelAdmin
+from app.bizlogic import image_bizlogic
 
 
 class ConfigAdmin(admin.ModelAdmin):
@@ -24,6 +25,19 @@ class PostAdmin(MarkdownxModelAdmin):
     list_display = ('title_ja', 'code', 'publish_at')
     ordering = ('created_at',)
     search_fields = ('title_ja', 'code', 'publish_at')
+
+    def save_model(self, request, obj, form, change):
+        """Describe what you want to do before saving.
+        request : For example, <WSGIRequest: POST '/admin/app/post/1/change/'>
+        obj     : For example, Post object (1)
+        form    : form html data
+        change  : For example, True
+        """
+
+        # Create thumbnail.
+        image_bizlogic.generate_thumbnail(request.POST['thumbnail'])
+
+        super().save_model(request, obj, form, change)
 
 
 admin.site.register(Config, ConfigAdmin)
