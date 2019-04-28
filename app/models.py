@@ -150,6 +150,12 @@ class Post(models.Model):
         null=True,
     )
 
+    html = models.TextField(
+        verbose_name='Body written with html, this column is used when markdown column is empty',
+        blank=True,
+        null=True,
+    )
+
     def get_markdownified_body_ja(self):
         return markdownify(self.body_ja)
 
