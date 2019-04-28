@@ -143,6 +143,13 @@ class Post(models.Model):
         auto_now=True,
     )
 
+    thumbnail = models.CharField(
+        verbose_name='Thumbnail image name',
+        max_length=50,
+        blank=True,
+        null=True,
+    )
+
     def get_markdownified_body_ja(self):
         return markdownify(self.body_ja)
 
