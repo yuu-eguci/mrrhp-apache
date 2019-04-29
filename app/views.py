@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from app.usrlib import consts
 import sys
 from django.http import HttpResponse
-from app.bizlogic import archive_bizlogic
+from app.bizlogic import archive_bizlogic, image_bizlogic
 
 def top(request, lang):
     data = {}
@@ -51,4 +51,14 @@ def page_server_error(request, *args, **kw):
 
 def api_register_all_archive_posts(request):
     archive_bizlogic.register_all_archive_posts()
+    return HttpResponse('')
+
+
+def api_organize_thumbnail(request):
+    image_bizlogic.organize_thumbnail()
+    return HttpResponse('')
+
+
+def api_organize_media(request):
+    image_bizlogic.organize_media()
     return HttpResponse('')

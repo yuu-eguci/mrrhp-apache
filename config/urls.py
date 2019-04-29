@@ -40,6 +40,8 @@ urlpatterns = [
     path('markdownx/', include('markdownx.urls')),
 
     path('api/1', views.api_register_all_archive_posts),
+    path('api/2', views.api_organize_thumbnail        ),
+    path('api/3', views.api_organize_media            ),
 ]
 
 handler404 = views.page_not_found
