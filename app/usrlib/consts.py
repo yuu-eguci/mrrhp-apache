@@ -9,3 +9,7 @@ class Lang:
 
 class ConfigKeys:
     pass
+
+
+class Encoding:
+    UTF8 = 'utf-8'

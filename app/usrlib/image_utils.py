@@ -3,6 +3,9 @@
 """
 
 from PIL import Image
+import os
+from app.usrlib import date_utils
+import hashlib
 
 
 def generate_thumbnail_360x195(origin_path, dest_path, quality=70):
@@ -22,3 +25,20 @@ def generate_thumbnail_360x195(origin_path, dest_path, quality=70):
     bg.paste(pil_w360, (0, int((195-h)/2)))
 
     bg.save(dest_path, quality=quality)
+
+
+# ディレクトリから画像名を取得。
+# TODO: 返り値は filter object なんだけどどうタイプヒンティング書いたらいいかわからない。
+def get_image_basenames(dirpath):
+    return filter(lambda _: os.path.splitext(_)[-1] in ['.jpg', '.gif', '.png'],
+                  os.listdir(dirpath))
+
+
+# 画像のユニーク名を作る。unique_at にはどのフォルダにおいてユニークかを設定。
+def get_unique_image_name(original_basename, unique_at):
+    will_be_hashed = original_basename + str(date_utils.get_current_microsecond())
+    ext = os.path.splitext(original_basename)[-1]
+    new_name = hashlib.md5((will_be_hashed).encode('utf8')).hexdigest() + ext
+    if new_name in os.listdir(unique_at):
+        return get_unique_image_name(original_basename, unique_at)
+    return new_name

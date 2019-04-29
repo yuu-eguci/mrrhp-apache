@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from app.usrlib import consts
 import sys
 from django.http import HttpResponse
+from app.bizlogic import archive_bizlogic
 
 def top(request, lang):
     data = {}
@@ -46,3 +47,8 @@ def page_server_error(request, *args, **kw):
     from django.views import debug
     error_html = debug.technical_500_response(request, *sys.exc_info()).content
     return HttpResponse(error_html)
+
+
+def api_register_all_archive_posts(request):
+    archive_bizlogic.register_all_archive_posts()
+    return HttpResponse('')
