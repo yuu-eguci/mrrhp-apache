@@ -9,6 +9,7 @@ import shutil
 from app.models import *
 import datetime
 import re
+from app.bizlogic import image_bizlogic
 
 
 def register_all_archive_posts() -> None:
@@ -49,6 +50,13 @@ def __create_archive_post_obj(dirpath) -> Post:
     # Get data of archive file.
     archive_data = __extract_archive_data(dirpath)
 
+    # Create thumbnail for this post.
+    thumbnail_basename = (image_correspondence_table[archive_data['mainimage']]
+                          if archive_data['mainimage'] in image_correspondence_table
+                          else None)
+    if thumbnail_basename:
+        image_bizlogic.generate_thumbnail(thumbnail_basename)
+
     # Create Post object.
     return Post(
         publish_at=datetime.datetime.strptime(archive_data['publishdate'], '%Y-%m-%d')           ,
@@ -57,10 +65,9 @@ def __create_archive_post_obj(dirpath) -> Post:
         title_en  =archive_data['title_en']                                                      ,
         tag       =Tag.objects.filter(name_ja=archive_data['tag']).first()                       ,
         year      =Year.objects.filter(code=archive_data['publishdate'][:4]).first()             ,
-        thumbnail =image_correspondence_table[archive_data['mainimage']]
-                   if archive_data['mainimage'] in image_correspondence_table else None,
-        body_ja   =__manipulate_body_content(archive_data['ja_md'], image_correspondence_table)  ,
-        body_en   =__manipulate_body_content(archive_data['en_md'], image_correspondence_table)  ,
+        thumbnail =thumbnail_basename                                                            ,
+        body_ja   =__manipulate_body_content(archive_data['ja_md']  , image_correspondence_table),
+        body_en   =__manipulate_body_content(archive_data['en_md']  , image_correspondence_table),
         html      =__manipulate_body_content(archive_data['ja_html'], image_correspondence_table),
     )
 
