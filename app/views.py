@@ -46,3 +46,7 @@ def page_server_error(request, *args, **kw):
     from django.views import debug
     error_html = debug.technical_500_response(request, *sys.exc_info()).content
     return HttpResponse(error_html)
+
+
+def api_register_all_archive_posts(request):
+    return HttpResponse('')

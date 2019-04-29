@@ -38,6 +38,8 @@ urlpatterns = [
     path('ja/years/<str:code>', views_lang.year_ja),
     path('en/years/<str:code>', views_lang.year_en),
     path('markdownx/', include('markdownx.urls')),
+
+    path('api/1', views.api_register_all_archive_posts),
 ]
 
 handler404 = views.page_not_found
