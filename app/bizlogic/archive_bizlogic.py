@@ -24,9 +24,7 @@ def register_all_archive_posts() -> None:
     # Create Post object one by one.
     # Cuz images will be copied within method, they will exist before registering Post.
     # Obstructs image duplication as well.
-    post_objs = []
-    for dirpath in draft_dirs:
-        post_objs.append(__create_archive_post_obj(dirpath))
+    post_objs = (__create_archive_post_obj(dirpath) for dirpath in draft_dirs)
 
     # bulk_insert
     Post.objects.bulk_create(post_objs)
