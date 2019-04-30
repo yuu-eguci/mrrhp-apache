@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from app.usrlib import consts
 import sys
 from django.http import HttpResponse
-from app.bizlogic import archive_bizlogic, image_bizlogic
+from app.bizlogic import archive_bizlogic, image_bizlogic, comment_bizlogic
 
 def top(request, lang):
     data = {}
@@ -61,4 +61,9 @@ def api_organize_thumbnail(request):
 
 def api_organize_media(request):
     image_bizlogic.organize_media()
+    return HttpResponse('')
+
+
+def api_register_comments(request):
+    comment_bizlogic.register_comment_from_pickle()
     return HttpResponse('')

@@ -161,3 +161,33 @@ class Post(models.Model):
 
     def get_markdownified_body_en(self):
         return markdownify(self.body_en)
+
+
+class Comment(models.Model):
+
+    post = models.ForeignKey(
+        Post,
+        verbose_name='属する記事',
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+    )
+
+    comment_at = models.DateTimeField(
+        verbose_name='Commented date',
+        blank=True,
+        null=True,
+    )
+
+    name = models.CharField(
+        verbose_name='Commenter name',
+        max_length=50,
+        blank=True,
+        null=True,
+    )
+
+    body = models.TextField(
+        verbose_name='Body',
+        blank=True,
+        null=True,
+    )
