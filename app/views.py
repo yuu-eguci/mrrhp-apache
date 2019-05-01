@@ -1,8 +1,12 @@
 from django.shortcuts import render, redirect
-from app.usrlib import consts
+from app.usrlib import consts, common, image_utils
 import sys
 from django.http import HttpResponse
-from app.bizlogic import archive_bizlogic, image_bizlogic, comment_bizlogic
+from app.bizlogic import (archive_bizlogic,
+                          image_bizlogic,
+                          comment_bizlogic,
+                          post_bizlogic,
+                         )
 
 def top(request, lang):
     data = {}
@@ -15,7 +19,15 @@ def latest(request, lang):
 
 
 def post(request, lang, code):
-    data = {}
+    post = post_bizlogic.get_post(code, lang, require_body=True)
+    data = {
+        'lang': lang,
+        'page_title': f'{post["title"]} | {common.get_site_name(lang)}',
+        'site_title': common.get_site_name(lang),
+        'site_desc' : common.get_site_desc(lang),
+        'post': post,
+        'mainimage_fullpath': image_utils.get_mediafile_full_url(request, post['thumbnail']),
+    }
     return render(request, 'app/post.tpl', data)
 
 

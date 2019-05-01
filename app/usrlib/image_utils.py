@@ -42,3 +42,8 @@ def get_unique_image_name(original_basename, unique_at):
     if new_name in os.listdir(unique_at):
         return get_unique_image_name(original_basename, unique_at)
     return new_name
+
+
+def get_mediafile_full_url(request, basename):
+    """Depends on env, returns mediafile full path."""
+    return f'{request.scheme}://{request.get_host()}/media/markdownx/{basename}'
