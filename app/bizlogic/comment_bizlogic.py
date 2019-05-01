@@ -6,6 +6,8 @@ import os
 from django.conf import settings
 from app.models import *
 import pickle
+import pytz
+from app.usrlib import date_utils
 
 
 def register_comment_from_pickle() -> None:
@@ -30,6 +32,20 @@ def __create_commen_objs_as_iter(data:dict):
         for comment_data in comments_data:
             yield Comment(
                 post=post,
-                comment_at=comment_data['date'],
+                # TODO: Add timezone info. It may be refactored.
+                comment_at=pytz.timezone(settings.TIME_ZONE).localize(comment_data['date']),
                 name=comment_data['name'],
                 body=comment_data['desc'])
+
+
+def get_comments_for_post(lang, post_obj):
+    """Get comment for assigned post."""
+    return [
+        {
+            # TODO: Here change UTC time in DB to Japan time. But it may be better way to do this.
+            'comment_at': comment.comment_at.astimezone(pytz.timezone(settings.TIME_ZONE)),
+            'name'      : comment.name,
+            'body'      : comment.body,
+        }
+        for comment in Comment.objects.filter(post=post_obj).order_by('comment_at')
+    ]

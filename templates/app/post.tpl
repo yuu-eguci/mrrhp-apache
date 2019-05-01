@@ -34,13 +34,14 @@
       </div>
       {% comment %} Row2 ends {% endcomment %}
 
-      {% comment %} Row3 {% endcomment %}
+      {% comment %} Row3 
       <div class="row">
         <div class="col-12 col-lg-8">
           <div class="post-a-comment-area mt-70">
             {% include 'app/inc3_post/04_contact.tpl' %}
           </div>
         </div>
+        {% endcomment %}
 
         <div class="col-12 col-lg-8">
           <!-- Comment Area Start -->

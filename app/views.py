@@ -28,6 +28,7 @@ def post(request, lang, code):
         'site_desc' : common.get_site_desc(lang),
         'post': formatted_post,
         'mainimage_fullpath': image_utils.get_mediafile_full_url(request, formatted_post['thumbnail']),
+        'comments': comment_bizlogic.get_comments_for_post(lang, post_obj),
     }
     return render(request, 'app/post.tpl', data)
 
