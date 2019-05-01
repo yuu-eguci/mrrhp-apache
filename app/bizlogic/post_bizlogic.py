@@ -29,15 +29,22 @@ def get_post(code, lang, require_body=False):
     # TODO: Here change UTC time in DB to Japan time. But it may be better way to do this.
     post.publish_at = post.publish_at.astimezone(pytz.timezone(settings.TIME_ZONE))
 
+    # Decide which body will be displayed.
+    displayed_body = ''
+    if require_body:
+        if post.html:
+            displayed_body = post.html
+        else:
+            displayed_body = common.dp_lang(lang,
+                                            post.get_markdownified_body_ja(),
+                                            post.get_markdownified_body_en())
+
     return {
         'title'     : common.dp_lang(lang, post.title_ja, post.title_en),     # Depends on lang
         'code'      : post.code,                                              # As it is
         'publish_at': date_utils.format_by_lang_Ymd(lang, post.publish_at),   # Change format depends on lang
         'thumbnail' : post.thumbnail,                                         # As it is
-        'body'      : common.dp_lang(lang,                                    # Change markdown text to html
-                                     post.get_markdownified_body_ja(),
-                                     post.get_markdownified_body_en())
-                      if require_body else '',
+        'body'      : displayed_body,                                         # Be made above.
         'tag'       : {                                                       # As it is.
             'name': common.dp_lang(lang, post.tag.name_ja, post.tag.name_en),
             'code': post.tag.code,
