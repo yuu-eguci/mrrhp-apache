@@ -2,6 +2,7 @@ from django.db import models
 from markdownx.models import MarkdownxField
 from markdownx.utils import markdownify
 from app.usrlib import date_utils
+from django.utils import timezone
 
 
 class Config(models.Model):
@@ -68,6 +69,11 @@ class Year(models.Model):
 
 
 class Post(models.Model):
+
+    @classmethod
+    def available(cls):
+        return (cls.objects
+                .filter(publish_at__lte=timezone.now()))
 
     code = models.CharField(
         verbose_name='Post code, used for url for example',

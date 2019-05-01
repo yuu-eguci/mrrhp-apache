@@ -6,7 +6,9 @@ from app.bizlogic import (archive_bizlogic,
                           image_bizlogic,
                           comment_bizlogic,
                           post_bizlogic,
+                          tag_bizlogic,
                          )
+
 
 def top(request, lang):
     data = {}
@@ -39,7 +41,19 @@ def search(request, lang):
 
 
 def tag(request, lang, code):
-    data = {}
+    tag_obj = tag_bizlogic.get_tag_obj_by_code(code)
+    data = {
+        'is_tag_page': True,
+        'lang': lang,
+        'page_title': common.dp_lang(lang,
+                                     tag_obj.name_ja + ' アーカイブ',
+                                     tag_obj.name_en + ' Archives'),
+        'site_title': common.get_site_name(lang),
+        'site_desc' : common.get_site_desc(lang),
+        'posts_by_year': tag_bizlogic.get_posts_by_year(lang, tag_obj),
+        'mainimage_fullpath': image_utils.get_default_mainimage(request),
+    }
+    # TODO: ちょっとみづらい。テンプレート改修。
     return render(request, 'app/list.tpl', data)
 
 

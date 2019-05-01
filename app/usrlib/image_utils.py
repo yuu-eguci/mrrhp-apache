@@ -47,3 +47,8 @@ def get_unique_image_name(original_basename, unique_at):
 def get_mediafile_full_url(request, basename):
     """Depends on env, returns mediafile full path."""
     return f'{request.scheme}://{request.get_host()}/media/markdownx/{basename}'
+
+
+def get_default_mainimage(request):
+    """Returns default mainimage."""
+    return f'{request.scheme}://{request.get_host()}/static/app/img/core/blog-img-size.jpg'
