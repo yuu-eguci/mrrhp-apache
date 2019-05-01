@@ -10,6 +10,7 @@ from app.models import *
 import datetime
 import re
 from app.bizlogic import image_bizlogic
+from django.utils import timezone
 
 
 def register_all_archive_posts() -> None:
@@ -21,13 +22,30 @@ def register_all_archive_posts() -> None:
                         map(lambda _: os.path.join(DRAFT_TOP_DIR, _),
                             sorted(os.listdir(DRAFT_TOP_DIR))))
 
+    # UPSERT MODE -----------------------------------------
+    for dirpath in draft_dirs:
+        archive_post = __create_archive_post_obj(dirpath)
+        Post.objects.update_or_create(
+            code=archive_post.code,
+            defaults={
+                'publish_at': archive_post.publish_at,
+                'title_ja': archive_post.title_ja,
+                'title_en': archive_post.title_en,
+                'tag': archive_post.tag,
+                'year': archive_post.year,
+                'thumbnail': archive_post.thumbnail,
+                'body_ja': archive_post.body_ja,
+                'body_en': archive_post.body_en,
+                'html': archive_post.html,
+            },
+        )
+
+    # BULK_INSERT MODE -----------------------------------------
     # Create Post object one by one.
     # Cuz images will be copied within method, they will exist before registering Post.
     # Obstructs image duplication as well.
-    post_objs = (__create_archive_post_obj(dirpath) for dirpath in draft_dirs)
-
-    # bulk_insert
-    Post.objects.bulk_create(post_objs)
+    # post_objs = (__create_archive_post_obj(dirpath) for dirpath in draft_dirs)
+    # Post.objects.bulk_create(post_objs)
 
 
 def __create_archive_post_obj(dirpath) -> Post:
@@ -57,7 +75,8 @@ def __create_archive_post_obj(dirpath) -> Post:
 
     # Create Post object.
     return Post(
-        publish_at=datetime.datetime.strptime(archive_data['publishdate'], '%Y-%m-%d')           ,
+        # Here set time with Japan timezone, then it will be registered with UTC in DB, minus 9 hours.
+        publish_at=datetime.datetime.strptime(archive_data['publishdate']+'+0900', '%Y-%m-%d%z') ,
         code      =archive_data['code']                                                          ,
         title_ja  =archive_data['title_ja']                                                      ,
         title_en  =archive_data['title_en']                                                      ,
