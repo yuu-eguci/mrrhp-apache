@@ -10,7 +10,7 @@ from django.conf import settings
 from django.utils import timezone
 
 
-def __get_post_by_code(code):
+def get_post_obj_by_code(code):
     """Get one post by code. It occurs 404 when no post is found."""
     return get_object_or_404(
         Post,
@@ -19,37 +19,35 @@ def __get_post_by_code(code):
     )
 
 
-def get_post(code, lang, require_body=False):
+def format_post(post_obj, lang, require_body=False):
     """Get one post by code. It occurs 404 when no post is found.
     This method organizes post data for display on tpl file.
     """
 
-    post = __get_post_by_code(code)
-    
     # TODO: Here change UTC time in DB to Japan time. But it may be better way to do this.
-    post.publish_at = post.publish_at.astimezone(pytz.timezone(settings.TIME_ZONE))
+    post_obj.publish_at = post_obj.publish_at.astimezone(pytz.timezone(settings.TIME_ZONE))
 
     # Decide which body will be displayed.
     displayed_body = ''
     if require_body:
-        if post.html:
-            displayed_body = post.html
+        if post_obj.html:
+            displayed_body = post_obj.html
         else:
             displayed_body = common.dp_lang(lang,
-                                            post.get_markdownified_body_ja(),
-                                            post.get_markdownified_body_en())
+                                            post_obj.get_markdownified_body_ja(),
+                                            post_obj.get_markdownified_body_en())
 
     return {
-        'title'     : common.dp_lang(lang, post.title_ja, post.title_en),     # Depends on lang
-        'code'      : post.code,                                              # As it is
-        'publish_at': date_utils.format_by_lang_Ymd(lang, post.publish_at),   # Change format depends on lang
-        'thumbnail' : post.thumbnail,                                         # As it is
-        'body'      : displayed_body,                                         # Be made above.
-        'tag'       : {                                                       # As it is.
-            'name': common.dp_lang(lang, post.tag.name_ja, post.tag.name_en),
-            'code': post.tag.code,
+        'title'     : common.dp_lang(lang, post_obj.title_ja, post_obj.title_en), # Depends on lang
+        'code'      : post_obj.code,                                              # As it is
+        'publish_at': date_utils.format_by_lang_Ymd(lang, post_obj.publish_at),   # Change format depends on lang
+        'thumbnail' : post_obj.thumbnail,                                         # As it is
+        'body'      : displayed_body,                                             # Be made above.
+        'tag'       : {                                                           # As it is.
+            'name': common.dp_lang(lang, post_obj.tag.name_ja, post_obj.tag.name_en),
+            'code': post_obj.tag.code,
         },
-        'no_en_version': not post.body_en,                                    # If has English body
+        'no_en_version': not post_obj.body_en,                                    # If has English body
         # TODO: Make archive datetime aware and this line available.
         # 'is_before2018': date_utils.is_before_2018(post.publish_at),
     }

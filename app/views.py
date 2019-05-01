@@ -19,14 +19,16 @@ def latest(request, lang):
 
 
 def post(request, lang, code):
-    post = post_bizlogic.get_post(code, lang, require_body=True)
+    post_obj = post_bizlogic.get_post_obj_by_code(code)
+    formatted_post = post_bizlogic.format_post(post_obj, lang, require_body=True)
     data = {
         'lang': lang,
-        'page_title': f'{post["title"]} | {common.get_site_name(lang)}',
+        'page_title': f'{formatted_post["title"]} | {common.get_site_name(lang)}',
         'site_title': common.get_site_name(lang),
         'site_desc' : common.get_site_desc(lang),
-        'post': post,
-        'mainimage_fullpath': image_utils.get_mediafile_full_url(request, post['thumbnail']),
+        'post': formatted_post,
+        'mainimage_fullpath': image_utils.get_mediafile_full_url(request, formatted_post['thumbnail']),
+        'comments': comment_bizlogic.get_comments_for_post(lang, post_obj),
     }
     return render(request, 'app/post.tpl', data)
 
