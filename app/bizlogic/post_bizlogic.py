@@ -7,6 +7,7 @@ from app.models import *
 from app.usrlib import consts, common
 import pytz
 from django.conf import settings
+from django.utils import timezone
 
 
 def __get_post_by_code(code):
@@ -14,7 +15,7 @@ def __get_post_by_code(code):
     return get_object_or_404(
         Post,
         code=code,
-        publish_at__lte=datetime.datetime.today(),
+        publish_at__lte=timezone.now(),
     )
 
 
