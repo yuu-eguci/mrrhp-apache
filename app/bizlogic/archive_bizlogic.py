@@ -121,7 +121,10 @@ def __manipulate_body_content(string, image_correspondence_table):
 
     # Replace image paths.
     for key, value in image_correspondence_table.items():
-        string = string.replace(key, f'/media/markdownx/{value}')
+        string = (string
+                    .replace(f'![]({key})', f'![](/media/markdownx/{value})')
+                    .replace(f'src="{key}"', f'src="/media/markdownx/{value}"')
+        )
 
     # Remove meta description in markdown file. Looks very bizlogic.
     for r in [
