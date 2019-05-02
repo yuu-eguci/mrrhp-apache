@@ -9,6 +9,7 @@ from app.bizlogic import (archive_bizlogic,
                           tag_bizlogic,
                           year_bizlogic,
                           common_bizlogic,
+                          search_bizlogic,
                          )
 
 
@@ -39,9 +40,19 @@ def post(request, lang, code):
 
 
 def search(request, lang):
+    words = set([
+        s for s in request.GET.get(key='s', default='').split(' ') if s != ''
+    ])
 
     data = common_bizlogic.get_base_data(lang, request)
     data['is_search_page'] = True
+    data['page_title'] = common.dp_lang(lang, '検索結果', 'Searching results') + f' | {data["page_title"]}'
+    c, data['posts_dic'] = search_bizlogic.get_posts_by_search_words(lang, words)
+    data['message'] = common.dp_lang(lang,
+                                     f'{c}件見つかりました。',
+                                     f'{c} posts were found.' if c > 1 else f'{c} post was found.')
+    data['search_words'] = ' '.join(words)
+    # TODO: ちょっとみづらい。テンプレート改修。
     return render(request, 'app/list.tpl', data)
 
 

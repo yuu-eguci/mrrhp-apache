@@ -58,10 +58,10 @@
             </ul>
             <!-- Search Form  -->
             <div id="search-wrapper">
-              <form action="/{{lang}}/search/">
-                <input type="text" id="search" placeholder="Search something...">
+              <form action="/{{lang}}/search/" method="get">
+                <input type="text" id="search" placeholder="検索" name="s" value="{{search_words}}">
                 <div id="close-icon"></div>
-                <input class="d-none" type="submit" value="">
+                <input class="d-none" type="submit">
               </form>
             </div>
           </div>

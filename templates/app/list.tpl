@@ -1,7 +1,7 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{lang}}">
 
 <head>
   {% include 'app/inc1_cmn/01_head.tpl' %}
@@ -17,6 +17,7 @@
         <!-- ============= Post Content Area ============= -->
         <div class="col-12 col-lg-10">
           <div class="post-content-area mb-50">
+            <p>{{message}}</p>
             {% include 'app/inc4_list/01_list.tpl' %}
           </div>
         </div>
