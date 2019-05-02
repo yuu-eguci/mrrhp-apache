@@ -1,7 +1,8 @@
 from django.contrib import admin
 from app.models import *
 from markdownx.admin import MarkdownxModelAdmin
-from app.bizlogic import image_bizlogic
+from app.bizlogic import image_bizlogic, tag_bizlogic, year_bizlogic
+from app.usrlib import common
 
 
 class ConfigAdmin(admin.ModelAdmin):
@@ -36,6 +37,10 @@ class PostAdmin(MarkdownxModelAdmin):
 
         # Create thumbnail.
         image_bizlogic.generate_thumbnail(request.POST['thumbnail'])
+
+        # Update count column on Tag and Year tables.
+        tag_bizlogic.update_count()
+        year_bizlogic.update_count()
 
         super().save_model(request, obj, form, change)
 
