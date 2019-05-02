@@ -12,7 +12,7 @@
   {% include 'app/inc1_cmn/02_header-area.tpl' %}
   {% include 'app/inc2_top/01_hero-area.tpl' %}
 
-  <div class="main-content-wrapper section-padding-100">
+  <div class="main-content-wrapper section-padding-50">
     <div class="container">
 
       {% comment %} Row1 {% endcomment %}
