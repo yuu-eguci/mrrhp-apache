@@ -13,12 +13,16 @@ from app.bizlogic import (archive_bizlogic,
 
 
 def top(request, lang):
-    data = {}
+
+    data = common_bizlogic.get_base_data(lang, request)
+    data['is_top_page'] = True
     return render(request, 'app/top.tpl', data)
 
 
 def latest(request, lang):
-    data = {}
+
+    data = common_bizlogic.get_base_data(lang, request)
+    data['is_latest_page'] = True
     return render(request, 'app/post.tpl', data)
 
 
@@ -35,7 +39,9 @@ def post(request, lang, code):
 
 
 def search(request, lang):
-    data = {}
+
+    data = common_bizlogic.get_base_data(lang, request)
+    data['is_search_page'] = True
     return render(request, 'app/list.tpl', data)
 
 

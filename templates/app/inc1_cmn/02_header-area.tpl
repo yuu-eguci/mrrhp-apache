@@ -21,17 +21,17 @@
           <!-- Navbar -->
           <div class="collapse navbar-collapse" id="worldNav">
             <ul class="navbar-nav ml-auto">
-              <li class="nav-item active">
+              <li class="nav-item {% if is_top_page %}active{% endif %}">
                 <a class="nav-link" href="/ja/">
-                  <i class="fa fa-home"></i> HOME
+                  <i class="fa fa-home"></i> TOP
                 </a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item {% if is_latest_page %}active{% endif %}">
                 <a class="nav-link" href="/ja/latest/">
                   <i class="fa fa-flag"></i> LATEST
                 </a>
               </li>
-              <li class="nav-item dropdown">
+              <li class="nav-item dropdown {% if is_tag_page %}active{% endif %}">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="fa fa-tags"></i> TAGS
                 </a>
@@ -43,7 +43,7 @@
                   {% endfor %}
                 </div>
               </li>
-              <li class="nav-item dropdown">
+              <li class="nav-item dropdown {% if is_year_page %}active{% endif %}">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="fa fa-calendar"></i> YEAR
                 </a>
