@@ -30,12 +30,16 @@ def latest(request, lang):
 def post(request, lang, code):
     post_obj = post_bizlogic.get_post_obj_by_code(code)
     formatted_post = post_bizlogic.format_post(post_obj, lang, require_body=True)
+    related_formatted_posts, next_formatted_post, previous_formatted_post = post_bizlogic.get_related_formatted_posts(lang, post_obj)
 
     data = common_bizlogic.get_base_data(lang, request)
     data['page_title'] = f'{formatted_post["title"]} | {data["page_title"]}'
     data['post'] = formatted_post
     data['mainimage_fullpath'] = image_utils.get_mediafile_full_url(request, formatted_post['thumbnail']),
     data['comments'] = comment_bizlogic.get_comments_for_post(lang, post_obj)
+    data['related_posts'] = related_formatted_posts
+    data['next_post'] = next_formatted_post
+    data['previous_post'] = previous_formatted_post
     return render(request, 'app/post.tpl', data)
 
 

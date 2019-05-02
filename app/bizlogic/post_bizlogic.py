@@ -51,3 +51,49 @@ def format_post(post_obj, lang, require_body=False):
         # TODO: Make archive datetime aware and this line available.
         # 'is_before2018': date_utils.is_before_2018(post.publish_at),
     }
+
+
+def get_related_formatted_posts(lang, post_obj):
+    related_post_objs, next_post_obj, previous_post_obj = get_related_post_objs(post_obj)
+    return (
+        [
+            format_post(obj, lang, require_body=False)
+            for obj in related_post_objs
+        ],
+        format_post(next_post_obj    , lang, require_body=False),
+        format_post(previous_post_obj, lang, require_body=False),
+    )
+
+
+def get_related_post_objs(post_obj):
+    """Get related post objects."""
+
+    # Same tag, 3 posts forward.
+    forward_post_objs = [
+        obj
+        for obj in (
+            Post.available()
+                .filter(tag=post_obj.tag, publish_at__gt=post_obj.publish_at)
+                .exclude(code=post_obj.code)
+                .order_by('publish_at')[:3]
+        )
+    ]
+
+    # Next post.
+    next_post_obj = forward_post_objs[0] if forward_post_objs else None
+
+    # Backward posts, 6 posts total with forward posts.
+    backward_post_objs = [
+        obj
+        for obj in (
+            Post.available()
+                .filter(tag=post_obj.tag, publish_at__lt=post_obj.publish_at)
+                .order_by('publish_at')
+                .reverse()[:6-len(forward_post_objs)]
+        )
+    ]
+
+    # Previous post.
+    previous_post_obj = backward_post_objs[0] if backward_post_objs else None
+
+    return forward_post_objs + backward_post_objs, next_post_obj, previous_post_obj
