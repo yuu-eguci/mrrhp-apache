@@ -8,6 +8,7 @@
 </head>
 
 <body>
+  <h1 style="display:none;">みろりHP</h1>
   {% include 'app/inc1_cmn/02_header-area.tpl' %}
   {% include 'app/inc2_top/01_hero-area.tpl' %}
 

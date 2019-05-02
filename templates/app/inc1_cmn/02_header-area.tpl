@@ -15,19 +15,19 @@
       <div class="col-12">
         <nav class="navbar navbar-expand-lg">
           <!-- Logo -->
-          <a class="navbar-brand" href="my-index.html"><img src="{% static 'app/img/core/mrrhp-logo-white.png' %}" alt="Logo"></a>
+          <a class="navbar-brand" href="/{{lang}}/"><img src="{% static 'app/img/core/mrrhp-logo-white.png' %}" alt="Logo"></a>
           <!-- Navbar Toggler -->
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#worldNav" aria-controls="worldNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
           <!-- Navbar -->
           <div class="collapse navbar-collapse" id="worldNav">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item {% if is_top_page %}active{% endif %}">
-                <a class="nav-link" href="/ja/">
+                <a class="nav-link" href="/{{lang}}/">
                   <i class="fa fa-home"></i> TOP
                 </a>
               </li>
               <li class="nav-item {% if is_latest_page %}active{% endif %}">
-                <a class="nav-link" href="/ja/latest/">
+                <a class="nav-link" href="/{{lang}}/latest/">
                   <i class="fa fa-flag"></i> LATEST
                 </a>
               </li>
@@ -58,7 +58,7 @@
             </ul>
             <!-- Search Form  -->
             <div id="search-wrapper">
-              <form action="/ja/search/">
+              <form action="/{{lang}}/search/">
                 <input type="text" id="search" placeholder="Search something...">
                 <div id="close-icon"></div>
                 <input class="d-none" type="submit" value="">
