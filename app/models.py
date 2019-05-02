@@ -51,6 +51,12 @@ class Tag(models.Model):
         null=False,
     )
 
+    count = models.IntegerField(
+        verbose_name='How many posts belongs to this tag.',
+        blank=True,
+        null=True,
+    )
+
 
 class Year(models.Model):
 
@@ -67,6 +73,11 @@ class Year(models.Model):
         unique=True,
     )
 
+    count = models.IntegerField(
+        verbose_name='How many posts belongs to this year.',
+        blank=True,
+        null=True,
+    )
 
 class Post(models.Model):
 

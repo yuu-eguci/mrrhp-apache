@@ -21,34 +21,38 @@
           <!-- Navbar -->
           <div class="collapse navbar-collapse" id="worldNav">
             <ul class="navbar-nav ml-auto">
-              <li class="nav-item active">
+              <li class="nav-item {% if is_top_page %}active{% endif %}">
                 <a class="nav-link" href="/ja/">
-                  <i class="fa fa-home"></i> HOME
+                  <i class="fa fa-home"></i> TOP
                 </a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item {% if is_latest_page %}active{% endif %}">
                 <a class="nav-link" href="/ja/latest/">
                   <i class="fa fa-flag"></i> LATEST
                 </a>
               </li>
-              <li class="nav-item dropdown">
+              <li class="nav-item dropdown {% if is_tag_page %}active{% endif %}">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="fa fa-tags"></i> TAGS
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="/ja/tags/test">
-                    Test
-                  </a>
+                  {% for tag in tags %}
+                    <a class="dropdown-item" href="/{{lang}}/tags/{{tag.code}}">
+                      {{tag.name}} ({{tag.count}})
+                    </a>
+                  {% endfor %}
                 </div>
               </li>
-              <li class="nav-item dropdown">
+              <li class="nav-item dropdown {% if is_year_page %}active{% endif %}">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="fa fa-calendar"></i> YEAR
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="/ja/years/test">
-                    Test
-                  </a>
+                  {% for year in years %}
+                    <a class="dropdown-item" href="/{{lang}}/years/{{year.code}}">
+                      {{year.code}} ({{year.count}})
+                    </a>
+                  {% endfor %}
                 </div>
               </li>
             </ul>

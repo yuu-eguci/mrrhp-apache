@@ -8,67 +8,65 @@ from app.bizlogic import (archive_bizlogic,
                           post_bizlogic,
                           tag_bizlogic,
                           year_bizlogic,
+                          common_bizlogic,
                          )
 
 
 def top(request, lang):
-    data = {}
+
+    data = common_bizlogic.get_base_data(lang, request)
+    data['is_top_page'] = True
     return render(request, 'app/top.tpl', data)
 
 
 def latest(request, lang):
-    data = {}
+
+    data = common_bizlogic.get_base_data(lang, request)
+    data['is_latest_page'] = True
     return render(request, 'app/post.tpl', data)
 
 
 def post(request, lang, code):
     post_obj = post_bizlogic.get_post_obj_by_code(code)
     formatted_post = post_bizlogic.format_post(post_obj, lang, require_body=True)
-    data = {
-        'lang': lang,
-        'page_title': f'{formatted_post["title"]} | {common.get_site_name(lang)}',
-        'site_title': common.get_site_name(lang),
-        'site_desc' : common.get_site_desc(lang),
-        'post': formatted_post,
-        'mainimage_fullpath': image_utils.get_mediafile_full_url(request, formatted_post['thumbnail']),
-        'comments': comment_bizlogic.get_comments_for_post(lang, post_obj),
-    }
+
+    data = common_bizlogic.get_base_data(lang, request)
+    data['page_title'] = f'{formatted_post["title"]} | {data["page_title"]}'
+    data['post'] = formatted_post
+    data['mainimage_fullpath'] = image_utils.get_mediafile_full_url(request, formatted_post['thumbnail']),
+    data['comments'] = comment_bizlogic.get_comments_for_post(lang, post_obj)
     return render(request, 'app/post.tpl', data)
 
 
 def search(request, lang):
-    data = {}
+
+    data = common_bizlogic.get_base_data(lang, request)
+    data['is_search_page'] = True
     return render(request, 'app/list.tpl', data)
 
 
 def tag(request, lang, code):
     tag_obj = tag_bizlogic.get_tag_obj_by_code(code)
-    data = {
-        'is_tag_page': True,
-        'lang': lang,
-        'page_title': common.dp_lang(lang,
-                                     tag_obj.name_ja + ' アーカイブ',
-                                     tag_obj.name_en + ' Archives'),
-        'site_title': common.get_site_name(lang),
-        'site_desc' : common.get_site_desc(lang),
-        'posts_dic': tag_bizlogic.get_posts_by_year(lang, tag_obj),
-        'mainimage_fullpath': image_utils.get_default_mainimage(request),
-    }
+
+    data = common_bizlogic.get_base_data(lang, request)
+    data['is_tag_page'] = True
+    data['page_title'] = common.dp_lang(lang,
+                                        tag_obj.name_ja + ' アーカイブ',
+                                        tag_obj.name_en + ' Archives') + data["page_title"]
+    data['posts_dic'] = tag_bizlogic.get_posts_by_year(lang, tag_obj)
     # TODO: ちょっとみづらい。テンプレート改修。
     return render(request, 'app/list.tpl', data)
 
 
 def year(request, lang, code):
     year_obj = year_bizlogic.get_year_obj_by_code(code)
-    data = {
-        'is_year_page': True,
-        'lang': lang,
-        'page_title': code + common.dp_lang(lang, ' アーカイブ', ' Archives'),
-        'site_title': common.get_site_name(lang),
-        'site_desc' : common.get_site_desc(lang),
-        'posts_dic': year_bizlogic.get_posts_by_month(lang, year_obj),
-        'mainimage_fullpath': image_utils.get_default_mainimage(request),
-    }
+
+    data = common_bizlogic.get_base_data(lang, request)
+    data['is_year_page'] = True
+    data['page_title'] = code + common.dp_lang(lang,
+                                               ' アーカイブ',
+                                               ' Archives') + data["page_title"]
+    data['posts_dic'] = year_bizlogic.get_posts_by_month(lang, year_obj)
     return render(request, 'app/list.tpl', data)
 
 

@@ -8,6 +8,8 @@ from app.usrlib import consts, common
 import pytz
 from django.conf import settings
 from django.utils import timezone
+from bulk_update.helper import bulk_update
+from django.db.models import Q, Count
 
 
 def get_tag_obj_by_code(code):
@@ -40,3 +42,17 @@ def __sort_by_year(lang, post_objs):
             },
         })
     return posts_by_year
+
+
+def update_count():
+    """Update count column."""
+
+    # Set all records zero.
+    Tag.objects.update(count=0)
+
+    # Update count.
+    tag_objs = [
+        Tag(id=c['tag_id'], count=c['count'])
+        for c in Post.available().values('tag_id').annotate(count=Count('tag_id'))
+    ]
+    bulk_update(tag_objs, update_fields=['count'])

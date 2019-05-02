@@ -17,12 +17,9 @@
       <div class="col-12 col-md-8">
         <div class="footer-single-widget">
           <ul class="footer-menu d-flex justify-content-between">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Fashion</a></li>
-            <li><a href="#">Lifestyle</a></li>
-            <li><a href="#">Contact</a></li>
-            <li><a href="#">Gadgets</a></li>
-            <li><a href="#">Video</a></li>
+            {% for tag in tags %}
+              <li><a href="/{{lang}}/tags/{{tag.code}}">{{tag.name}}</a></li>
+            {% endfor %}
           </ul>
         </div>
       </div>
