@@ -36,15 +36,3 @@ def dp_lang(lang, for_ja, for_en):
     if not for_en:
         return for_ja
     return for_ja if lang == consts.Lang.JA else for_en
-
-
-def get_site_name(lang):
-    return dp_lang(lang, 'みろりHP', 'Mirori-HP')
-
-
-def get_site_desc(lang):
-    return dp_lang(lang,
-        '★ 緑色さんの多目的ブログ みろりえいちぴー ごゆるりとおくつろぎあさーせ。 ★',
-        '★ Midori\'s blog for multi-purposes. ★',
-    )
-
