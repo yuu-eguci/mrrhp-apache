@@ -7,6 +7,7 @@ from app.bizlogic import (archive_bizlogic,
                           comment_bizlogic,
                           post_bizlogic,
                           tag_bizlogic,
+                          year_bizlogic,
                          )
 
 
@@ -50,7 +51,7 @@ def tag(request, lang, code):
                                      tag_obj.name_en + ' Archives'),
         'site_title': common.get_site_name(lang),
         'site_desc' : common.get_site_desc(lang),
-        'posts_by_year': tag_bizlogic.get_posts_by_year(lang, tag_obj),
+        'posts_dic': tag_bizlogic.get_posts_by_year(lang, tag_obj),
         'mainimage_fullpath': image_utils.get_default_mainimage(request),
     }
     # TODO: ちょっとみづらい。テンプレート改修。
@@ -58,7 +59,16 @@ def tag(request, lang, code):
 
 
 def year(request, lang, code):
-    data = {}
+    year_obj = year_bizlogic.get_year_obj_by_code(code)
+    data = {
+        'is_year_page': True,
+        'lang': lang,
+        'page_title': code + common.dp_lang(lang, ' アーカイブ', ' Archives'),
+        'site_title': common.get_site_name(lang),
+        'site_desc' : common.get_site_desc(lang),
+        'posts_dic': year_bizlogic.get_posts_by_month(lang, year_obj),
+        'mainimage_fullpath': image_utils.get_default_mainimage(request),
+    }
     return render(request, 'app/list.tpl', data)
 
 
