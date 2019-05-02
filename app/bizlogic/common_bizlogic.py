@@ -22,7 +22,7 @@ def get_base_data(lang, request):
             'code' : year_obj.code,
             'count': year_obj.count,
         }
-        for year_obj in Year.objects.filter(count__gt=0).order_by('id')
+        for year_obj in Year.objects.filter(count__gt=0).order_by('id').reverse()
     ]
 
     return {

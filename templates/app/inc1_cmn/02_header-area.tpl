@@ -36,9 +36,11 @@
                   <i class="fa fa-tags"></i> TAGS
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="/ja/tags/test">
-                    Test
-                  </a>
+                  {% for tag in tags %}
+                    <a class="dropdown-item" href="/{{lang}}/tags/{{tag.code}}">
+                      {{tag.name}} ({{tag.count}})
+                    </a>
+                  {% endfor %}
                 </div>
               </li>
               <li class="nav-item dropdown">
@@ -46,9 +48,11 @@
                   <i class="fa fa-calendar"></i> YEAR
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="/ja/years/test">
-                    Test
-                  </a>
+                  {% for year in years %}
+                    <a class="dropdown-item" href="/{{lang}}/years/{{year.code}}">
+                      {{year.code}} ({{year.count}})
+                    </a>
+                  {% endfor %}
                 </div>
               </li>
             </ul>
