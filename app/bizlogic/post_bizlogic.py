@@ -27,8 +27,8 @@ def format_post(post_obj, lang, require_body=False):
     if not post_obj:
         return
 
-    # TODO: Here change UTC time in DB to Japan time. But it may be better way to do this.
-    post_obj.publish_at = post_obj.publish_at.astimezone(pytz.timezone(settings.TIME_ZONE))
+    # Here change UTC time in DB to Japan time.
+    post_obj.publish_at = date_utils.convert_timezone_to_local(post_obj.publish_at)
 
     # Decide which body will be displayed.
     displayed_body = ''
