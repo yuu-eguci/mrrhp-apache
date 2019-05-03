@@ -104,7 +104,13 @@ def year(request, lang, code):
 
 
 def page_not_found(request, *args, **kw):
-    return redirect('/')
+    data = common_bizlogic.get_base_data(consts.Lang.JA, request)
+    data['is_404_page'] = True
+    data['post'] = {
+        'title': 'ページが見つかりません。',
+        'body' : 'ヘッダのタグ一覧、年月一覧、検索欄から記事を探してみてください。',
+    }
+    return render(request, 'app/post.tpl', data)
 
 
 def page_server_error(request, *args, **kw):
