@@ -1,6 +1,7 @@
 {% load static %}
 
 <!-- Widget Area -->
+{% if pickup_post %}
 <div class="sidebar-widget-area">
   <h5 class="title">Pickup</h5>
   <div class="widget-content">
@@ -21,3 +22,4 @@
     </div>
   </div>
 </div><!-- Widget Area Ends -->
+{% endif %}

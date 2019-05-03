@@ -71,6 +71,8 @@ echo '----- Create django.conf -----'
 touch     /etc/httpd/conf.d/django.conf
 chmod 777 /etc/httpd/conf.d/django.conf
 chmod 777 /var/www
+mkdir -m 777 /var/www/media
+mkdir -m 777 /var/www/media/markdownx
 cat << __EOF__ > /etc/httpd/conf.d/django.conf
 WSGIPythonHome     /env3.6
 WSGIPythonPath     /vagrant:/env3.6/lib/python3.6/site-packages
@@ -98,6 +100,7 @@ touch     /etc/httpd/conf.modules.d/mod_wsgi.conf
 chmod 777 /etc/httpd/conf.modules.d/mod_wsgi.conf
 cat << __EOF__ > /etc/httpd/conf.modules.d/mod_wsgi.conf
 LoadModule wsgi_module /env3.6/lib/python3.6/site-packages/mod_wsgi/server/mod_wsgi-py36.cpython-36m-x86_64-linux-gnu.so
+WSGIPassAuthorization On
 __EOF__
 
 echo '----- Django startup -----'

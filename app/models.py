@@ -115,7 +115,7 @@ class Post(models.Model):
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
-        default=Year.objects.filter(code=date_utils.get_current_year()).first().id,
+        default=date_utils.get_current_year_id(),
     )
 
     title_ja = models.CharField(
