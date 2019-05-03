@@ -32,6 +32,7 @@ def format_post(post_obj, lang, require_body=False):
 
     # Decide which body will be displayed.
     displayed_body = ''
+    before2019_message = ''
     if require_body:
         if post_obj.html:
             displayed_body = post_obj.html
@@ -39,6 +40,13 @@ def format_post(post_obj, lang, require_body=False):
             displayed_body = common.dp_lang(lang,
                                             post_obj.get_markdownified_body_ja(),
                                             post_obj.get_markdownified_body_en())
+        # If this post is published before 2019, display message.
+        if date_utils.is_before_2019(post_obj.publish_at):
+            before2019_message = common.dp_lang(
+                lang,
+                '自動移設した記事です。崩れてたらゴメン。',
+                'This post was automatically moved.',
+            )
 
     return {
         'title'     : common.dp_lang(lang, post_obj.title_ja, post_obj.title_en), # Depends on lang
@@ -51,8 +59,7 @@ def format_post(post_obj, lang, require_body=False):
             'code': post_obj.tag.code,
         },
         'no_en_version': lang==consts.Lang.EN and not post_obj.body_en,           # If has English body
-        # TODO: Make archive datetime aware and this line available.
-        # 'is_before2018': date_utils.is_before_2018(post.publish_at),
+        'before2019_message': before2019_message,
     }
 
 
