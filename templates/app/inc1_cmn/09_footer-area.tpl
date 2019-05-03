@@ -1,15 +1,21 @@
 {% load static %}
 
 <!-- ***** Footer Area Start ***** -->
-<footer class="footer-area">
+<footer class="footer-area custom-footer-area">
   <div class="container">
     <div class="row">
       <div class="col-12 col-md-4">
         <div class="footer-single-widget">
-          <a href="#"><img src="{% static 'app/img/core/mrrhp-logo-white.png' %}" alt=""></a>
+          <a href="#"><img src="{% static 'app/img/core/mrrhp-logo-black.png' %}" alt=""></a>
           <div class="copywrite-text mt-30">
             <p>
-              Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+              Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved
+            </p>
+            <p>
+              This site is made by Midoriiro
+            </p>
+            <p>
+              This template is made by <a href="https://colorlib.com" target="_blank">Colorlib</a>
             </p>
           </div>
         </div>
@@ -18,7 +24,11 @@
         <div class="footer-single-widget">
           <ul class="footer-menu d-flex justify-content-between">
             {% for tag in tags %}
-              <li><a href="/{{lang}}/tags/{{tag.code}}">{{tag.name}}</a></li>
+              <li>
+                <a href="/{{lang}}/tags/{{tag.code}}">
+                  <i class="fa fa-tag"></i> {{tag.name}}
+                </a>
+              </li>
             {% endfor %}
           </ul>
         </div>

@@ -1366,6 +1366,15 @@ textarea:focus ~ .highlight {
       border-color: #f1f1f1;
       margin: 5px; }
 
+/* Color */
+.custom-footer-area {
+  background-color: #99CC66; }
+  .custom-footer-area p,
+  .custom-footer-area a {
+    color: black; }
+  .custom-footer-area li {
+    list-style: none; }
+
 .pt-15 {
   padding-top: 15px; }
 
