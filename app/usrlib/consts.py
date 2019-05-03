@@ -8,7 +8,7 @@ class Lang:
 
 
 class ConfigKeys:
-    pass
+    RECOMMENDED_POST_CODE = 'recommended_post_code'
 
 
 class Encoding:

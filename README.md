@@ -113,8 +113,12 @@ $ sudo apachectl restart
 $ sudo systemctl restart mysqld
 $ python /vagrant/manage.py makemigrations --settings=config.settings.production
 $ python /vagrant/manage.py migrate --settings=config.settings.production
-$ python /vagrant/manage.py dumpdata app > /vagrant/fixtures/initial_db_data.json --settings=config.settings.production
+
+$ python /vagrant/manage.py dumpdata app.tag app.year app.config > /vagrant/fixtures/initial_db_data.json --settings=config.settings.production
 $ python /vagrant/manage.py loaddata /vagrant/fixtures/initial_db_data.json --settings=config.settings.production
+
+$ python manage.py dumpdata app.tag app.year app.config > fixtures/initial_db_data.json
+
 $ sudo tail -f /var/log/httpd/error_log
 $ sudo tail -f /var/log/httpd/access_log
 $ systemctl enable httpd.service
