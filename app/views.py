@@ -19,6 +19,7 @@ def top(request, lang):
     data = common_bizlogic.get_base_data(lang, request)
     data['is_top_page'] = True
     data['latest_posts'] = top_bizlogic.get_latest_posts(lang)
+    data['pickup_post'] = top_bizlogic.get_pickup_post(lang)
     return render(request, 'app/top.tpl', data)
 
 
