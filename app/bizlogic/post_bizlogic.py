@@ -24,6 +24,9 @@ def format_post(post_obj, lang, require_body=False):
     This method organizes post data for display on tpl file.
     """
 
+    if not post_obj:
+        return
+
     # TODO: Here change UTC time in DB to Japan time. But it may be better way to do this.
     post_obj.publish_at = post_obj.publish_at.astimezone(pytz.timezone(settings.TIME_ZONE))
 

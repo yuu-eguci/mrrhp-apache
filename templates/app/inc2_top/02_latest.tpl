@@ -12,7 +12,9 @@
         <div class="single-blog-post post-style-4 d-flex align-items-center">
           <!-- Post Thumbnail -->
           <div class="post-thumbnail">
-            <img src="{% if post.thumbnail %}/media/thumbnail/{{post.thumbnail}}{% else %}{% static 'app/img/core/blog-img-size.jpg' %}{% endif %}" alt="">
+            <a href="/{{lang}}/{{post.code}}">
+              <img src="{% if post.thumbnail %}/media/thumbnail/{{post.thumbnail}}{% else %}{% static 'app/img/core/blog-img-size.jpg' %}{% endif %}" alt="">
+            </a>
           </div>
           <!-- Post Content -->
           <div class="post-content">
