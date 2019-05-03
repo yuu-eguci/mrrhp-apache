@@ -45,10 +45,10 @@ urlpatterns = [
     path('api/4', views.api_register_comments         ),
 ]
 
+# Custom 404 error handler.
 handler404 = views.page_not_found
 
-# TODO: You have to comment out this on the real production env.
-# Without comment out, it displays 500 error even on Apache env.
+# Custom 500 error handler.
 handler500 = views.page_server_error
 
 # runserver 環境でのメディアファイルの配信設定。

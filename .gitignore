@@ -92,3 +92,5 @@ media
 .vagrant
 .vscode
 .python-version
+__drafts
+slack_webhook_url
