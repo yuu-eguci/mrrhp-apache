@@ -2,23 +2,25 @@
 
 <!-- Widget Area -->
 <div class="sidebar-widget-area">
-  <h5 class="title">About World</h5>
+  <h5 class="title">緑色 @midori-mate</h5>
   <div class="widget-content">
     <p class="centering">
-      <img src="{% static 'app/img/sample/95x95.jpg' %}">
+      <img src="{% static 'app/img/core/midori-icon.jpg' %}" style="width:100px;">
     </p>
     <p>
-      The mango is perfect in that it is always yellow and if it’s not, I don’t want to hear about it. The mango’s only
-      flaw, and it’s a minor one, is the effort it sometimes takes to undress the mango, carve it up in a way that makes
-      sense, and find its way to the mouth.
+      {% if lang == 'ja' %}
+        緑色さんの多目的ブログ、みろりえいちぴーです。 ごゆるりとおくつろぎあさーせ。
+      {% else %}
+        Midori's blog for multi-purposes: Mirori-HP. Welcome, strangers.
+      {% endif %}
     </p>
     <div class="social-area d-flex justify-content-between">
-      <a href="#"><i class="fa fa-facebook"></i></a>
-      <a href="#"><i class="fa fa-twitter"></i></a>
-      <a href="#"><i class="fa fa-pinterest"></i></a>
-      <a href="#"><i class="fa fa-vimeo"></i></a>
-      <a href="#"><i class="fa fa-instagram"></i></a>
-      <a href="#"><i class="fa fa-google"></i></a>
+      <a href="https://gitlab.com/midori-mate"><i class="fa fa-gitlab"></i></a>
+      <a href="https://twitter.com/miroriiro"><i class="fa fa-twitter"></i></a>
+      <a href="https://www.instagram.com/hitorenshuu/"><i class="fa fa-instagram"></i></a>
+      <a><i class="fa fa-ban"></i></a>
+      <a><i class="fa fa-ban"></i></a>
+      <a><i class="fa fa-ban"></i></a>
     </div>
   </div>
 </div><!-- Widget Area Ends -->
