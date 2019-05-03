@@ -4,8 +4,9 @@
 
 from app.models import *
 import os
-from app.usrlib import consts
+from app.usrlib import consts, slack_postman
 import markdown
+from django.conf import settings
 
 
 def _get_config_value(key):
@@ -36,3 +37,29 @@ def dp_lang(lang, for_ja, for_en):
     if not for_en:
         return for_ja
     return for_ja if lang == consts.Lang.JA else for_en
+
+
+def send_slack_notification(message:str):
+    """When slack_webhook_url file doesn't exist, do nothing.
+    Send message to slack_webhook_url."""
+
+    # Get slack_webhook_url.
+    webhook_url_file = os.path.join(settings.BASE_DIR, 'slack_webhook_url')
+    if not os.path.exists(webhook_url_file):
+        return
+    with open(webhook_url_file, 'r', encoding=consts.Encoding.UTF8) as f:
+        webhook_url = f.read()
+    print(webhook_url)
+
+    # Send message.
+    postman = create_postman(webhook_url)
+    postman.post(message)
+
+
+def create_postman(webhook_url:str):
+    """Create slack postman."""
+    return slack_postman.SlackPostman(
+        webhook_url,
+        sender='Mrrhp System Info',
+        sender_emoji=':snake:',
+    )

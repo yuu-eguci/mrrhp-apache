@@ -12,10 +12,11 @@ from app.bizlogic import (archive_bizlogic,
                           search_bizlogic,
                           top_bizlogic,
                          )
+from django.conf import settings
+from django.views.defaults import server_error as default_server_error
 
 
 def top(request, lang):
-
     data = common_bizlogic.get_base_data(lang, request)
     data['is_top_page'] = True
     data['latest_posts'] = top_bizlogic.get_latest_posts(lang)
@@ -109,12 +110,17 @@ def page_not_found(request, *args, **kw):
 def page_server_error(request, *args, **kw):
 
     # Write error info in /var/log/httpd/error_log
-    # import traceback
+    import traceback
     # print(traceback.format_exc())
 
-    from django.views import debug
-    error_html = debug.technical_500_response(request, *sys.exc_info()).content
-    return HttpResponse(error_html)
+    # Send error info to Slack and display django default 500 page.
+    common.send_slack_notification(traceback.format_exc())
+    return default_server_error(request, *args, **kw)
+
+    # Display 500 error page as if it is DEBUG=True env.
+    # from django.views import debug
+    # error_html = debug.technical_500_response(request, *sys.exc_info()).content
+    # return HttpResponse(error_html)
 
 
 def api_register_all_archive_posts(request):
