@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from app.usrlib import consts, common, image_utils
+from app.usrlib import consts, common, image_utils, basic_auth
 import sys
 from django.http import HttpResponse
 from app.bizlogic import (archive_bizlogic,
@@ -128,20 +128,28 @@ def page_server_error(request, *args, **kw):
 
 
 def api_register_all_archive_posts(request):
+    if not basic_auth.basic_auth(request):
+        return basic_auth.http401()
     archive_bizlogic.register_all_archive_posts()
     return HttpResponse('')
 
 
 def api_organize_thumbnail(request):
+    if not basic_auth.basic_auth(request):
+        return basic_auth.http401()
     image_bizlogic.organize_thumbnail()
     return HttpResponse('')
 
 
 def api_organize_media(request):
+    if not basic_auth.basic_auth(request):
+        return basic_auth.http401()
     image_bizlogic.organize_media()
     return HttpResponse('')
 
 
 def api_register_comments(request):
+    if not basic_auth.basic_auth(request):
+        return basic_auth.http401()
     comment_bizlogic.register_comment_from_pickle()
     return HttpResponse('')
