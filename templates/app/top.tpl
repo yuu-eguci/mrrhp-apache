@@ -46,7 +46,9 @@
       <div class="world-latest-articles">
         <div class="row">
           <div class="col-12 col-lg-8">
+            {% comment %}
             {% include 'app/inc2_top/06_activity.tpl' %}
+            {% endcomment %}
           </div>
           <div class="col-12 col-lg-4">
             {% include 'app/inc2_top/07_updated.tpl' %}

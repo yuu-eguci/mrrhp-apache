@@ -6,7 +6,9 @@
     <div class="row">
       <div class="col-12 col-md-4">
         <div class="footer-single-widget">
-          <a href="#"><img src="{% static 'app/img/core/mrrhp-logo-black.png' %}" alt=""></a>
+          <a href="/{{lang}}/">
+            <img src="{% static 'app/img/core/mrrhp-logo-black.png' %}" alt="">
+          </a>
           <div class="copywrite-text mt-30">
             <p>
               Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved
