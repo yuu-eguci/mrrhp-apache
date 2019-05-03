@@ -27,8 +27,8 @@ def __sort_by_month(lang, post_objs):
 
     posts_by_month = {}
     for p in post_objs:
-        # TODO: Here change UTC time in DB to Japan time. But it may be better way to do this.
-        p.publish_at = p.publish_at.astimezone(pytz.timezone(settings.TIME_ZONE))
+        # Here change UTC time in DB to Japan time.
+        p.publish_at = date_utils.convert_timezone_to_local(p.publish_at)
         m = date_utils.format_by_lang_Ym(lang, p.publish_at)
         if m not in posts_by_month:
             posts_by_month[m] = []

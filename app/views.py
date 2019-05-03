@@ -74,7 +74,6 @@ def search(request, lang):
                                      f'{c}件見つかりました。',
                                      f'{c} posts were found.' if c > 1 else f'{c} post was found.')
     data['search_words'] = ' '.join(words)
-    # TODO: ちょっとみづらい。テンプレート改修。
     return render(request, 'app/list.tpl', data)
 
 
@@ -87,7 +86,6 @@ def tag(request, lang, code):
                                         tag_obj.name_ja + ' アーカイブ',
                                         tag_obj.name_en + ' Archives') + data["page_title"]
     data['posts_dic'] = tag_bizlogic.get_posts_by_year(lang, tag_obj)
-    # TODO: ちょっとみづらい。テンプレート改修。
     return render(request, 'app/list.tpl', data)
 
 

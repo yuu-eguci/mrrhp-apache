@@ -28,8 +28,7 @@ def generate_thumbnail_360x195(origin_path, dest_path, quality=70):
 
 
 # ディレクトリから画像名を取得。
-# TODO: 返り値は filter object なんだけどどうタイプヒンティング書いたらいいかわからない。
-def get_image_basenames(dirpath):
+def get_image_basenames(dirpath) -> iter:
     return filter(lambda _: os.path.splitext(_)[-1] in ['.jpg', '.gif', '.png'],
                   os.listdir(dirpath))
 

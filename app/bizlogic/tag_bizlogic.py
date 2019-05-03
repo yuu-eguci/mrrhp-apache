@@ -30,8 +30,8 @@ def __sort_by_year(lang, post_objs):
         y = p.year.code
         if y not in posts_by_year:
             posts_by_year[y] = []
-        # TODO: Here change UTC time in DB to Japan time. But it may be better way to do this.
-        p.publish_at = p.publish_at.astimezone(pytz.timezone(settings.TIME_ZONE))
+        # Here change UTC time in DB to Japan time.
+        p.publish_at = date_utils.convert_timezone_to_local(p.publish_at)
         posts_by_year[y].append({
             'publish_at': date_utils.format_by_lang_Ymd(lang, p.publish_at),
             'code': p.code,
