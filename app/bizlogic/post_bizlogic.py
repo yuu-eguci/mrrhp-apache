@@ -50,7 +50,7 @@ def format_post(post_obj, lang, require_body=False):
             'name': common.dp_lang(lang, post_obj.tag.name_ja, post_obj.tag.name_en),
             'code': post_obj.tag.code,
         },
-        'no_en_version': not post_obj.body_en,                                    # If has English body
+        'no_en_version': lang==consts.Lang.EN and not post_obj.body_en,           # If has English body
         # TODO: Make archive datetime aware and this line available.
         # 'is_before2018': date_utils.is_before_2018(post.publish_at),
     }
@@ -100,3 +100,8 @@ def get_related_post_objs(post_obj):
     previous_post_obj = backward_post_objs[0] if backward_post_objs else None
 
     return forward_post_objs + backward_post_objs, next_post_obj, previous_post_obj
+
+
+def get_latest_post_obj():
+    """Get the latest post."""
+    return Post.available().order_by('publish_at').reverse().first()
