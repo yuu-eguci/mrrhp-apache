@@ -54,3 +54,50 @@ def convert_timezone_to_local(dt):
 def set_timezone_local(dt):
     """Add native datetimeobject tzinfo converting to aware object."""
     return pytz.timezone(settings.TIME_ZONE).localize(dt)
+
+
+def get_current_year_id():
+    """Get id for current year of Year model.
+    It should be got from DB. But it doesn't work before migrate."""
+    return {
+        2006: 1,
+        2007: 2,
+        2008: 3,
+        2009: 4,
+        2010: 5,
+        2011: 6,
+        2012: 7,
+        2013: 8,
+        2014: 9,
+        2015: 10,
+        2016: 11,
+        2017: 12,
+        2018: 13,
+        2019: 14,
+        2020: 15,
+        2021: 16,
+        2022: 17,
+        2023: 18,
+        2024: 19,
+        2025: 20,
+        2026: 21,
+        2027: 22,
+        2028: 23,
+        2029: 24,
+        2030: 25,
+        2031: 26,
+        2032: 27,
+        2033: 28,
+        2034: 29,
+        2035: 30,
+        2036: 31,
+        2037: 32,
+        2038: 33,
+        2039: 34,
+        2040: 35,
+        2041: 36,
+        2042: 37,
+        2043: 38,
+        2044: 39,
+        2045: 40,
+    }[int(get_current_year())]
