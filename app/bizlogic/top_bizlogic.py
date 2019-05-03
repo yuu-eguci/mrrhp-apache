@@ -18,7 +18,10 @@ def get_latest_posts(lang):
 
 def get_pickup_post(lang):
     """Randomly pick one post up, from newer posts."""
-    picknum = random.randint(1, Post.available().count()/2)
+    count = Post.available().count()
+    if not count:
+        return
+    picknum = random.randint(1, count//2)
     return post_bizlogic.format_post(
         Post.available().order_by('publish_at').reverse()[picknum:picknum+1].first(),
         lang,
