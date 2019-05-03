@@ -49,7 +49,6 @@ def send_slack_notification(message:str):
         return
     with open(webhook_url_file, 'r', encoding=consts.Encoding.UTF8) as f:
         webhook_url = f.read()
-    print(webhook_url)
 
     # Send message.
     postman = create_postman(webhook_url)
