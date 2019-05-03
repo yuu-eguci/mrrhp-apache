@@ -23,3 +23,11 @@ def get_pickup_post(lang):
         lang,
         require_body=False,
     )
+
+
+def get_recently_updated_posts(lang):
+    """Get 5 recently updated posts."""
+    return (
+        post_bizlogic.format_post(post_obj, lang, require_body=False)
+        for post_obj in Post.available().order_by('updated_at').reverse()[:5]
+    )
