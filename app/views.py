@@ -53,7 +53,7 @@ def post(request, lang, code):
     data = common_bizlogic.get_base_data(lang, request)
     data['page_title'] = f'{formatted_post["title"]} | {data["page_title"]}'
     data['post'] = formatted_post
-    data['mainimage_fullpath'] = image_utils.get_mediafile_full_url(request, formatted_post['thumbnail']),
+    data['mainimage_fullpath'] = image_utils.get_mediafile_full_url(request, formatted_post['thumbnail'])
     data['comments'] = comment_bizlogic.get_comments_for_post(lang, post_obj)
     data['related_posts'] = related_formatted_posts
     data['next_post'] = next_formatted_post
