@@ -17,7 +17,7 @@
       {% comment %} Row1 {% endcomment %}
       <div class="row justify-content-center">
         {% comment %} Left Area {% endcomment %}
-        <div class="col-12 col-lg-10">
+        <div class="col-12 col-lg-10 p-0-sp">
           <div class="single-blog-content mb-100">
             {% include 'app/inc3_post/02_content.tpl' %}
           </div>
