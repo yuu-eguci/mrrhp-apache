@@ -832,7 +832,8 @@ img {
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15); }
   @media only screen and (max-width: 767px) {
     .single-blog-content .post-content {
-      padding: 30px 25px; } }
+      /* padding: 30px 25px; */
+      padding: 30px 5px; } }
   .single-blog-content .post-content h6 {
     line-height: 1.8;
     margin-bottom: 30px;
@@ -1289,6 +1290,9 @@ textarea:focus ~ .highlight {
 .navbar-brand img {
   width: auto;
   height: 25px; }
+@media only screen and (max-width: 767px) {
+  .p-0-sp {
+    padding: 0; } }
 
 /* Custom scrollUp */
 #linkPrev, #linkNext {
@@ -1375,7 +1379,7 @@ textarea:focus ~ .highlight {
   .custom-footer-area li {
     list-style: none; }
 
-.pt-15 {
+    .pt-15 {
   padding-top: 15px; }
 
 .pt-30 {
