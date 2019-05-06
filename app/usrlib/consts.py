@@ -9,6 +9,7 @@ class Lang:
 
 class ConfigKeys:
     RECOMMENDED_POST_CODE = 'recommended_post_code'
+    SITE_VERSION = 'site_version'
 
 
 class Encoding:

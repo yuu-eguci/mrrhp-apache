@@ -4,6 +4,7 @@
 
 from app.usrlib import image_utils, common
 from app.models import *
+from app.usrlib import consts
 
 
 def get_base_data(lang, request):
@@ -32,7 +33,7 @@ def get_base_data(lang, request):
         'mainimage_fullpath': image_utils.get_default_mainimage(request),
         'tags': tags,
         'years': years,
-
+        'site_version': get_version(lang),
     }
 
 
@@ -44,4 +45,14 @@ def get_site_desc(lang):
     return common.dp_lang(lang,
         '★ 緑色さんの多目的ブログ みろりえいちぴー ごゆるりとおくつろぎあさーせ。 ★',
         '★ Midori\'s blog for multi-purposes. ★',
+    )
+
+
+def get_version(lang):
+    version = Config.objects.filter(key=consts.ConfigKeys.SITE_VERSION).first()
+    version = version.value if version else '3.0'
+    print(version)
+    return common.dp_lang(lang,
+        f'みろりHP version {version}',
+        f'Mirori-HP version {version}',
     )

@@ -11,6 +11,9 @@
           </a>
           <div class="copywrite-text mt-30">
             <p>
+              {{site_version}}
+            </p>
+            <p>
               Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved
             </p>
             <p>
