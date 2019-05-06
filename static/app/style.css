@@ -138,14 +138,6 @@ a {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg); } }
 
-/* HACK: なぜいちいち > をつけないと not が動作しないのかが不明。 */
-div:not(.markdown-body .toc) > ul,
-div:not(.markdown-body) > ol {
-  margin: 0; }
-  div:not(.markdown-body .toc) > ul > li,
-  div:not(.markdown-body) > ol > li {
-    list-style: none; }
-
 img {
   height: auto;
   max-width: 100%; }
