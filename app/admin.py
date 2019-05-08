@@ -24,7 +24,7 @@ class CodeAdmin(admin.ModelAdmin):
 
 class PostAdmin(MarkdownxModelAdmin):
     list_display = ('title_ja', 'code', 'publish_at')
-    ordering = ('created_at',)
+    ordering = ('-created_at',)
     search_fields = ('title_ja', 'code', 'publish_at')
 
     def save_model(self, request, obj, form, change):
