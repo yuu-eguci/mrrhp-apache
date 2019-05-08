@@ -3,6 +3,7 @@ from app.models import *
 from markdownx.admin import MarkdownxModelAdmin
 from app.bizlogic import image_bizlogic, tag_bizlogic, year_bizlogic
 from app.usrlib import common
+from django.utils.html import format_html
 
 
 class ConfigAdmin(admin.ModelAdmin):
@@ -23,7 +24,7 @@ class CodeAdmin(admin.ModelAdmin):
 
 
 class PostAdmin(MarkdownxModelAdmin):
-    list_display = ('title_ja', 'code', 'publish_at')
+    list_display = ('title_ja', 'publish_page_link', 'publish_at')
     ordering = ('-created_at',)
     search_fields = ('title_ja', 'code', 'publish_at')
 
@@ -43,6 +44,11 @@ class PostAdmin(MarkdownxModelAdmin):
         year_bizlogic.update_count()
 
         super().save_model(request, obj, form, change)
+
+    def publish_page_link(self, obj):
+        """Display page link on admin page Post list."""
+        return format_html(f'<a href="/ja/{obj.code}">{obj.code}</a>')
+    publish_page_link.short_description = 'CODE AND LINK TO PAGE'
 
 
 admin.site.register(Config, ConfigAdmin)
