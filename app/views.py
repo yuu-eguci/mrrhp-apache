@@ -47,6 +47,14 @@ def latest(request, lang):
 
 def post(request, lang, code):
     post_obj = post_bizlogic.get_post_obj_by_code(code)
+
+    # If viewer is allowed to see the unpublished post.
+    if post_bizlogic.is_available_post_obj(post_obj):
+        pass
+    else:
+        if not basic_auth.basic_auth(request):
+            return basic_auth.http401()
+
     formatted_post = post_bizlogic.format_post(post_obj, lang, require_body=True)
     related_formatted_posts, next_formatted_post, previous_formatted_post = post_bizlogic.get_related_formatted_posts(lang, post_obj)
 
