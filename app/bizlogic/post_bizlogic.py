@@ -11,12 +11,15 @@ from django.utils import timezone
 
 
 def get_post_obj_by_code(code):
-    """Get one post by code. It occurs 404 when no post is found."""
-    return get_object_or_404(
-        Post,
-        code=code,
-        publish_at__lte=timezone.now(),
-    )
+    """Get one post by code, regardless of publishment condition."""
+    return Post.objects.filter(code=code).first()
+
+
+def is_available_post_obj(post_obj):
+    """Return if is this post object available."""
+    if not post_obj:
+        return False
+    return post_obj.publish_at <= timezone.now()
 
 
 def format_post(post_obj, lang, require_body=False):
