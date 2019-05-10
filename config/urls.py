@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from app import views, views_lang
+from app import views, views_lang, apis
 from django.conf.urls import handler404, handler500
 from app.usrlib import common
 from django.conf.urls.static import static
@@ -39,10 +39,10 @@ urlpatterns = [
     path('en/years/<str:code>', views_lang.year_en),
     path('markdownx/', include('markdownx.urls')),
 
-    path('api/1', views.api_register_all_archive_posts),
-    path('api/2', views.api_organize_thumbnail        ),
-    path('api/3', views.api_organize_media            ),
-    path('api/4', views.api_register_comments         ),
+    path('api/1', apis.api_register_all_archive_posts),
+    path('api/2', apis.api_organize_thumbnail        ),
+    path('api/3', apis.api_organize_media            ),
+    path('api/4', apis.api_register_comments         ),
 ]
 
 # Custom 404 error handler.
