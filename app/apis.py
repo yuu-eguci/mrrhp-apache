@@ -30,3 +30,7 @@ def api_organize_media(request):
 
 def api_register_comments(request):
     return __exec_api(request, comment_bizlogic.register_comment_from_pickle)
+
+
+def api_register_links(request):
+    pass

@@ -208,3 +208,23 @@ class Comment(models.Model):
         blank=True,
         null=True,
     )
+
+
+class Link(models.Model):
+    """The model for displaying bidirectional link."""
+
+    parent_post = models.ForeignKey(
+        Post,
+        verbose_name='Parent post',
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+    )
+
+    linked_post = models.ForeignKey(
+        Post,
+        verbose_name='Post kept by parent post',
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+    )
