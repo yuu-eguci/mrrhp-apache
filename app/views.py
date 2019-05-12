@@ -9,6 +9,7 @@ from app.bizlogic import (comment_bizlogic,
                           common_bizlogic,
                           search_bizlogic,
                           top_bizlogic,
+                          link_bizlogic,
                          )
 from django.conf import settings
 from django.views.defaults import server_error as default_server_error
@@ -60,6 +61,7 @@ def post(request, lang, code):
     data['page_title'] = f'{formatted_post["title"]} | {data["page_title"]}'
     data['post'] = formatted_post
     data['mainimage_fullpath'] = image_utils.get_mediafile_full_url(request, formatted_post['thumbnail'])
+    data['linked_from'] = link_bizlogic.get_posts_having_linkto(post_obj, lang)
     data['comments'] = comment_bizlogic.get_comments_for_post(lang, post_obj)
     data['related_posts'] = related_formatted_posts
     data['next_post'] = next_formatted_post

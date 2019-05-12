@@ -65,3 +65,12 @@ def __get_post_objs_with_404_check(codes:set, parent_code:str) -> list:
             continue
         _.append(p)
     return _
+
+
+def get_posts_having_linkto(post_obj, lang):
+    """Select posts which have links to assigned post."""
+
+    return [
+        post_bizlogic.format_post(link.parent_post, lang, require_body=False)
+        for link in Link.objects.filter(linked_post=post_obj)
+    ]
