@@ -43,10 +43,17 @@ def register_link(post_obj):
 
 def __get_linked_codes(body:str) -> list:
     """From body string, get linked post codes."""
-    return [
-        re.sub(r'href="/ja/|href="/en/|"', '', _)
-        for _ in re.findall(r'href="/ja/.*?"|href="/en/.*?"', body)
-    ]
+
+    return list(
+        # Post code doesn't contain '/'.
+        # What contains '/' is a link to page in the site other than post.
+        filter(lambda _: '/' not in _, [
+            # Don't forget to remove '#' link.
+            # There is not post code having '#'.
+            re.sub(r'href="/ja/|href="/en/|#.*?"|"', '', _)
+            for _ in re.findall(r'href="/ja/.*?"|href="/en/.*?"', body)
+        ])
+    )
 
 
 def __get_post_objs_with_404_check(codes:set, parent_code:str) -> list:
@@ -58,7 +65,7 @@ def __get_post_objs_with_404_check(codes:set, parent_code:str) -> list:
         p = Post.available().filter(code=code).first()
         if not p:
             common.send_slack_notification(
-                'There is link to non exsisting or non displaying page.'
+                'There is link to non existing or non displaying page.'
                 f' Link from: {parent_code}'
                 f' Link to: {code}'
             )
