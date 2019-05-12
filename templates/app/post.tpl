@@ -18,7 +18,7 @@
       <div class="row justify-content-center">
         {% comment %} Left Area {% endcomment %}
         <div class="col-12 col-lg-10 p-0-sp">
-          <div class="single-blog-content mb-100">
+          <div class="single-blog-content mb-70">
             {% include 'app/inc3_post/02_content.tpl' %}
           </div>
         </div>
@@ -29,12 +29,24 @@
       {% comment %} Row1 ends {% endcomment %}
 
       {% comment %} Row2 {% endcomment %}
+      {% if linked_from %}
+      <div class="row justify-content-center">
+        <div class="col-12 col-lg-10 p-0-sp">
+          {% include 'app/inc3_post/06_linked-from.tpl' %}
+        </div>
+        <div class="col-12 col-md-2 col-lg-2">
+        </div>
+      </div>
+      {% endif %}
+      {% comment %} Row2 ends {% endcomment %}
+
+      {% comment %} Row3 {% endcomment %}
       <div class="row justify-content-center">
         {% include 'app/inc3_post/03_related-post.tpl' %}
       </div>
-      {% comment %} Row2 ends {% endcomment %}
+      {% comment %} Row3 ends {% endcomment %}
 
-      {% comment %} Row3 
+      {% comment %} Row4 
       <div class="row">
         <div class="col-12 col-lg-8">
           <div class="post-a-comment-area mt-70">
@@ -50,7 +62,7 @@
           </div>
         </div>
       </div>
-      {% comment %} Row3 ends {% endcomment %}
+      {% comment %} Row4 ends {% endcomment %}
 
     </div>
   </div>

@@ -2,15 +2,14 @@ from django.shortcuts import render, redirect
 from app.usrlib import consts, common, image_utils, basic_auth
 import sys
 from django.http import HttpResponse
-from app.bizlogic import (archive_bizlogic,
-                          image_bizlogic,
-                          comment_bizlogic,
+from app.bizlogic import (comment_bizlogic,
                           post_bizlogic,
                           tag_bizlogic,
                           year_bizlogic,
                           common_bizlogic,
                           search_bizlogic,
                           top_bizlogic,
+                          link_bizlogic,
                          )
 from django.conf import settings
 from django.views.defaults import server_error as default_server_error
@@ -62,6 +61,7 @@ def post(request, lang, code):
     data['page_title'] = f'{formatted_post["title"]} | {data["page_title"]}'
     data['post'] = formatted_post
     data['mainimage_fullpath'] = image_utils.get_mediafile_full_url(request, formatted_post['thumbnail'])
+    data['linked_from'] = link_bizlogic.get_posts_having_linkto(post_obj, lang)
     data['comments'] = comment_bizlogic.get_comments_for_post(lang, post_obj)
     data['related_posts'] = related_formatted_posts
     data['next_post'] = next_formatted_post
@@ -133,31 +133,3 @@ def page_server_error(request, *args, **kw):
     # from django.views import debug
     # error_html = debug.technical_500_response(request, *sys.exc_info()).content
     # return HttpResponse(error_html)
-
-
-def api_register_all_archive_posts(request):
-    if not basic_auth.basic_auth(request):
-        return basic_auth.http401()
-    archive_bizlogic.register_all_archive_posts()
-    return HttpResponse('')
-
-
-def api_organize_thumbnail(request):
-    if not basic_auth.basic_auth(request):
-        return basic_auth.http401()
-    image_bizlogic.organize_thumbnail()
-    return HttpResponse('')
-
-
-def api_organize_media(request):
-    if not basic_auth.basic_auth(request):
-        return basic_auth.http401()
-    image_bizlogic.organize_media()
-    return HttpResponse('')
-
-
-def api_register_comments(request):
-    if not basic_auth.basic_auth(request):
-        return basic_auth.http401()
-    comment_bizlogic.register_comment_from_pickle()
-    return HttpResponse('')

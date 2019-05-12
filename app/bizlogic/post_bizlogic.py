@@ -2,7 +2,6 @@
 """Post bizlogic
 """
 
-from django.shortcuts import get_object_or_404
 from app.models import *
 from app.usrlib import consts, common
 import pytz
@@ -37,12 +36,7 @@ def format_post(post_obj, lang, require_body=False):
     displayed_body = ''
     before2019_message = ''
     if require_body:
-        if post_obj.html:
-            displayed_body = post_obj.html
-        else:
-            displayed_body = common.dp_lang(lang,
-                                            post_obj.get_markdownified_body_ja(),
-                                            post_obj.get_markdownified_body_en())
+        displayed_body = select_display_body(post_obj, lang)
         # If this post is published before 2019, display message.
         if date_utils.is_before_2019(post_obj.publish_at):
             before2019_message = common.dp_lang(
@@ -64,6 +58,17 @@ def format_post(post_obj, lang, require_body=False):
         'no_en_version': lang==consts.Lang.EN and not post_obj.body_en,           # If has English body
         'before2019_message': before2019_message,
     }
+
+
+def select_display_body(post_obj, lang=consts.Lang.JA):
+    """Get body to display, with html style, by various conditions."""
+
+    if post_obj.html:
+        return post_obj.html
+    return common.dp_lang(lang,
+                          post_obj.get_markdownified_body_ja(),
+                          post_obj.get_markdownified_body_en())
+
 
 
 def get_related_formatted_posts(lang, post_obj):

@@ -1,7 +1,11 @@
 from django.contrib import admin
 from app.models import *
 from markdownx.admin import MarkdownxModelAdmin
-from app.bizlogic import image_bizlogic, tag_bizlogic, year_bizlogic
+from app.bizlogic import (image_bizlogic,
+                          tag_bizlogic,
+                          year_bizlogic,
+                          link_bizlogic,
+                          )
 from app.usrlib import common
 from django.utils.html import format_html
 
@@ -34,14 +38,20 @@ class PostAdmin(MarkdownxModelAdmin):
         obj     : For example, Post object (1)
         form    : form html data
         change  : For example, True
+
+        Request as well as obj has edited data. How to get old values? I don't know.
         """
 
         # Create thumbnail.
+        # Using obj.thumbnail, when thumbnail form is empty it will get not empty string but None.
         image_bizlogic.generate_thumbnail(request.POST['thumbnail'])
 
         # Update count column on Tag and Year tables.
         tag_bizlogic.update_count()
         year_bizlogic.update_count()
+
+        # Create bidirectional link.
+        link_bizlogic.register_link(obj)
 
         super().save_model(request, obj, form, change)
 
