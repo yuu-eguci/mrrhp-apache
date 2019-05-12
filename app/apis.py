@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from app.bizlogic import (archive_bizlogic,
                           image_bizlogic,
                           comment_bizlogic,
+                          link_bizlogic,
                          )
 
 
@@ -33,4 +34,4 @@ def api_register_comments(request):
 
 
 def api_register_links(request):
-    pass
+    return __exec_api(request, link_bizlogic.register_all_posts_links)

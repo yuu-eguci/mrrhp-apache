@@ -219,6 +219,8 @@ class Link(models.Model):
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
+        # related_name argument is needed when one model has foreignkeys of same model.
+        related_name='parent_post',
     )
 
     linked_post = models.ForeignKey(
@@ -227,4 +229,5 @@ class Link(models.Model):
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
+        related_name='linked_post',
     )

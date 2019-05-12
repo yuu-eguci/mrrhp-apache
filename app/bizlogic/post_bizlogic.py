@@ -60,7 +60,7 @@ def format_post(post_obj, lang, require_body=False):
     }
 
 
-def select_display_body(post_obj, lang):
+def select_display_body(post_obj, lang=consts.Lang.JA):
     """Get body to display, with html style, by various conditions."""
 
     if post_obj.html:

@@ -43,6 +43,7 @@ urlpatterns = [
     path('api/2', apis.api_organize_thumbnail        ),
     path('api/3', apis.api_organize_media            ),
     path('api/4', apis.api_register_comments         ),
+    path('api/5', apis.api_register_links            ),
 ]
 
 # Custom 404 error handler.
