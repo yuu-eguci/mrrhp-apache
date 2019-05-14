@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from app.usrlib import consts, common, image_utils, basic_auth
 import sys
 from django.http import HttpResponse

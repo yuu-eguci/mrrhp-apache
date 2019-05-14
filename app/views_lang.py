@@ -1,9 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import redirect
 from app.usrlib import consts
 from app import views
 
 
 # 言語振り分け。
+def top(request):
+    return redirect(f'/{consts.Lang.JA}/')
 def top_ja(request):
     return views.top(request, consts.Lang.JA)
 def top_en(request):
