@@ -27,6 +27,7 @@ $ vagrant ssh
 In the virtual env, do below to register yourself as a superuser.
 
 ```bash
+$ su -
 $ source /env3.6/bin/activate
 $ python /vagrant/manage.py createsuperuser --settings=config.settings.production
 ```
