@@ -79,5 +79,7 @@ def get_posts_having_linkto(post_obj, lang):
 
     return [
         post_bizlogic.format_post(link.parent_post, lang, require_body=False)
-        for link in Link.objects.filter(linked_post=post_obj)
+        for link in Link.objects.filter(linked_post=post_obj,
+                                        # No idea why but timezone can be used without import.
+                                        parent_post__publish_at__lte=timezone.now())
     ]
