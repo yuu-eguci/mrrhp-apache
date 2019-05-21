@@ -124,6 +124,7 @@ $ python manage.py dumpdata app.tag app.year app.config > fixtures/initial_db_da
 
 $ sudo tail -f /var/log/httpd/error_log
 $ sudo tail -f /var/log/httpd/access_log
+
 $ systemctl enable httpd.service
 $ systemctl disable httpd.service
 $ systemctl list-unit-files -t service | grep httpd
