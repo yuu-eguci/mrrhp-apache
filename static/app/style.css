@@ -1303,29 +1303,22 @@ textarea:focus ~ .highlight {
   -webkit-transition-duration: 500ms;
   transition-duration: 500ms; }
 #linkPrev {
-  bottom: 115px;
-  right: 60px; }
+  bottom: 60px;
+  right: 170px; }
   #linkPrev:hover {
     background-color: #0036FF; }
 #linkNext {
-  bottom: 170px;
-  right: 60px; }
+  bottom: 60px;
+  right: 115px; }
   #linkNext:hover {
     background-color: #6C00FF; }
-@media only screen and (min-width: 768px) and (max-width: 991px) {
+@media only screen and (max-width: 991px) {
   #linkPrev {
-    bottom: 85px;
-    right: 30px; }
+    bottom: 30px;
+    right: 140px; }
   #linkNext {
-    bottom: 140px;
-    right: 30px; } }
-@media only screen and (max-width: 767px) {
-  #linkPrev {
-    bottom: 85px;
-    right: 30px; }
-  #linkNext {
-    bottom: 140px;
-    right: 30px; } }
+    bottom: 30px;
+    right: 85px; } }
 
 /* Post List */
 .post-list-row {
