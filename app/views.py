@@ -92,7 +92,7 @@ def tag(request, lang, code):
     data['is_tag_page'] = True
     data['page_title'] = common.dp_lang(lang,
                                         tag_obj.name_ja + ' アーカイブ',
-                                        tag_obj.name_en + ' Archives') + data["page_title"]
+                                        tag_obj.name_en + ' Archives') + f' | {data["page_title"]}'
     data['posts_dic'] = tag_bizlogic.get_posts_by_year(lang, tag_obj)
     return render(request, 'app/list.tpl', data)
 
@@ -104,7 +104,7 @@ def year(request, lang, code):
     data['is_year_page'] = True
     data['page_title'] = code + common.dp_lang(lang,
                                                ' アーカイブ',
-                                               ' Archives') + data["page_title"]
+                                               ' Archives') + f' | {data["page_title"]}'
     data['posts_dic'] = year_bizlogic.get_posts_by_month(lang, year_obj)
     return render(request, 'app/list.tpl', data)
 
