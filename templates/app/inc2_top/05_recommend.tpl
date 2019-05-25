@@ -2,7 +2,7 @@
 
 {% for post in recommended_posts %}
 <div class="col-12 col-md-6 col-lg-4">
-  <div class="single-blog-post post-style-3">
+  <div class="single-blog-post post-style-3 click-to-link">
     <div class="post-thumbnail">
       <a href="/{{lang}}/{{post.code}}">
         <img src="{% if post.thumbnail %}/media/thumbnail/{{post.thumbnail}}{% else %}{% static 'app/img/core/blog-img-size.jpg' %}{% endif %}" alt="">

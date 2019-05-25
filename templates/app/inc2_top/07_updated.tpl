@@ -5,7 +5,7 @@
 </div>
 
 {% for post in recently_updated_posts %}
-<div class="single-blog-post post-style-2 d-flex align-items-center widget-post">
+<div class="single-blog-post post-style-2 d-flex align-items-center widget-post click-to-link">
   <div class="post-thumbnail">
     <a href="/{{lang}}/{{post.code}}">
       <img src="{% static 'app/img/core/right-thumbnail.jpg' %}" alt="">

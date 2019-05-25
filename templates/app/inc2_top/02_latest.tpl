@@ -9,7 +9,7 @@
 
       {% for post in latest_posts %}
         <!-- Single Blog Post -->
-        <div class="single-blog-post post-style-4 d-flex align-items-center" style="cursor: pointer;" onclick="triggerChildTagA(this);">
+        <div class="single-blog-post post-style-4 d-flex align-items-center click-to-link">
           <!-- Post Thumbnail -->
           <div class="post-thumbnail">
             <a href="/{{lang}}/{{post.code}}">
@@ -35,8 +35,3 @@
     </div>
   </div>
 </div>
-<script>
-  function triggerChildTagA(obj){
-    obj.querySelector('div a').click();
-  }
-</script>

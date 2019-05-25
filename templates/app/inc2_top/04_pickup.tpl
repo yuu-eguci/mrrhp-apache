@@ -5,7 +5,7 @@
 <div class="sidebar-widget-area">
   <h5 class="title">Pickup</h5>
   <div class="widget-content">
-    <div class="single-blog-post todays-pick">
+    <div class="single-blog-post todays-pick click-to-link">
       <div class="post-thumbnail">
         <a href="/{{lang}}/{{pickup_post.code}}">
           <img src="{% if pickup_post.thumbnail %}/media/thumbnail/{{pickup_post.thumbnail}}{% else %}{% static 'app/img/core/blog-img-size.jpg' %}{% endif %}" alt="">
