@@ -57,3 +57,11 @@
 <!-- https://laboradian.com/how-to-use-highlightjs/ -->
 <script src="{% static 'app/vendor/highlight/highlight.pack.js' %}"></script>
 <script>hljs.initHighlightingOnLoad();</script>
+<!-- Click div to click link -->
+<script>
+  $(function() {
+    $('.click-to-link').click(function() {
+      this.querySelector('div a').click();
+    });
+  });
+</script>

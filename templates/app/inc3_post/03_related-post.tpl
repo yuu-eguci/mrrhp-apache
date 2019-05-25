@@ -3,7 +3,7 @@
 {% for post in related_posts %}
 <!-- ========== Single Blog Post ========== -->
 <div class="col-12 col-md-6 col-lg-4">
-  <div class="single-blog-post post-style-3">
+  <div class="single-blog-post post-style-3 click-to-link">
     <div class="post-thumbnail">
       <img src="{% if post.thumbnail %}/media/thumbnail/{{post.thumbnail}}{% else %}{% static 'app/img/core/blog-img-size.jpg' %}{% endif %}" alt="">
       <div class="post-content d-flex align-items-center justify-content-between">

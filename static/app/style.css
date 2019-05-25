@@ -1364,7 +1364,27 @@ textarea:focus ~ .highlight {
   .custom-footer-area li {
     list-style: none; }
 
-    .pt-15 {
+/* Click to link */
+.click-to-link {
+  cursor: pointer;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all  0.3s ease; }
+  .click-to-link .post-thumbnail {
+    overflow: hidden; }
+  .click-to-link:hover {
+    box-shadow: 0 0 15px rgba(0,0,0,.2); }
+  .click-to-link img {
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all  0.3s ease; }
+    .click-to-link:hover img {
+      transform: scale(1.05);
+      opacity: .7; }
+
+.pt-15 {
   padding-top: 15px; }
 
 .pt-30 {

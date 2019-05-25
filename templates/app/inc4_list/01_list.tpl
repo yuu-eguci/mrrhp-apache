@@ -11,7 +11,7 @@
         {% with posts_dic|ref_dic:y as posts %}
         {% for post in posts %}
         <div class="col-12">
-          <div class="single-blog-post post-style-2 d-flex align-items-center">
+          <div class="single-blog-post post-style-2 d-flex align-items-center click-to-link">
             <div class="post-content">
               <div class="post-meta">
                 <p>
