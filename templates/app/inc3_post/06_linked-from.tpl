@@ -5,7 +5,7 @@
   <div class="row post-list-row">
     {% for post in linked_from %}
     <div class="col-12">
-      <div class="single-blog-post post-style-2 d-flex align-items-center">
+      <div class="single-blog-post post-style-2 d-flex align-items-center click-to-link">
         <div class="post-content">
           <div class="post-meta">
             <p>
