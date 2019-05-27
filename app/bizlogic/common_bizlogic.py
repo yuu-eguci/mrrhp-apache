@@ -51,7 +51,6 @@ def get_site_desc(lang):
 def get_version(lang):
     version = Config.objects.filter(key=consts.ConfigKeys.SITE_VERSION).first()
     version = version.value if version else '3.0'
-    print(version)
     return common.dp_lang(lang,
         f'みろりHP version {version}',
         f'Mirori-HP version {version}',
