@@ -3,6 +3,12 @@
 <div class="world-catagory-area">
   <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="title">Latest</li>
+    <li class="nav-item">
+      <a href="/{{lang}}/years/{{latest_year}}">
+        <i class="fa fa-calendar"></i>
+        {{latest_year}}年一覧
+      </a>
+    </li>
   </ul>
   <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active">

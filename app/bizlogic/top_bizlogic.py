@@ -10,10 +10,10 @@ from app.usrlib import consts
 
 def get_latest_posts(lang):
     """Get 5 latest posts."""
-    return (
+    return [
         post_bizlogic.format_post(post_obj, lang, require_body=False)
         for post_obj in Post.available().order_by('publish_at').reverse()[:5]
-    )
+    ]
 
 
 def get_pickup_post(lang):

@@ -22,6 +22,7 @@ def top(request, lang):
     data['pickup_post'] = top_bizlogic.get_pickup_post(lang)
     data['recently_updated_posts'] = top_bizlogic.get_recently_updated_posts(lang)
     data['recommended_posts'] = top_bizlogic.get_recommended_posts(lang)
+    data['latest_year'] = data['latest_posts'][0]['publish_at'][:4] if data['latest_posts'] else ''
     return render(request, 'app/top.tpl', data)
 
 
