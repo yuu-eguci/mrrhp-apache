@@ -1384,6 +1384,12 @@ textarea:focus ~ .highlight {
       transform: scale(1.05);
       opacity: .7; }
 
+/* Change visited links' color */
+/* Try to change link color on top and list pages for now. */
+a:visited h5 {
+  color: #5a1ea5;
+}
+
 .pt-15 {
   padding-top: 15px; }
 
