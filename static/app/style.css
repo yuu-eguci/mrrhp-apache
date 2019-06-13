@@ -1355,6 +1355,34 @@ textarea:focus ~ .highlight {
       border-color: #f1f1f1;
       margin: 5px; }
 
+/* Post list */
+.single-blog-post.post-style-2 .post-content {
+  padding-right: 5px; }
+  .single-blog-post.post-style-2 .post-content.post-list-content-wrapper {
+    display: -webkit-flex;
+    display: flex;
+    width: 100%; }
+    .single-blog-post.post-style-2 .post-content.post-list-content-wrapper .headline {
+      flex: 1;
+      -webkit-flex: 1; }
+  .single-blog-post.post-style-2 .post-content .post-tags {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin: 0; }
+    .single-blog-post.post-style-2 .post-content .post-tags li {
+      list-style: none; }
+    .single-blog-post.post-style-2 .post-content .post-tags a {
+      display: block;
+      padding: 0 15px;
+      line-height: 28px;
+      height: 30px;
+      border: 1px solid;
+      border-color: #f1f1f1;
+      margin: 10px 10px; }
+
 /* Color */
 .custom-footer-area {
   background-color: #99CC66; }
