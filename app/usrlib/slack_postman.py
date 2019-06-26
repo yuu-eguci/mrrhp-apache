@@ -1,9 +1,9 @@
 
-'''PythonでSlackに投稿するよ!
+'''Post something onto Slack with Python!
 
 0. https://slack.com/apps/A0F7XDUAZ--web-
 1. Menu > Configure Apps > Custom Integrations > Incoming WebHooks > Add Configuration
-2. Post対象のChannelを選択
+2. Pick out Channel which you wanna post to.
 
 '''
 
@@ -11,7 +11,7 @@ import requests
 import json
 
 class SlackPostman:
-    '''PythonからSlackへメッセージを送信します。'''
+    '''Send messages from Python to Slack.'''
 
     def __init__(self, webhook_url, *, sender='Alien', sender_emoji=':alien:'):
         self.webhook_url  = webhook_url
