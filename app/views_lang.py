@@ -3,7 +3,7 @@ from app.usrlib import consts
 from app import views
 
 
-# 言語振り分け。
+# Depends on language.
 def top(request):
     return redirect(f'/{consts.Lang.JA}/')
 def top_ja(request):

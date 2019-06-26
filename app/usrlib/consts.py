@@ -1,5 +1,5 @@
 
-"""ユーザ定義定数。
+"""Constants defined by me
 """
 
 class Lang:

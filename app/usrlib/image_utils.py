@@ -15,7 +15,7 @@ def generate_thumbnail_360x195(origin_path, dest_path, quality=70):
     pil_origin = Image.open(origin_path)
     w, h = pil_origin.size
 
-    # 横幅360px。
+    # Width 360px
     resize_rate = 360/w
     pil_w360 = pil_origin.resize((int(w*resize_rate), int(h*resize_rate)))
     w, h = pil_w360.size
@@ -27,13 +27,13 @@ def generate_thumbnail_360x195(origin_path, dest_path, quality=70):
     bg.save(dest_path, quality=quality)
 
 
-# ディレクトリから画像名を取得。
+# Get image basenames from the specified directory.
 def get_image_basenames(dirpath) -> iter:
     return filter(lambda _: os.path.splitext(_)[-1] in ['.jpg', '.gif', '.png'],
                   os.listdir(dirpath))
 
 
-# 画像のユニーク名を作る。unique_at にはどのフォルダにおいてユニークかを設定。
+# Create unique name for image. You'll get unique name in the directory specified as unique_at.
 def get_unique_image_name(original_basename, unique_at):
     will_be_hashed = original_basename + str(date_utils.get_current_microsecond())
     ext = os.path.splitext(original_basename)[-1]
