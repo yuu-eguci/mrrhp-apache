@@ -1418,6 +1418,15 @@ a:visited h5 {
   color: #5a1ea5;
 }
 
+/* Lower anchor link's destination position by header's height */
+h2,
+h3,
+h4,
+h5,
+h6 {
+  padding-top: 50px;
+  margin-top: -50px; }
+
 .pt-15 {
   padding-top: 15px; }
 
