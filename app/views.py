@@ -47,6 +47,8 @@ def latest(request, lang):
 
 def post(request, lang, code):
     post_obj = post_bizlogic.get_post_obj_by_code(code)
+    if not post_obj:
+        return page_not_found(request)
 
     # If viewer is allowed to see the unpublished post.
     if post_bizlogic.is_available_post_obj(post_obj):
