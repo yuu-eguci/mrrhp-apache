@@ -16,6 +16,12 @@ import environ
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = environ.Path(__file__) - 3
 
+env = environ.Env()
+env.read_env(os.path.join(BASE_DIR, '.env'))
+# env.get_value('DEBUG',cast=bool,default=False)
+
+SLACK_WEBHOOK_URL = env.get_value('SLACK_WEBHOOK_URL', cast=str, default=False)
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'q7^lwyu$b6fmf!mp)42*j0dosj*(al%6ab_2xpf1qu)-m^*bz$'
 
