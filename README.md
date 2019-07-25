@@ -15,7 +15,7 @@ Install them.
 - [Vagrant](https://www.vagrantup.com/)
 - [Virtualbox](https://www.virtualbox.org/)
 
-Tell your administrator "Give me `slack_webhook_url`", he will give you a file, so you put it in the top directory.
+You have to locate **.env** file next to manage.py file. Ask your leader for that.
 
 **Windows user has to open Powershell as Administrator!** Or you cannot create symbolic links and setup will fail.
 

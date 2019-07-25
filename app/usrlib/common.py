@@ -43,15 +43,11 @@ def send_slack_notification(message:str):
     """When slack_webhook_url file doesn't exist, do nothing.
     Send message to slack_webhook_url."""
 
-    # Get slack_webhook_url.
-    webhook_url_file = os.path.join(settings.BASE_DIR, 'slack_webhook_url')
-    if not os.path.exists(webhook_url_file):
+    if not settings.SLACK_WEBHOOK_URL:
         return
-    with open(webhook_url_file, 'r', encoding=consts.Encoding.UTF8) as f:
-        webhook_url = f.read()
 
     # Send message.
-    postman = create_postman(webhook_url)
+    postman = create_postman(settings.SLACK_WEBHOOK_URL)
     postman.post(message)
 
 
