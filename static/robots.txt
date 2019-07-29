@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://www.mrrhp.com/sitemap_index.xml
