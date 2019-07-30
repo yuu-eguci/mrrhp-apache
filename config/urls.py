@@ -24,6 +24,8 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
 
+    path('sitemap_posts.xml', views.sitemap_posts   ),
+
     path(''                   , views_lang.top      ),
     path('ja/'                , views_lang.top_ja   ),
     path('en/'                , views_lang.top_en   ),

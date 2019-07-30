@@ -7,6 +7,7 @@ from app.usrlib import consts, common
 import pytz
 from django.conf import settings
 from django.utils import timezone
+import xml.dom.minidom
 
 
 def get_post_obj_by_code(code):
@@ -120,3 +121,54 @@ def get_related_post_objs(post_obj):
 def get_latest_post_obj():
     """Get the latest post."""
     return Post.available().order_by('publish_at').reverse().first()
+
+
+def make_sitemap_posts_xml():
+    """Collect all post data and return them as sitemap format."""
+
+    # Get all available post codes and update dates.
+    posts = __get_available_codes_updated_at()
+
+    # Create DOM object
+    dom = xml.dom.minidom.Document()
+
+    def __create_xml_node(name, attr_key=None, attr_value='', text=None):
+        """Create below.
+        <name attr_key='attr_value'>text</name>"""
+        node = dom.createElement(name)
+        if attr_key:
+            attr = dom.createAttribute(attr_key)
+            attr.value = attr_value
+            node.setAttributeNode(attr)
+        if text:
+            node.appendChild(dom.createTextNode(text))
+        return node
+
+    # Create xml node tree.
+    urlset = __create_xml_node('urlset',
+                        attr_key='xmlns',
+                        attr_value='http://www.sitemaps.org/schemas/sitemap/0.9')
+    for lang in [consts.Lang.JA, consts.Lang.EN]:
+        for post in posts:
+            url = __create_xml_node('url')
+            for n in [
+                    __create_xml_node('loc', text=f'https://www.mrrhp.com/{lang}/{post["code"]}'),
+                    __create_xml_node('priority', text='0.8'),
+                    __create_xml_node('lastmod', text=post['updated_at']),]:
+                url.appendChild(n)
+            urlset.appendChild(url)
+
+    # Convert to xml.
+    dom = xml.dom.minidom.Document()
+    dom.appendChild(urlset)
+    return(dom.toprettyxml())
+
+
+def __get_available_codes_updated_at():
+    """Get available posts' code and updated_at value."""
+    posts = []
+    for p in Post.available():
+        p.updated_at = date_utils.convert_timezone_to_local(p.publish_at)
+        p.updated_at = date_utils.format_iso(p.updated_at)
+        posts.append({ 'code':p.code, 'updated_at':p.updated_at })
+    return posts

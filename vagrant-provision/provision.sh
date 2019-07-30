@@ -77,6 +77,8 @@ cat << __EOF__ > /etc/httpd/conf.d/django.conf
 WSGIPythonHome     /env3.6
 WSGIPythonPath     /vagrant:/env3.6/lib/python3.6/site-packages
 Alias /robots.txt  /var/www/static/robots.txt
+Alias /sitemap_index.xml  /var/www/static/sitemap_index.xml
+Alias /sitemap_static.xml  /var/www/static/sitemap_static.xml
 Alias /favicon.ico /var/www/static/favicon.ico
 Alias /media/      /var/www/media/
 Alias /static/     /var/www/static/

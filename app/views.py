@@ -136,3 +136,8 @@ def page_server_error(request, *args, **kw):
     # from django.views import debug
     # error_html = debug.technical_500_response(request, *sys.exc_info()).content
     # return HttpResponse(error_html)
+
+
+def sitemap_posts(request):
+    """Show all posts information as sitemap.xml format"""
+    return HttpResponse(post_bizlogic.make_sitemap_posts_xml(), content_type='application/xml')
