@@ -140,6 +140,4 @@ def page_server_error(request, *args, **kw):
 
 def sitemap_posts(request):
     """Show all posts information as sitemap.xml format"""
-    
-    # TODO: Implement process.
-    return HttpResponse()
+    return HttpResponse(post_bizlogic.make_sitemap_posts_xml(), content_type='application/xml')

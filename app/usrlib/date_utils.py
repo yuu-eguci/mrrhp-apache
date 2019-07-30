@@ -41,6 +41,11 @@ def format_by_lang_md(lang, date):
         common.dp_lang(lang, '%m/%d', '%b %d'))
 
 
+def format_iso(date):
+    """Representation of dates and times is an international standard covering the exchange of date- and time-related data."""
+    return date.isoformat()
+
+
 def is_before_2019(date):
     """Returns if this date is before 2019.01.01"""
     return date < datetime.datetime(2019,1,1,0,0,0,0,pytz.timezone(settings.TIME_ZONE))
