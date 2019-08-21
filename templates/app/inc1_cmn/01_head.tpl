@@ -23,6 +23,9 @@
 <!-- Twitter -->
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@miroriiro">
+<meta name="twitter:image" content="{{mainimage_fullpath}}" />
+<meta name="twitter:title" content="{{page_title}}">
+<meta name="twitter:description" content="{{site_desc}}">
 
 <!-- Style CSS -->
 <link rel="stylesheet" href="{% static 'app/style.css' %}?2019-07-25">
