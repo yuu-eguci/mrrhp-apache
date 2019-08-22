@@ -30,7 +30,7 @@
             <!-- Post Meta -->
             <div class="post-meta">
               <p>
-                <a class="post-date">{{post.publish_at}}</a>
+                <a class="post-date">{{post.publish_at_ago}}</a>
                 <a class="post-author" href="/{{lang}}/tags/{{post.tag.code}}">{{post.tag.name}}</a>
               </p>
             </div>

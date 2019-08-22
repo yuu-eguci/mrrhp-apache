@@ -14,7 +14,7 @@
           <h5>{{post.title}}</h5>
         </a>
         <div class="post-meta">
-          <p><a class="post-date">{{post.publish_at}}</a>
+          <p><a class="post-date">{{post.publish_at_ago}}</a>
           </p>
         </div>
       </div>
