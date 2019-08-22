@@ -17,7 +17,7 @@
           <h5>{{pickup_post.title}}</h5>
         </a>
         <div class="post-meta">
-          <p><a class="post-date">{{pickup_post.publish_at}}</a></p>
+          <p><a class="post-date">{{pickup_post.publish_at_ago}}</a></p>
         </div>
       </div>
     </div>

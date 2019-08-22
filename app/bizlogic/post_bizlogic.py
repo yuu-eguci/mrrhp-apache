@@ -58,6 +58,7 @@ def format_post(post_obj, lang, require_body=False):
         },
         'no_en_version': lang==consts.Lang.EN and not post_obj.body_en,           # If has English body
         'before2019_message': before2019_message,
+        'publish_at_ago': date_utils.get_ago_label(lang, post_obj.publish_at),
     }
 
 
