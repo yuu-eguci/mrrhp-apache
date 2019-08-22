@@ -106,3 +106,38 @@ def get_current_year_id():
         2044: 39,
         2045: 40,
     }[int(get_current_year())]
+
+
+def get_ago_label(lang, dt):
+    """
+    Convert specified datetime into a string, '*** days,months,years ago.'
+    As conversion rule is made depending on creator's sense, it is sometimes different from yours.
+    HACK: It's hard to read and has a room to be shortened.
+    """
+
+    now = set_timezone_local(datetime.datetime.now())
+    years       = now.year - dt.year
+    months      = now.month - dt.month
+    days        = now.day - dt.day
+    actual_days = (now - dt).days
+
+    if actual_days == 0:
+        return common.dp_lang(lang, '今日', 'Today')
+
+    before_today_of_each_year = months >= 0 and days >= 0
+    if not before_today_of_each_year:
+        years -= 1
+
+    before_today_of_each_month = days >= 0
+    if not before_today_of_each_month:
+        months = 11 if months == 0 else months - 1
+
+    labels = common.dp_lang(
+        lang,
+        ['年前', 'ヶ月前', '日前'],
+        [' years ago', ' months ago', ' days ago'],
+        )
+    for num, label in zip([years,  months, actual_days], labels):
+        if num > 0:
+            label = label.replace('s', '') if num == 1 else label
+            return f'{num}{label}'

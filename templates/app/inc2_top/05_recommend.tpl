@@ -18,7 +18,7 @@
         </a>
         <div class="post-meta">
           <p>
-            <a class="post-date">{{post.publish_at}}</a>
+            <a class="post-date">{{post.publish_at_ago}}</a>
           </p>
         </div>
       </div>
