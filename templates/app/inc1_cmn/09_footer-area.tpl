@@ -65,17 +65,3 @@
     });
   });
 </script>
-<!-- Just for kidding -->
-<script>
-  var originalPageTitle = document.title;
-
-  function switchTitle() {
-    document.title = document.hidden ? 'もどってきて♥' : originalPageTitle;
-  }
-
-  $(function () {
-    $(document).on('visibilitychange', function () {
-      setTimeout(switchTitle, 200);
-    });
-  });
-</script>
