@@ -1355,6 +1355,12 @@ textarea:focus ~ .highlight {
       border-color: #f1f1f1;
       margin: 5px; }
 
+/* Social buttons */
+.social-buttons div {
+  display: inline-block !important;
+  margin: 0 0.2em;
+}
+
 /* Post list */
 .single-blog-post.post-style-2 .post-content {
   padding-right: 5px; }
