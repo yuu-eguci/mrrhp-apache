@@ -5,7 +5,9 @@ from app.bizlogic import (archive_bizlogic,
                           image_bizlogic,
                           comment_bizlogic,
                           link_bizlogic,
+                          search_bizlogic,
                          )
+from django.http.response import JsonResponse
 
 
 def __exec_api(request, api_func):
@@ -35,3 +37,11 @@ def api_register_comments(request):
 
 def api_register_links(request):
     return __exec_api(request, link_bizlogic.register_all_posts_links)
+
+
+def api_search_posts(request):
+    """Search and get posts by GET queries and return them as Json format.
+    t   : keywords, used to search title
+    lang: ja or en
+    """
+    return JsonResponse({'posts':search_bizlogic.search_posts_by_get_query(request)})
