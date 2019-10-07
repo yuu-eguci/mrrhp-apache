@@ -63,6 +63,8 @@ $ source /env3.6/bin/activate
 $ python /vagrant/manage.py collectstatic -c --noinput  --settings=config.settings.production
 ```
 
+**Attention! If the file you tweak is style.css, don't forget to update GET query of it.**
+
 And then you can commit!
 
 
