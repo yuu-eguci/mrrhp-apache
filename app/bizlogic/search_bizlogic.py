@@ -8,18 +8,9 @@ from django.db.models import Q
 from app.bizlogic import tag_bizlogic
 
 
-def get_posts_by_search_words(lang, words):
+def get_posts_by_search_words(lang, word):
     """Search posts by words."""
-    if not words:
-        return 0, []
-    # When search words are 'a b c,' try to get posts that contain a, b and c all.
-    posts = Post.available()
-    for w in words:
-        q = common.dp_lang(lang,
-            Q(title_ja__contains=w) | Q(body_ja__contains=w) | Q(html__contains=w),
-            Q(title_en__contains=w) | Q(body_en__contains=w) | Q(html__contains=w),
-        )
-        posts = posts.filter(q).order_by('publish_at').reverse()
+    posts = __search_posts_by_title_and_body(lang, word)
     return len(posts), tag_bizlogic.__sort_by_year(lang, posts)
 
 
@@ -37,7 +28,7 @@ def search_posts_by_get_query(request):
     lang = request.GET.get(key='lang', default=consts.Lang.JA)
 
     # Search posts by the keywords.
-    posts = __get_posts_by_search_words_title(lang, keywords)
+    posts = __search_posts_by_title(lang, keywords)
 
     # Format posts, ramaining necessary information.
     formatted_posts = []
@@ -57,7 +48,7 @@ def search_posts_by_get_query(request):
     return formatted_posts
 
 
-def __get_posts_by_search_words_title(lang, words):
+def __search_posts_by_title(lang, words):
     """Search title by words and get posts of search result."""
     if not words:
         return []
@@ -66,4 +57,15 @@ def __get_posts_by_search_words_title(lang, words):
     for w in words:
         # 'icontains' searches case insensitively.
         q &= common.dp_lang(lang, Q(title_ja__icontains=w), Q(title_en__icontains=w))
+    return Post.available().filter(q).order_by('publish_at').reverse()
+
+
+def __search_posts_by_title_and_body(lang, word):
+    """So far it doesn't adapt multipul keywords."""
+    if word == '':
+        return []
+    q = common.dp_lang(lang,
+        Q(title_ja__contains=word) | Q(html__contains=word) | (Q(html='') & Q(body_ja__contains=word)),
+        Q(title_en__contains=word) | Q(html__contains=word) | (Q(html='') & Q(body_en__contains=word)),
+    )
     return Post.available().filter(q).order_by('publish_at').reverse()
