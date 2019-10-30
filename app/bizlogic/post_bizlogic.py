@@ -8,11 +8,20 @@ import pytz
 from django.conf import settings
 from django.utils import timezone
 import xml.dom.minidom
+import datetime
 
 
 def get_post_obj_by_code(code):
     """Get one post by code, regardless of publishment condition."""
-    return Post.objects.filter(code=code).first()
+    # Get specified post object.
+    post = Post.objects.filter(code=code).first()
+
+    # Error can occur when publish_at is None. Set the future.
+    if not post.publish_at:
+        post.publish_at = datetime.datetime(
+            2100, 1, 1, 0, 0, 0, 0, pytz.timezone(settings.TIME_ZONE))
+
+    return post
 
 
 def is_available_post_obj(post_obj):
