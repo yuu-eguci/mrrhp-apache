@@ -16,6 +16,10 @@ def get_post_obj_by_code(code):
     # Get specified post object.
     post = Post.objects.filter(code=code).first()
 
+    # It is going to be 404.
+    if not post:
+        return
+
     # Error can occur when publish_at is None. Set the future.
     if not post.publish_at:
         post.publish_at = datetime.datetime(
