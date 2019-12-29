@@ -10,7 +10,7 @@
   <p>
     {{post.publish_at}}
     {% if post.no_en_version %}Sorry, this page is still on translating.{% endif %}
-    {{post.before2019_message}}
+    {{post.has_only_html_body_message}}
   </p>
 </div>
 
