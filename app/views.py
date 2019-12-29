@@ -13,6 +13,7 @@ from app.bizlogic import (comment_bizlogic,
                          )
 from django.conf import settings
 from django.views.defaults import server_error as default_server_error
+import datetime
 
 
 def top(request, lang):
@@ -127,17 +128,14 @@ def page_server_error(request, *args, **kw):
     # print(traceback.format_exc())
 
     # Send error info to Slack and display django default 500 page.
+    # When send to Slack, output a line where the error occurs in order to make it easier to read.
     common.send_slack_notification('\n'.join([
-        'Server Error happened!',
+        f'[{datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}] Server Error happened!',
         f'Request uri: {request.build_absolute_uri()}',
-        f'HTTP_HOST: {request.META["HTTP_HOST"] if "HTTP_HOST" in request.META else "None"}',
         f'HTTP_REFERER: {request.META["HTTP_REFERER"] if "HTTP_REFERER" in request.META else "None"}',
         f'HTTP_USER_AGENT: {request.META["HTTP_USER_AGENT"] if "HTTP_USER_AGENT" in request.META else "None"}',
-        f'QUERY_STRING: {request.META["QUERY_STRING"] if "QUERY_STRING" in request.META else "None"}',
-        f'REMOTE_ADDR: {request.META["REMOTE_ADDR"] if "REMOTE_ADDR" in request.META else "None"}',
-        f'REQUEST_METHOD: {request.META["REQUEST_METHOD"] if "REQUEST_METHOD" in request.META else "None"}',
-        f'',
-        traceback.format_exc(),
+        '\n',
+        traceback.format_exc(limit=-1),
     ]))
     return default_server_error(request, *args, **kw)
 
