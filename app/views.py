@@ -22,7 +22,6 @@ logger = logging.getLogger(__name__)
 
 
 def top(request, lang):
-    aaaa
     data = common_bizlogic.get_base_data(lang, request)
     data['is_top_page'] = True
     data['latest_posts'] = top_bizlogic.get_latest_posts(lang)
