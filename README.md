@@ -15,7 +15,12 @@ Install them.
 - [Vagrant](https://www.vagrantup.com/)
 - [Virtualbox](https://www.virtualbox.org/)
 
-You have to locate **.env** file next to manage.py file. Ask your leader for that.
+You have to locate **.env** file next to manage.py file.
+
+```plaintext
+DATABASE_URL=mysql://root:password@localhost:3306/app
+SLACK_WEBHOOK_URL=your-slack-webhook-url
+```
 
 **Windows user has to open Powershell as Administrator!** Or you cannot create symbolic links and setup will fail.
 
