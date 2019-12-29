@@ -48,12 +48,12 @@ def format_post(post_obj, lang, require_body=False):
 
     # Decide which body will be displayed.
     displayed_body = ''
-    before2019_message = ''
+    has_only_html_body_message = ''
     if require_body:
         displayed_body = select_display_body(post_obj, lang)
-        # If this post is published before 2019, display message.
-        if date_utils.is_before_2019(post_obj.publish_at):
-            before2019_message = common.dp_lang(
+        # If this post has html body, it is judged that this post was moved from previous blog system automatically.
+        if post_obj.html:
+            has_only_html_body_message = common.dp_lang(
                 lang,
                 '自動移設した記事です。崩れてたらゴメン。',
                 'This post was automatically moved.',
@@ -70,7 +70,7 @@ def format_post(post_obj, lang, require_body=False):
             'code': post_obj.tag.code,
         },
         'no_en_version': lang==consts.Lang.EN and not post_obj.body_en,           # If has English body
-        'before2019_message': before2019_message,
+        'has_only_html_body_message': has_only_html_body_message,
         'publish_at_ago': date_utils.get_ago_label(lang, post_obj.publish_at),
     }
 
@@ -83,7 +83,6 @@ def select_display_body(post_obj, lang=consts.Lang.JA):
     return common.dp_lang(lang,
                           post_obj.get_markdownified_body_ja(),
                           post_obj.get_markdownified_body_en())
-
 
 
 def get_related_formatted_posts(lang, post_obj):
