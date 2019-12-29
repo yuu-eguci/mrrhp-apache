@@ -46,11 +46,6 @@ def format_iso(date):
     return date.isoformat()
 
 
-def is_before_2019(date):
-    """Returns if this date is before 2019.01.01"""
-    return date < datetime.datetime(2019,1,1,0,0,0,0,pytz.timezone(settings.TIME_ZONE))
-
-
 def convert_timezone_to_local(dt):
     """Convert datetime tzinfo to local."""
     return dt.astimezone(pytz.timezone(settings.TIME_ZONE))
