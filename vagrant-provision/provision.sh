@@ -115,3 +115,6 @@ sudo apachectl restart
 
 echo '----- Auto start -----'
 sudo systemctl enable httpd.service
+
+echo '----- Mkdir -----'
+sudo mkdir -m 777 /var/log/mrrhp-apache
