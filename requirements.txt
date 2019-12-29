@@ -5,11 +5,11 @@ django-bulk-update==2.2.0
 django-environ==0.4.5
 django-markdownx==2.0.28
 idna==2.8
-Markdown==3.1
-mod-wsgi==4.6.5
-Pillow==6.0.0
+Markdown==3.1.1
+mod-wsgi==4.7.0
+Pillow==6.2.1
 PyMySQL==0.9.3
-pytz==2018.9
-requests==2.21.0
+pytz==2019.3
+requests==2.22.0
 sqlparse==0.3.0
-urllib3==1.24.3
+urllib3==1.25.7
