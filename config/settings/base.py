@@ -36,6 +36,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app',  # Without this, makemigrations doesn't work at least.
     'markdownx',  # Without this, you can't use markdownx on admin at least.
+    'axes',  # To use django-axes.
+]
+
+AUTHENTICATION_BACKENDS = [
+    'axes.backends.AxesBackend',   # Must add at the top.
+    'django.contrib.auth.backends.ModelBackend',
 ]
 
 # markdownx が利用する markdown ライブラリの拡張。
@@ -56,7 +62,22 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'axes.middleware.AxesMiddleware',  # アカウントロック信号を読み取り403にマップする middleware。
 ]
+
+# Settings for django-axes
+# AXES_FAILURE_LIMIT = 5   # How many times does it allow users fail logging in
+# AXES_LOCKOUT_TEMPLATE = 'axes_locked.html'   # User template
+# AXES_COOLOFF_TIME = 24   # How many hours does it lock ip addresses
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+    },
+    'axes_cache': {
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+    }
+}
+AXES_CACHE = 'axes_cache'
 
 ROOT_URLCONF = 'config.urls'
 
