@@ -79,6 +79,9 @@ CACHES = {
 }
 AXES_CACHE = 'axes_cache'
 
+# この logger は production.py の loggers 設定にあります。
+AXES_LOGGER = 'django-axes-logger'
+
 ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
