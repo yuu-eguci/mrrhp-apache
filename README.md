@@ -1,6 +1,8 @@
 Mrrhp Apache
 ===
 
+![](media/media.jpg)
+
 ## Installation
 
 ```bash
