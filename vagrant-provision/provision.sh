@@ -105,6 +105,10 @@ LoadModule wsgi_module /env3.6/lib/python3.6/site-packages/mod_wsgi/server/mod_w
 WSGIPassAuthorization On
 __EOF__
 
+# Make a directory for django-axes loggging
+echo '----- Mkdir -----'
+sudo mkdir -m 777 /var/log/mrrhp-apache
+
 echo '----- Django startup -----'
 /env3.6/bin/python3.6 /vagrant/manage.py migrate --settings=config.settings.production
 /env3.6/bin/python3.6 /vagrant/manage.py collectstatic -c --noinput --settings=config.settings.production
@@ -115,6 +119,3 @@ sudo apachectl restart
 
 echo '----- Auto start -----'
 sudo systemctl enable httpd.service
-
-echo '----- Mkdir -----'
-sudo mkdir -m 777 /var/log/mrrhp-apache
