@@ -28,7 +28,7 @@
 <meta name="twitter:description" content="{{site_desc}}">
 
 <!-- Style CSS -->
-<link rel="stylesheet" href="{% static 'app/style.css' %}?2019-10-07">
+<link rel="stylesheet" href="{% static 'app/style.css' %}?2020-02-22">
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-80238362-2"></script>
