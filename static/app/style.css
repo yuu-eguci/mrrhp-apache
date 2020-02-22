@@ -820,12 +820,11 @@ img {
     margin-bottom: 0;
     margin-top: 30px; }
 .single-blog-content .post-content {
-  padding: 60px 55px;
+  padding: 0px 55px 60px 55px;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15); }
   @media only screen and (max-width: 767px) {
     .single-blog-content .post-content {
-      /* padding: 30px 25px; */
-      padding: 30px 5px; } }
+      padding: 0px 5px 30px 5px; } }
   .single-blog-content .post-content h6 {
     line-height: 1.8;
     margin-bottom: 30px;
@@ -1422,6 +1421,15 @@ textarea:focus ~ .highlight {
 /* Try to change link color on top and list pages for now. */
 a:visited h5 {
   color: #5a1ea5;
+}
+
+/* TOC wrapper */
+.toc-wrapper {
+  padding: 50px 0px 0px 0px;
+}
+.toc-wrapper .markdown-body {
+  padding-top: 16px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
 }
 
 /* Lower anchor link's destination position by header's height */
