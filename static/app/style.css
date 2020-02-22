@@ -1424,6 +1424,15 @@ a:visited h5 {
   color: #5a1ea5;
 }
 
+/* TOC wrapper */
+.toc-wrapper {
+  padding: 50px 0px 0px 0px;
+}
+.toc-wrapper .markdown-body {
+  padding-top: 16px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+}
+
 /* Lower anchor link's destination position by header's height */
 .markdown-body h2,
 .markdown-body h3,

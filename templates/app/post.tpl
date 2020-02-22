@@ -23,7 +23,14 @@
           </div>
         </div>
         {% comment %} Right Area {% endcomment %}
-        <div class="col-12 col-md-2 col-lg-2">
+        <div class="d-none d-lg-block col-lg-2">
+          <div class="single-blog-content sticky-top">
+            <div class="toc-wrapper">
+              <div class="markdown-body">
+                {% comment %} The area is where div.toc is moved in by JS. {% endcomment %}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       {% comment %} Row1 ends {% endcomment %}
