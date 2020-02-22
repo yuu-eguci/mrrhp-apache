@@ -34,6 +34,12 @@
         </div>
       </div>
       {% comment %} Row1 ends {% endcomment %}
+      <script>
+        const moveTocDiv = function () {
+          $('div.toc').appendTo('div.toc-wrapper .markdown-body');
+        };
+        window.addEventListener(/* type = */ 'load', /* listener = */ moveTocDiv);
+      </script>
 
       {% comment %} Row2 {% endcomment %}
       {% if linked_from %}
