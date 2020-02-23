@@ -23,7 +23,7 @@
           </div>
         </div>
         {% comment %} Right Area {% endcomment %}
-        <div class="d-none d-lg-block col-lg-2">
+        <div class="d-none d-lg-block col-lg-2 pl-0">
           <div class="single-blog-content sticky-top">
             <div id="toc-wrapper">
               <div class="markdown-body">
