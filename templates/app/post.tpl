@@ -25,7 +25,7 @@
         {% comment %} Right Area {% endcomment %}
         <div class="d-none d-lg-block col-lg-2">
           <div class="single-blog-content sticky-top">
-            <div class="toc-wrapper">
+            <div id="toc-wrapper">
               <div class="markdown-body">
                 {% comment %} The area is where div.toc is moved in by JS. {% endcomment %}
               </div>
@@ -36,7 +36,11 @@
       {% comment %} Row1 ends {% endcomment %}
       <script>
         const moveTocDiv = function () {
-          $('div.toc').appendTo('div.toc-wrapper .markdown-body');
+          $('div.toc').appendTo('div#toc-wrapper .markdown-body');
+          // {% comment %} Empty #toc-wrapper also displays the design. Remove it. {% endcomment %}
+          if ($('div.toc').length === 0) {
+            $('div#toc-wrapper').remove();
+          }
         };
         window.addEventListener(/* type = */ 'load', /* listener = */ moveTocDiv);
       </script>
