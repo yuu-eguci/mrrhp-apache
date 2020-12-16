@@ -46,8 +46,8 @@ GRANT ALL PRIVILEGES ON *.* TO root@'192.168.33.1' IDENTIFIED BY 'password';
 __EOF__
 
 echo '----- Install Python -----'
-sudo yum install -y https://centos7.iuscommunity.org/ius-release.rpm
-sudo yum install -y python36u python36u-libs python36u-devel
+# python3-devel がないと mod_wsgi が入らない。
+sudo yum install python3 python3-devel -y
 which python
 which python3.6
 
@@ -119,3 +119,9 @@ sudo apachectl restart
 
 echo '----- Auto start -----'
 sudo systemctl enable httpd.service
+
+# axes を追加したことで、パーミッションの変更が必要になりました。
+# NOTE: これを設定しないと internal server error が発生します。
+#       ちなみにそのときのログは sudo cat /var/log/httpd/error_log で参照できます。
+sudo chmod 666 /var/log/mrrhp-apache/django-axes.log
+sudo chmod 666 /var/log/mrrhp-apache/error.log
