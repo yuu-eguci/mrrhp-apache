@@ -46,8 +46,8 @@ GRANT ALL PRIVILEGES ON *.* TO root@'192.168.33.1' IDENTIFIED BY 'password';
 __EOF__
 
 echo '----- Install Python -----'
-sudo yum install -y https://centos7.iuscommunity.org/ius-release.rpm
-sudo yum install -y python36u python36u-libs python36u-devel
+# python3-devel がないと mod_wsgi が入らない。
+sudo yum install python3 python3-devel -y
 which python
 which python3.6
 
