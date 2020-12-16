@@ -24,7 +24,12 @@
         </div>
         {% comment %} Right Area {% endcomment %}
         <div class="d-none d-lg-block col-lg-2 pl-0">
-          <div class="single-blog-content sticky-top">
+          {% comment %}
+            NOTE: この TOC リストがヘッダにかぶる問題を解消するため z-index を指定しています。
+                  .sticky-top に z-index:1020 がついている。
+                  ヘッダの .header-area に z-index:300 がついているので、コレは 299 にしています。
+          {% endcomment %}
+          <div class="single-blog-content sticky-top" style="z-index:299;">
             <div id="toc-wrapper">
               <div class="markdown-body">
                 {% comment %} The area is where div.toc is moved in by JS. {% endcomment %}
