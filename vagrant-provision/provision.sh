@@ -119,3 +119,9 @@ sudo apachectl restart
 
 echo '----- Auto start -----'
 sudo systemctl enable httpd.service
+
+# axes を追加したことで、パーミッションの変更が必要になりました。
+# NOTE: これを設定しないと internal server error が発生します。
+#       ちなみにそのときのログは sudo cat /var/log/httpd/error_log で参照できます。
+sudo chmod 666 /var/log/mrrhp-apache/django-axes.log
+sudo chmod 666 /var/log/mrrhp-apache/error.log
