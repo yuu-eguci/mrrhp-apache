@@ -6,6 +6,7 @@ from app.usrlib import common, consts
 from app.models import *
 from django.db.models import Q
 from app.bizlogic import tag_bizlogic
+from app.usrlib import date_utils
 
 
 def get_posts_by_search_words(lang, word):
