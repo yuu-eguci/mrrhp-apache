@@ -8,6 +8,7 @@ from app.bizlogic import (image_bizlogic,
                           )
 from app.usrlib import common
 from django.utils.html import format_html
+from app.usrlib import date_utils
 
 
 class ConfigAdmin(admin.ModelAdmin):
@@ -31,6 +32,13 @@ class PostAdmin(MarkdownxModelAdmin):
     list_display = ('title_ja', 'publish_page_link', 'publish_at')
     ordering = ('-created_at',)
     search_fields = ('title_ja', 'code', 'publish_at')
+
+    def get_changeform_initial_data(self, request):
+
+        # NOTE: Model の default=date_utils.get_current_year_id() に頼らず、
+        #       編集ページ表示時のデフォルト値を動的にするために追加。
+        #       新規編集のときのみ初期値を current_year にします。
+        return {'year': date_utils.get_current_year_id()}
 
     def save_model(self, request, obj, form, change):
         """Describe what you want to do before saving.
