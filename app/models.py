@@ -1,7 +1,6 @@
 from django.db import models
 from markdownx.models import MarkdownxField
 from markdownx.utils import markdownify
-from app.usrlib import date_utils
 from django.utils import timezone
 
 
@@ -115,7 +114,6 @@ class Post(models.Model):
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
-        default=date_utils.get_current_year_id(),
     )
 
     title_ja = models.CharField(
