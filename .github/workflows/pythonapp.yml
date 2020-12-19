@@ -1,0 +1,46 @@
+name: Python application
+
+on:
+  push:
+    branches: [ master ]
+
+env:
+  SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    # Test を行う場合はここで set up Python や install dependencies, migration や test を行う。
+    # NOTE: mrrhp-apache はユニットテストを行っていないのでスキップ。
+
+    - name: Deployment
+      run: |
+        echo "$SECRET_KEY" > secret_key
+        chmod 600 secret_key
+        ssh -oStrictHostKeyChecking=no ${SERVER_USER}@${SERVER_HOST} -i secret_key "$SSH_COMMAND_FOR_DEPLOYMENT"
+      env:
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        SERVER_USER: ${{ secrets.SERVER_USER }}
+        SERVER_HOST: ${{ secrets.SERVER_HOST }}
+        SSH_COMMAND_FOR_DEPLOYMENT: ${{ secrets.SSH_COMMAND_FOR_DEPLOYMENT }}
+
+    # 成功時はこちらのステップが実行されます。
+    - name: Slack Notification on Success
+      if: success()
+      uses: rtCamp/action-slack-notify@v2.0.2
+      env:
+        SLACK_TITLE: Mrrhp deployment succeeded
+        SLACK_COLOR: good
+
+    # 失敗時はこちらのステップが実行されます。
+    - name: Slack Notification on Failure
+      uses: rtCamp/action-slack-notify@v2.0.2
+      if: failure()
+      env:
+        SLACK_TITLE: Mrrhp deployment failed
+        SLACK_COLOR: danger
