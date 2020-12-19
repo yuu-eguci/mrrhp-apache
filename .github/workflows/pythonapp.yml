@@ -22,12 +22,18 @@ jobs:
       run: |
         echo "$SECRET_KEY" > secret_key
         chmod 600 secret_key
-        ssh -oStrictHostKeyChecking=no ${SERVER_USER}@${SERVER_HOST} -i secret_key "$SSH_COMMAND_FOR_DEPLOYMENT"
+        ssh -oStrictHostKeyChecking=no ${SERVER_USER}@${SERVER_HOST} -i secret_key "
+        cd /vagrant/ &&
+        git fetch origin &&
+        git reset --hard origin/master &&
+        sudo /env3.6/bin/python3.6 /vagrant/manage.py migrate --settings=config.settings.production &&
+        sudo /env3.6/bin/python3.6 /vagrant/manage.py collectstatic -c --noinput --settings=config.settings.production &&
+        sudo apachectl restart
+        "
       env:
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
         SERVER_USER: ${{ secrets.SERVER_USER }}
         SERVER_HOST: ${{ secrets.SERVER_HOST }}
-        SSH_COMMAND_FOR_DEPLOYMENT: ${{ secrets.SSH_COMMAND_FOR_DEPLOYMENT }}
 
     # 成功時はこちらのステップが実行されます。
     - name: Slack Notification on Success
