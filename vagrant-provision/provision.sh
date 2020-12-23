@@ -94,7 +94,27 @@ WSGIScriptAlias    / /vagrant/config/wsgi.py
         Require all granted
     </Files>
 </Directory>
+
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE text/javascript
+    AddOutputFilterByType DEFLATE image/gif
+    AddOutputFilterByType DEFLATE image/jpeg
+    AddOutputFilterByType DEFLATE image/png
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/json
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+</IfModule>
 __EOF__
+# NOTE: ↑deflate は PageSpeed Insights の「テキスト圧縮の有効化」に対応するため導入しました。
+#       が、有効になっているのかはよくわかりません。
+#       次のふたつの module が有効になっている必要があるらしいです。
+#       LoadModule filter_module modules/mod_filter.so
+#       LoadModule deflate_module modules/mod_deflate.so
 
 echo '----- Create mod_wsgi.conf -----'
 # venv環境内soのパスを書く。find /env3.6 -name 'mod_wsgi*.so' でわかる。
