@@ -28,6 +28,15 @@
 <meta name="twitter:description" content="{{site_desc}}">
 
 <!-- Style CSS -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700|Work+Sans:300,400,500,600,700">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+<link rel="stylesheet" href="{% static 'app/css/owl.carousel.css' %}">
+<link rel="stylesheet" href="{% static 'app/css/magnific-popup.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
+<link rel="stylesheet" href="{% static 'app/css/themify-icons.css' %}">
+<link rel="stylesheet" href="{% static 'app/vendor/github-markdown.css' %}">
+<link rel="stylesheet" href="{% static 'app/vendor/highlight/default.css' %}">
 <link rel="stylesheet" href="{% static 'app/style.css' %}?2020-02-23">
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
