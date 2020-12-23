@@ -14,7 +14,8 @@
               {{site_version}}
             </p>
             <p>
-              Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved
+              Copyright &copy;
+              <span id="full-year"></span> All rights reserved
             </p>
             <p>
               This site is made by Midoriiro
@@ -44,24 +45,28 @@
 <!-- ***** Footer Area End ***** -->
 
 <!-- jQuery (Necessary for All JavaScript Plugins) -->
-<script src="{% static 'app/js/jquery/jquery-2.2.4.min.js' %}"></script>
+<script defer src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <!-- Popper js -->
-<script src="{% static 'app/js/popper.min.js' %}"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <!-- Bootstrap js -->
-<script src="{% static 'app/js/bootstrap.min.js' %}"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"></script>
 <!-- Plugins js -->
-<script src="{% static 'app/js/plugins.js' %}"></script>
+<script defer src="{% static 'app/js/plugins.js' %}"></script>
 <!-- Active js -->
-<script src="{% static 'app/js/active.js' %}"></script>
+<script defer src="{% static 'app/js/active.js' %}"></script>
 <!-- highlight.js -->
 <!-- https://laboradian.com/how-to-use-highlightjs/ -->
-<script src="{% static 'app/vendor/highlight/highlight.pack.js' %}"></script>
-<script>hljs.initHighlightingOnLoad();</script>
+<script defer src="{% static 'app/vendor/highlight/highlight.pack.js' %}"></script>
 <!-- Click div to click link -->
 <script>
   $(function() {
+    hljs.initHighlightingOnLoad();
+
     $('.click-to-link').click(function() {
       this.querySelector('div a').click();
     });
+
+    // NOTE: もともとのテンプレートでは document.write で描画していますが、 [Violation] Avoid using document.write(). が出るためこちらで描画しています。
+    $('#full-year').html(new Date().getFullYear());
   });
 </script>
