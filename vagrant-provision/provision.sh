@@ -96,6 +96,7 @@ WSGIScriptAlias    / /vagrant/config/wsgi.py
 </Directory>
 
 <IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html
     AddOutputFilterByType DEFLATE text/plain
     AddOutputFilterByType DEFLATE text/css
     AddOutputFilterByType DEFLATE text/javascript
