@@ -181,4 +181,15 @@
         }, 1000);
     }
 
+    // NOTE: もともと footer-area で実行していましたが、 script defer 導入に伴ってこちらに入れました。
+    hljs.initHighlightingOnLoad();
+
+    // Click div to click link
+    $('.click-to-link').click(function () {
+        this.querySelector('div a').click();
+    });
+
+    // NOTE: もともとのテンプレートでは document.write で描画していますが、 [Violation] Avoid using document.write(). が出るためこちらで描画しています。
+    $('#full-year').html(new Date().getFullYear());
+
 })(jQuery);
