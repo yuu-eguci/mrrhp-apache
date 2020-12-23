@@ -52,21 +52,8 @@
 <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"></script>
 <!-- Plugins js -->
 <script defer src="{% static 'app/js/plugins.js' %}"></script>
-<!-- Active js -->
-<script defer src="{% static 'app/js/active.js' %}"></script>
 <!-- highlight.js -->
 <!-- https://laboradian.com/how-to-use-highlightjs/ -->
 <script defer src="{% static 'app/vendor/highlight/highlight.pack.js' %}"></script>
-<!-- Click div to click link -->
-<script>
-  $(function() {
-    hljs.initHighlightingOnLoad();
-
-    $('.click-to-link').click(function() {
-      this.querySelector('div a').click();
-    });
-
-    // NOTE: もともとのテンプレートでは document.write で描画していますが、 [Violation] Avoid using document.write(). が出るためこちらで描画しています。
-    $('#full-year').html(new Date().getFullYear());
-  });
-</script>
+<!-- Active js -->
+<script defer src="{% static 'app/js/active.js' %}"></script>
