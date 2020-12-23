@@ -34,6 +34,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
+<link rel="stylesheet" href="{% static 'app/css/themify-icons.css' %}">
 <link rel="stylesheet" href="{% static 'app/vendor/github-markdown.css' %}">
 <link rel="stylesheet" href="{% static 'app/vendor/highlight/default.css' %}">
 <link rel="stylesheet" href="{% static 'app/style.css' %}?2020-02-23">
