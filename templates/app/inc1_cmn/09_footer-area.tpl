@@ -14,7 +14,8 @@
               {{site_version}}
             </p>
             <p>
-              Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved
+              Copyright &copy;
+              <span id="full-year"></span> All rights reserved
             </p>
             <p>
               This site is made by Midoriiro
@@ -63,5 +64,8 @@
     $('.click-to-link').click(function() {
       this.querySelector('div a').click();
     });
+
+    // NOTE: もともとのテンプレートでは document.write で描画していますが、 [Violation] Avoid using document.write(). が出るためこちらで描画しています。
+    $('#full-year').html(new Date().getFullYear());
   });
 </script>
