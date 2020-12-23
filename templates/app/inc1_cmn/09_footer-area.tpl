@@ -45,11 +45,11 @@
 <!-- ***** Footer Area End ***** -->
 
 <!-- jQuery (Necessary for All JavaScript Plugins) -->
-<script src="{% static 'app/js/jquery/jquery-2.2.4.min.js' %}"></script>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <!-- Popper js -->
-<script src="{% static 'app/js/popper.min.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <!-- Bootstrap js -->
-<script src="{% static 'app/js/bootstrap.min.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"></script>
 <!-- Plugins js -->
 <script src="{% static 'app/js/plugins.js' %}"></script>
 <!-- Active js -->
