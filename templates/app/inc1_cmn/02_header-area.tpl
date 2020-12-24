@@ -23,17 +23,17 @@
             <ul class="navbar-nav ml-auto">
               <li class="nav-item {% if is_top_page %}active{% endif %}">
                 <a class="nav-link" href="/{{lang}}/">
-                  <i class="fa fa-home"></i> TOP
+                  <i class="fas fa-home"></i> TOP
                 </a>
               </li>
               <li class="nav-item {% if is_latest_page %}active{% endif %}">
                 <a class="nav-link" href="/{{lang}}/latest/">
-                  <i class="fa fa-flag"></i> LATEST
+                  <i class="fas fa-flag"></i> LATEST
                 </a>
               </li>
               <li class="nav-item dropdown {% if is_tag_page %}active{% endif %}">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="fa fa-tags"></i> TAGS
+                  <i class="fas fa-tags"></i> TAGS
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                   {% for tag in tags %}
@@ -45,7 +45,7 @@
               </li>
               <li class="nav-item dropdown {% if is_year_page %}active{% endif %}">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="fa fa-calendar"></i> YEAR
+                  <i class="fas fa-calendar-alt"></i> YEAR
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                   {% for year in years %}
