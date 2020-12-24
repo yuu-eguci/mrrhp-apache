@@ -15,7 +15,7 @@
             </p>
             <p>
               Copyright &copy;
-              <span id="full-year"></span> All rights reserved
+              <span class="full-year"></span> All rights reserved
             </p>
             <p>
               This site is made by Midoriiro

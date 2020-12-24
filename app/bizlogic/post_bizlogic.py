@@ -61,6 +61,7 @@ def format_post(post_obj, lang, require_body=False):
             )
 
     return {
+        'id': post_obj.id,
         'title'     : common.dp_lang(lang, post_obj.title_ja, post_obj.title_en), # Depends on lang
         'code'      : post_obj.code,                                              # As it is
         'publish_at': date_utils.format_by_lang_Ymd(lang, post_obj.publish_at),   # Change format depends on lang

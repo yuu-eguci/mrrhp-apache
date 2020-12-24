@@ -18,19 +18,24 @@
   {{post.body|safe}}
 </div>
 
-<div class="social-buttons">
+<div class="d-flex justify-content-between">
   <div>
     <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">
       Tweet
     </a>
-  </div>
-  <div>
     <a href="https://twitter.com/intent/tweet?screen_name=miroriiro&ref_src=twsrc%5Etfw" class="twitter-mention-button" data-show-count="false">
       Tweet to @miroriiro
     </a>
-  </div>
-  <div>
     <a href="https://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="basic-label" data-hatena-bookmark-lang="ja" title="このエントリーをはてなブックマークに追加"><img src="https://b.st-hatena.com/images/v4/public/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a>
+  </div>
+  {% comment %}
+    NOTE: 記事の閲覧中に編集ページへ即座に遷移するため用意したこっそりリンクです。
+          これがないと、「あっタイポがある -> admin 開く -> 該当記事を検索 -> 編集ページを開く」面倒です。
+  {% endcomment %}
+  <div>
+    <a href="/admin/app/post/{{post.id}}/" target="_blank">
+      &copy; <span class="full-year"></span> Midoriiro
+    </a>
   </div>
 </div>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
