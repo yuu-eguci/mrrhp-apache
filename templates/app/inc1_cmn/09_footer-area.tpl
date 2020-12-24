@@ -32,7 +32,7 @@
             {% for tag in tags %}
               <li>
                 <a href="/{{lang}}/tags/{{tag.code}}">
-                  <i class="fa fa-tag"></i> {{tag.name}}
+                  <i class="fas fa-tag"></i> {{tag.name}}
                 </a>
               </li>
             {% endfor %}

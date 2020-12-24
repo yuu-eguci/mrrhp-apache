@@ -15,12 +15,12 @@
       {% endif %}
     </p>
     <div class="social-area d-flex justify-content-between">
-      <a href="https://gitlab.com/midori-mate"><i class="fa fa-gitlab"></i></a>
-      <a href="https://twitter.com/miroriiro"><i class="fa fa-twitter"></i></a>
-      <a href="https://www.instagram.com/hitorenshuu/"><i class="fa fa-instagram"></i></a>
-      <a><i class="fa fa-ban"></i></a>
-      <a><i class="fa fa-ban"></i></a>
-      <a><i class="fa fa-ban"></i></a>
+      <a href="https://gitlab.com/midori-mate"><i class="fab fa-gitlab"></i></a>
+      <a href="https://twitter.com/miroriiro"><i class="fab fa-twitter"></i></a>
+      <a href="https://www.instagram.com/hitorenshuu/"><i class="fab fa-instagram"></i></a>
+      <a><i class="fas fa-ban"></i></a>
+      <a><i class="fas fa-ban"></i></a>
+      <a><i class="fas fa-ban"></i></a>
     </div>
   </div>
 </div><!-- Widget Area Ends -->
