@@ -190,6 +190,6 @@
     });
 
     // NOTE: もともとのテンプレートでは document.write で描画していますが、 [Violation] Avoid using document.write(). が出るためこちらで描画しています。
-    $('#full-year').html(new Date().getFullYear());
+    $('.full-year').html(new Date().getFullYear());
 
 })(jQuery);
