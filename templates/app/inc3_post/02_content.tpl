@@ -9,10 +9,32 @@
   {% endif %}
   <p>
     {{post.publish_at}}
+    {% comment %}
+      [(DATE)TITLE](/url-path) の形式で clipboard copy を行うボタンです。
+    {% endcomment %}
+    <a onclick="copyTextInClipboard('[({{post.publish_at}}){{post.title}}](/{{lang}}/{{post.code}})');">
+      <i class="fab fa-markdown"></i>
+    </a>
+
     {% if post.no_en_version %}Sorry, this page is still on translating.{% endif %}
     {{post.has_only_html_body_message}}
   </p>
 </div>
+
+<script>
+  // {% comment %}
+  //   文字列をクリップボードにコピーします。
+  // {% endcomment %}
+  const copyTextInClipboard = function (text) {
+    const tempTextarea = document.createElement('textarea');
+    tempTextarea.textContent = text;
+    const tempBodyElement = document.getElementsByTagName('body')[0];
+    tempBodyElement.appendChild(tempTextarea);
+    tempTextarea.select();
+    document.execCommand('copy');
+    tempBodyElement.removeChild(tempTextarea);
+  };
+</script>
 
 <div class="post-content markdown-body mb-30">
   {{post.body|safe}}
