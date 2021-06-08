@@ -10,7 +10,7 @@ django-markdownx==2.0.28
 idna==2.8
 Markdown==3.1.1
 mod-wsgi==4.7.0
-Pillow==6.2.1
+Pillow==8.2.0
 PyMySQL==0.9.3
 pytz==2019.3
 requests==2.22.0
