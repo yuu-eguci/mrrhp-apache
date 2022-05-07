@@ -63,7 +63,7 @@ sudo which /env3.6/bin/python3.6
 
 # なんか Vagrant では yum で取得する pip に異常があるので別途仮想python3.6環境内へインストール。(ImportError main)
 echo '----- Install pip -----'
-sudo curl https://bootstrap.pypa.io/get-pip.py -o /get-pip.py
+sudo curl https://bootstrap.pypa.io/pip/3.6/get-pip.py -o /get-pip.py
 sudo /env3.6/bin/python3.6 /get-pip.py
 sudo rm /get-pip.py -f
 sudo /env3.6/bin/python3.6 -m pip install --upgrade pip setuptools
