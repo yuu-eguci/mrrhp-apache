@@ -1,5 +1,10 @@
 #!/bin/sh
 
+# エラーが発生したら exit します。
+# NOTE: provision 中にエラーが発生し、どれかのコマンドがインストールできなかったとき
+#       問題の認識をやりやすくするため。
+set -e
+
 # windows10でやる場合、errno 71 protocol error が出る。
 # Powershellを管理者権限で開くことで解決する。Winは相変わらず面倒。
 
@@ -58,7 +63,7 @@ sudo which /env3.6/bin/python3.6
 
 # なんか Vagrant では yum で取得する pip に異常があるので別途仮想python3.6環境内へインストール。(ImportError main)
 echo '----- Install pip -----'
-sudo curl https://bootstrap.pypa.io/get-pip.py -o /get-pip.py
+sudo curl https://bootstrap.pypa.io/pip/3.6/get-pip.py -o /get-pip.py
 sudo /env3.6/bin/python3.6 /get-pip.py
 sudo rm /get-pip.py -f
 sudo /env3.6/bin/python3.6 -m pip install --upgrade pip setuptools
@@ -89,11 +94,23 @@ Alias /static/     /var/www/static/
     Require all granted
 </Directory>
 WSGIScriptAlias    / /vagrant/config/wsgi.py
-<Directory /vagrant/config>
-    <Files wsgi.py>
-        Require all granted
-    </Files>
-</Directory>
+<VirtualHost *:80>
+    ServerName any
+    <Location />
+        Order Deny,Allow
+        Deny from all
+    </Location>
+</VirtualHost>
+
+<VirtualHost *:80>
+  ServerName www.mrrhp.com
+  ServerAlias localhost
+  <Directory /vagrant/config>
+      <Files wsgi.py>
+          Require all granted
+      </Files>
+  </Directory>
+</VirtualHost>
 
 <IfModule mod_deflate.c>
     AddOutputFilterByType DEFLATE text/html
@@ -136,6 +153,7 @@ echo '----- Django startup -----'
 /env3.6/bin/python3.6 /vagrant/manage.py loaddata /vagrant/fixtures/initial_db_data.json --settings=config.settings.production
 
 echo '----- Start apache -----'
+sudo setenforce 0
 sudo apachectl restart
 
 echo '----- Auto start -----'
