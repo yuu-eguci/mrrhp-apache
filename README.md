@@ -17,6 +17,12 @@ Install them.
 - [Vagrant](https://www.vagrantup.com/)
 - [Virtualbox](https://www.virtualbox.org/)
 
+And install vagrant-vbguest. I don't know if this is required or not tho.
+
+```bash
+vagrant plugin install vagrant-vbguest
+```
+
 You have to locate **.env** file next to manage.py file.
 
 ```plaintext
