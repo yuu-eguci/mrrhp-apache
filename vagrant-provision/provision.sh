@@ -94,11 +94,23 @@ Alias /static/     /var/www/static/
     Require all granted
 </Directory>
 WSGIScriptAlias    / /vagrant/config/wsgi.py
-<Directory /vagrant/config>
-    <Files wsgi.py>
-        Require all granted
-    </Files>
-</Directory>
+<VirtualHost *:80>
+    ServerName any
+    <Location />
+        Order Deny,Allow
+        Deny from all
+    </Location>
+</VirtualHost>
+
+<VirtualHost *:80>
+  ServerName www.mrrhp.com
+  ServerAlias localhost
+  <Directory /vagrant/config>
+      <Files wsgi.py>
+          Require all granted
+      </Files>
+  </Directory>
+</VirtualHost>
 
 <IfModule mod_deflate.c>
     AddOutputFilterByType DEFLATE text/html
@@ -141,6 +153,7 @@ echo '----- Django startup -----'
 /env3.6/bin/python3.6 /vagrant/manage.py loaddata /vagrant/fixtures/initial_db_data.json --settings=config.settings.production
 
 echo '----- Start apache -----'
+sudo setenforce 0
 sudo apachectl restart
 
 echo '----- Auto start -----'
