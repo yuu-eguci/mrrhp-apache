@@ -94,23 +94,52 @@ Alias /static/     /var/www/static/
     Require all granted
 </Directory>
 WSGIScriptAlias    / /vagrant/config/wsgi.py
+
+# ふたつの VirtualHost ディレクティブによって、
+# http については "localhost" からのアクセスのみ許可する設定です。
+# XXX: なぜかこの設定で https://www.mrrhp.com も deny される。なんでや。
 <VirtualHost *:80>
     ServerName any
     <Location />
-        Order Deny,Allow
-        Deny from all
+        Require all denied
     </Location>
 </VirtualHost>
-
 <VirtualHost *:80>
-  ServerName www.mrrhp.com
-  ServerAlias localhost
-  <Directory /vagrant/config>
-      <Files wsgi.py>
-          Require all granted
-      </Files>
-  </Directory>
+    ServerName localhost
+    <Directory /vagrant/config>
+        <Files wsgi.py>
+            Require all granted
+        </Files>
+    </Directory>
 </VirtualHost>
+
+# ふたつの VirtualHost ディレクティブによって、
+# https については "www.mrrhp.com" からのアクセスのみ許可する設定です。
+# NOTE: これらのディレクティブは https 環境 (本番) でコメント解除してください。
+#       いや、環境構築用の設定は別であるべきなんだけれど、 MrrhpApache では
+#       知見をすべてコードに突っ込むコンセプトで進んでいるので。
+# <VirtualHost *:443>
+#     ServerName any
+#     SSLEngine on
+#     SSLCertificateFile /etc/letsencrypt/live/www.mrrhp.com/cert.pem
+#     SSLCertificateKeyFile /etc/letsencrypt/live/www.mrrhp.com/privkey.pem
+#     SSLCertificateChainFile /etc/letsencrypt/live/www.mrrhp.com/chain.pem
+#     <Location />
+#         Require all denied
+#     </Location>
+# </VirtualHost>
+# <VirtualHost *:443>
+#     ServerName www.mrrhp.com
+#     SSLEngine on
+#     SSLCertificateFile /etc/letsencrypt/live/www.mrrhp.com/cert.pem
+#     SSLCertificateKeyFile /etc/letsencrypt/live/www.mrrhp.com/privkey.pem
+#     SSLCertificateChainFile /etc/letsencrypt/live/www.mrrhp.com/chain.pem
+#     <Directory /vagrant/config>
+#         <Files wsgi.py>
+#             Require all granted
+#         </Files>
+#     </Directory>
+# </VirtualHost>
 
 <IfModule mod_deflate.c>
     AddOutputFilterByType DEFLATE text/html
