@@ -1,5 +1,10 @@
 #!/bin/sh
 
+# エラーが発生したら exit します。
+# NOTE: provision 中にエラーが発生し、どれかのコマンドがインストールできなかったとき
+#       問題の認識をやりやすくするため。
+set -e
+
 # windows10でやる場合、errno 71 protocol error が出る。
 # Powershellを管理者権限で開くことで解決する。Winは相変わらず面倒。
 
