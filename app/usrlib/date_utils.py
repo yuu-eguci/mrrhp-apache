@@ -49,7 +49,8 @@ def format_by_lang_md(lang, date):
 
 
 def format_iso(date):
-    """Representation of dates and times is an international standard covering the exchange of date- and time-related data."""
+    """Representation of dates and times is
+    an international standard coveringthe exchange of date- and time-related data."""
     return date.isoformat()
 
 
