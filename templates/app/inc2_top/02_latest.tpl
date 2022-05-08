@@ -3,12 +3,6 @@
 <div class="world-catagory-area">
   <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="title">Latest</li>
-    <li class="nav-item">
-      <a href="/{{lang}}/years/{{latest_year}}">
-        <i class="fas fa-calendar-alt"></i>
-        {{latest_year}}年一覧
-      </a>
-    </li>
   </ul>
   <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active">
@@ -38,6 +32,12 @@
         </div>
       {% endfor %}
 
+      <div class="single-blog-post text-center mt-3 p-3 click-to-link">
+        <a href="/{{lang}}/years/{{latest_year}}">
+          <i class="fas fa-calendar-alt"></i>
+          {{latest_year}}年一覧
+        </a>
+    </div>
     </div>
   </div>
 </div>
