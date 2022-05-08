@@ -4,9 +4,8 @@
 
 import os
 from django.conf import settings
-from app.models import *
+from app.models import Comment, Post
 import pickle
-import pytz
 from app.usrlib import date_utils
 
 
@@ -25,7 +24,7 @@ def register_comment_from_pickle() -> None:
     Comment.objects.bulk_create(__create_commen_objs_as_iter(data))
 
 
-def __create_commen_objs_as_iter(data:dict):
+def __create_commen_objs_as_iter(data: dict):
     """Create Comment objects from comment data dict and yield them."""
     for postcode, comments_data in data.items():
         post = Post.objects.filter(code=postcode).first()
@@ -42,8 +41,8 @@ def get_comments_for_post(lang, post_obj):
     return [
         {
             'comment_at': date_utils.convert_timezone_to_local(comment.comment_at),
-            'name'      : comment.name,
-            'body'      : comment.body,
+            'name': comment.name,
+            'body': comment.body,
         }
         for comment in Comment.objects.filter(post=post_obj).order_by('comment_at')
     ]

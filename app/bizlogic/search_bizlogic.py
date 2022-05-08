@@ -3,7 +3,7 @@
 """
 
 from app.usrlib import common, consts
-from app.models import *
+from app.models import Post
 from django.db.models import Q
 from app.bizlogic import tag_bizlogic
 from app.usrlib import date_utils
@@ -65,7 +65,8 @@ def __search_posts_by_title_and_body(lang, word):
     """So far it doesn't adapt multipul keywords."""
     if word == '':
         return []
-    q = common.dp_lang(lang,
+    q = common.dp_lang(
+        lang,
         Q(title_ja__contains=word) | Q(html__contains=word) | (Q(html='') & Q(body_ja__contains=word)),
         Q(title_en__contains=word) | Q(html__contains=word) | (Q(html='') & Q(body_en__contains=word)),
     )

@@ -2,7 +2,7 @@
 """Post bizlogic
 """
 
-from app.models import *
+from app.models import Post
 from app.usrlib import consts, common
 import pytz
 from django.conf import settings
@@ -24,7 +24,8 @@ def get_post_obj_by_code(code):
     # Error can occur when publish_at is None. Set the future.
     if not post.publish_at:
         post.publish_at = datetime.datetime(
-            2100, 1, 1, 0, 0, 0, 0, pytz.timezone(settings.TIME_ZONE))
+            2100, 1, 1, 0, 0, 0, 0, pytz.timezone(settings.TIME_ZONE)
+        )
 
     return post
 
@@ -62,16 +63,16 @@ def format_post(post_obj, lang, require_body=False):
 
     return {
         'id': post_obj.id,
-        'title'     : common.dp_lang(lang, post_obj.title_ja, post_obj.title_en), # Depends on lang
-        'code'      : post_obj.code,                                              # As it is
+        'title': common.dp_lang(lang, post_obj.title_ja, post_obj.title_en),  # Depends on lang
+        'code': post_obj.code,                                              # As it is
         'publish_at': date_utils.format_by_lang_Ymd(lang, post_obj.publish_at),   # Change format depends on lang
-        'thumbnail' : post_obj.thumbnail,                                         # As it is
-        'body'      : displayed_body,                                             # Be made above.
-        'tag'       : {                                                           # As it is.
+        'thumbnail': post_obj.thumbnail,                                         # As it is
+        'body': displayed_body,                                             # Be made above.
+        'tag': {                                                           # As it is.
             'name': common.dp_lang(lang, post_obj.tag.name_ja, post_obj.tag.name_en),
             'code': post_obj.tag.code,
         },
-        'no_en_version': lang==consts.Lang.EN and not post_obj.body_en,           # If has English body
+        'no_en_version': lang == consts.Lang.EN and not post_obj.body_en,           # If has English body
         'has_only_html_body_message': has_only_html_body_message,
         'publish_at_ago': date_utils.get_ago_label(lang, post_obj.publish_at),
     }
@@ -94,7 +95,7 @@ def get_related_formatted_posts(lang, post_obj):
             format_post(obj, lang, require_body=False)
             for obj in related_post_objs
         ],
-        format_post(next_post_obj    , lang, require_body=False),
+        format_post(next_post_obj, lang, require_body=False),
         format_post(previous_post_obj, lang, require_body=False),
     )
 
@@ -123,7 +124,7 @@ def get_related_post_objs(post_obj):
             Post.available()
                 .filter(tag=post_obj.tag, publish_at__lt=post_obj.publish_at)
                 .order_by('publish_at')
-                .reverse()[:6-len(forward_post_objs)]
+                .reverse()[:6 - len(forward_post_objs)]
         )
     ]
 
@@ -161,15 +162,15 @@ def make_sitemap_posts_xml():
 
     # Create xml node tree.
     urlset = __create_xml_node('urlset',
-                        attr_key='xmlns',
-                        attr_value='http://www.sitemaps.org/schemas/sitemap/0.9')
+                               attr_key='xmlns',
+                               attr_value='http://www.sitemaps.org/schemas/sitemap/0.9')
     for lang in [consts.Lang.JA, consts.Lang.EN]:
         for post in posts:
             url = __create_xml_node('url')
             for n in [
                     __create_xml_node('loc', text=f'https://www.mrrhp.com/{lang}/{post["code"]}'),
                     __create_xml_node('priority', text='0.8'),
-                    __create_xml_node('lastmod', text=post['updated_at']),]:
+                    __create_xml_node('lastmod', text=post['updated_at']), ]:
                 url.appendChild(n)
             urlset.appendChild(url)
 
@@ -185,5 +186,5 @@ def __get_available_codes_updated_at():
     for p in Post.available():
         p.updated_at = date_utils.convert_timezone_to_local(p.publish_at)
         p.updated_at = date_utils.format_iso(p.updated_at)
-        posts.append({ 'code':p.code, 'updated_at':p.updated_at })
+        posts.append({'code': p.code, 'updated_at': p.updated_at})
     return posts
