@@ -10,20 +10,21 @@
 import requests
 import json
 
+
 class SlackPostman:
     '''Send messages from Python to Slack.'''
 
     def __init__(self, webhook_url, *, sender='Alien', sender_emoji=':alien:'):
-        self.webhook_url  = webhook_url
-        self.sender       = sender
+        self.webhook_url = webhook_url
+        self.sender = sender
         self.sender_emoji = sender_emoji
 
     def post(self, text):
         return requests.post(
             self.webhook_url,
-            data = json.dumps({
-                'text'      : text,
-                'username'  : self.sender,
+            data=json.dumps({
+                'text': text,
+                'username': self.sender,
                 'icon_emoji': self.sender_emoji,
             })
         )
@@ -38,14 +39,14 @@ if __name__ == "__main__":
 
     postman1 = SlackPostman(
         webhook_url,
-        sender = 'Invader',
-        sender_emoji = ':trollface:'
+        sender='Invader',
+        sender_emoji=':trollface:'
     )
 
     postman2 = SlackPostman(
         webhook_url,
-        sender = 'Pumpkin',
-        sender_emoji = ':jack_o_lantern:'
+        sender='Pumpkin',
+        sender_emoji=':jack_o_lantern:'
     )
 
     # 送ります。

@@ -2,6 +2,7 @@
 """Constants defined by me
 """
 
+
 class Lang:
     JA = 'ja'
     EN = 'en'
