@@ -2,7 +2,7 @@
 """Methods used not in each page but on more global scope.
 """
 
-from app.models import *
+from app.models import Config
 import os
 from app.usrlib import consts, slack_postman
 import markdown
@@ -39,7 +39,7 @@ def dp_lang(lang, for_ja, for_en):
     return for_ja if lang == consts.Lang.JA else for_en
 
 
-def send_slack_notification(message:str):
+def send_slack_notification(message: str):
     """When slack_webhook_url file doesn't exist, do nothing.
     Send message to slack_webhook_url."""
 
@@ -51,7 +51,7 @@ def send_slack_notification(message:str):
     postman.post(message)
 
 
-def create_postman(webhook_url:str):
+def create_postman(webhook_url: str):
     """Create slack postman."""
     return slack_postman.SlackPostman(
         webhook_url,

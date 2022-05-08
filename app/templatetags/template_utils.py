@@ -1,11 +1,10 @@
-
-from django import template
 from django.template.defaulttags import register
 
 
 @register.filter
 def ref_lis(lis, arg):
     return lis[int(arg)]
+
 
 @register.filter
 def ref_dic(dic, arg):

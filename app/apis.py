@@ -1,12 +1,13 @@
 
 from app.usrlib import basic_auth
 from django.http import HttpResponse
-from app.bizlogic import (archive_bizlogic,
-                          image_bizlogic,
-                          comment_bizlogic,
-                          link_bizlogic,
-                          search_bizlogic,
-                         )
+from app.bizlogic import (
+    archive_bizlogic,
+    image_bizlogic,
+    comment_bizlogic,
+    link_bizlogic,
+    search_bizlogic,
+)
 from django.http.response import JsonResponse
 
 
@@ -44,4 +45,4 @@ def api_search_posts(request):
     t   : keywords, used to search title
     lang: ja or en
     """
-    return JsonResponse({'posts':search_bizlogic.search_posts_by_get_query(request)})
+    return JsonResponse({'posts': search_bizlogic.search_posts_by_get_query(request)})
