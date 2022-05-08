@@ -1,17 +1,16 @@
 from django.shortcuts import render
 from app.usrlib import consts, common, image_utils, basic_auth
-import sys
 from django.http import HttpResponse
-from app.bizlogic import (comment_bizlogic,
-                          post_bizlogic,
-                          tag_bizlogic,
-                          year_bizlogic,
-                          common_bizlogic,
-                          search_bizlogic,
-                          top_bizlogic,
-                          link_bizlogic,
-                         )
-from django.conf import settings
+from app.bizlogic import (
+    comment_bizlogic,
+    post_bizlogic,
+    tag_bizlogic,
+    year_bizlogic,
+    common_bizlogic,
+    search_bizlogic,
+    top_bizlogic,
+    link_bizlogic,
+)
 from django.views.defaults import server_error as default_server_error
 import logging
 import datetime
@@ -37,7 +36,8 @@ def latest(request, lang):
     if not post_obj:
         return page_not_found(request)
     formatted_post = post_bizlogic.format_post(post_obj, lang, require_body=True)
-    related_formatted_posts, next_formatted_post, previous_formatted_post = post_bizlogic.get_related_formatted_posts(lang, post_obj)
+    related_formatted_posts, next_formatted_post, previous_formatted_post = post_bizlogic.get_related_formatted_posts(
+        lang, post_obj)
 
     data = common_bizlogic.get_base_data(lang, request)
     data['is_latest_page'] = True
@@ -64,7 +64,8 @@ def post(request, lang, code):
             return basic_auth.http401()
 
     formatted_post = post_bizlogic.format_post(post_obj, lang, require_body=True)
-    related_formatted_posts, next_formatted_post, previous_formatted_post = post_bizlogic.get_related_formatted_posts(lang, post_obj)
+    related_formatted_posts, next_formatted_post, previous_formatted_post = post_bizlogic.get_related_formatted_posts(
+        lang, post_obj)
 
     data = common_bizlogic.get_base_data(lang, request)
     data['page_title'] = f'{formatted_post["title"]} | {data["page_title"]}'
@@ -121,7 +122,7 @@ def page_not_found(request, *args, **kw):
     data['is_404_page'] = True
     data['post'] = {
         'title': 'ページが見つかりません。',
-        'body' : 'ヘッダのタグ一覧、年月一覧、検索欄から記事を探してみてください。',
+        'body': 'ヘッダのタグ一覧、年月一覧、検索欄から記事を探してみてください。',
     }
     return render(request, 'app/post.tpl', data)
 
@@ -134,7 +135,7 @@ def page_server_error(request, *args, **kw):
 
     # Logging, using logger.
     logger.error('\n'.join([
-        f'Server Error happened!',
+        'Server Error happened!',
         f'Request uri: {request.build_absolute_uri()}',
         f'HTTP_HOST: {request.META["HTTP_HOST"] if "HTTP_HOST" in request.META else "None"}',
         f'HTTP_REFERER: {request.META["HTTP_REFERER"] if "HTTP_REFERER" in request.META else "None"}',
