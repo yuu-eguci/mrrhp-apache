@@ -3,13 +3,10 @@
 """
 
 from django.shortcuts import get_object_or_404
-from app.models import *
-from app.usrlib import consts, common
-import pytz
-from django.conf import settings
-from django.utils import timezone
+from app.models import Tag, Post
+from app.usrlib import common
 from bulk_update.helper import bulk_update
-from django.db.models import Q, Count
+from django.db.models import Count
 from app.usrlib import date_utils
 
 

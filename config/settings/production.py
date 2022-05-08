@@ -1,12 +1,12 @@
 import pymysql
-from .base import *
+from .base import *  # noqa: F403
 
 DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
 DATABASES = {
-    'default': env.db(),
+    'default': env.db(),  # noqa: F405
 }
 
 pymysql.install_as_MySQLdb()

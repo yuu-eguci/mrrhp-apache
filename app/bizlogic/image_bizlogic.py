@@ -5,7 +5,7 @@
 import os
 from django.conf import settings
 from app.usrlib import image_utils
-from app.models import *
+from app.models import Post
 import re
 
 
@@ -13,13 +13,13 @@ MARKDOWNX_DIR = os.path.join(settings.MEDIA_ROOT, 'markdownx')
 THUMBNAIL_DIR = os.path.join(settings.MEDIA_ROOT, 'thumbnail')
 
 
-def generate_thumbnail(imagename:str) -> None:
+def generate_thumbnail(imagename: str) -> None:
     """Create thumbnail from markdownx media folder to thumbnail media folder.
     If original file doesn't exist, just return None without any errors.
     """
 
     ORIGIN_PATH = os.path.join(MARKDOWNX_DIR, imagename)
-    DEST_PATH   = os.path.join(THUMBNAIL_DIR, imagename)
+    DEST_PATH = os.path.join(THUMBNAIL_DIR, imagename)
 
     # File doesn't exist -> nothing to do.
     # Try to use "PASS for boolean expression without NOT" I read from Readable Code.

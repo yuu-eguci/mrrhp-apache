@@ -1,12 +1,17 @@
 from django.contrib import admin
-from app.models import *
+from app.models import (
+    Config,
+    Tag,
+    Year,
+    Post,
+)
 from markdownx.admin import MarkdownxModelAdmin
-from app.bizlogic import (image_bizlogic,
-                          tag_bizlogic,
-                          year_bizlogic,
-                          link_bizlogic,
-                          )
-from app.usrlib import common
+from app.bizlogic import (
+    image_bizlogic,
+    tag_bizlogic,
+    year_bizlogic,
+    link_bizlogic,
+)
 from django.utils.html import format_html
 from app.usrlib import date_utils
 

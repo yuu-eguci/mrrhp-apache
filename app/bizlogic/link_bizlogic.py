@@ -2,10 +2,11 @@
 """Link bizlogic
 """
 
-from app.models import *
+from app.models import Post, Link
 from app.bizlogic import post_bizlogic
 from app.usrlib import common
 import re
+from django.utils import timezone
 
 
 def register_all_posts_links():
@@ -41,7 +42,7 @@ def register_link(post_obj):
     )
 
 
-def __get_linked_codes(body:str) -> list:
+def __get_linked_codes(body: str) -> list:
     """From body string, get linked post codes."""
 
     return list(
@@ -56,7 +57,7 @@ def __get_linked_codes(body:str) -> list:
     )
 
 
-def __get_post_objs_with_404_check(codes:set, parent_code:str) -> list:
+def __get_post_objs_with_404_check(codes: set, parent_code: str) -> list:
     """Get post objects by codes.
     This method sends notification when post object doesn't exist."""
 
@@ -79,7 +80,8 @@ def get_posts_having_linkto(post_obj, lang):
 
     return [
         post_bizlogic.format_post(link.parent_post, lang, require_body=False)
-        for link in Link.objects.filter(linked_post=post_obj,
-                                        # No idea why but timezone can be used without import.
-                                        parent_post__publish_at__lte=timezone.now())
+        for link in Link.objects.filter(
+            linked_post=post_obj,
+            parent_post__publish_at__lte=timezone.now()
+        )
     ]

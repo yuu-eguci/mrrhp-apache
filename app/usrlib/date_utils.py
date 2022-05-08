@@ -3,7 +3,6 @@
 """
 
 import datetime
-import os
 from app.usrlib import common
 import pytz
 from django.conf import settings
@@ -19,30 +18,39 @@ def get_current_microsecond() -> int:
 
 def format_by_lang_YmdHM(lang, date):
     """Ymd HM format by lang."""
-    return datetime.datetime.strftime(date,
-        common.dp_lang(lang, '%Y-%m-%d %H:%M', '%b %d, %Y %H:%M'))
+    return datetime.datetime.strftime(
+        date,
+        common.dp_lang(lang, '%Y-%m-%d %H:%M', '%b %d, %Y %H:%M')
+    )
 
 
 def format_by_lang_Ymd(lang, date):
     """Ymd format by lang."""
-    return datetime.datetime.strftime(date,
-        common.dp_lang(lang, '%Y-%m-%d', '%b %d, %Y'))
+    return datetime.datetime.strftime(
+        date,
+        common.dp_lang(lang, '%Y-%m-%d', '%b %d, %Y')
+    )
 
 
 def format_by_lang_Ym(lang, date):
     """Ym format by lang."""
-    return datetime.datetime.strftime(date,
-        common.dp_lang(lang, '%Y/%m', '%b %Y'))
+    return datetime.datetime.strftime(
+        date,
+        common.dp_lang(lang, '%Y/%m', '%b %Y')
+    )
 
 
 def format_by_lang_md(lang, date):
     """md format by lang."""
-    return datetime.datetime.strftime(date,
-        common.dp_lang(lang, '%m/%d', '%b %d'))
+    return datetime.datetime.strftime(
+        date,
+        common.dp_lang(lang, '%m/%d', '%b %d')
+    )
 
 
 def format_iso(date):
-    """Representation of dates and times is an international standard covering the exchange of date- and time-related data."""
+    """Representation of dates and times is
+    an international standard coveringthe exchange of date- and time-related data."""
     return date.isoformat()
 
 
@@ -111,9 +119,9 @@ def get_ago_label(lang, dt):
     """
 
     now = set_timezone_local(datetime.datetime.now())
-    years       = now.year - dt.year
-    months      = now.month - dt.month
-    days        = now.day - dt.day
+    years = now.year - dt.year
+    months = now.month - dt.month
+    days = now.day - dt.day
     actual_days = (now - dt).days
 
     if actual_days == 0:
@@ -131,8 +139,8 @@ def get_ago_label(lang, dt):
         lang,
         ['年前', 'ヶ月前', '日前'],
         [' years ago', ' months ago', ' days ago'],
-        )
-    for num, label in zip([years,  months, actual_days], labels):
+    )
+    for num, label in zip([years, months, actual_days], labels):
         if num > 0:
             label = label.replace('s', '') if num == 1 else label
             return f'{num}{label}'

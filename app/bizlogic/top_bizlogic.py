@@ -2,7 +2,7 @@
 """Top bizlogic
 """
 
-from app.models import *
+from app.models import Post, Config
 from app.bizlogic import post_bizlogic
 import random
 from app.usrlib import consts
@@ -23,9 +23,9 @@ def get_pickup_post(lang):
         return
     # -(-num//num2) means ceil of division, obstructing it becomes less than 1.
     # math.ceil looks so simple but runs slowly. Besides it needs import math.
-    picknum = random.randint(1, -(-count//2))
+    picknum = random.randint(1, -(-count // 2))
     return post_bizlogic.format_post(
-        Post.available().order_by('publish_at').reverse()[picknum:picknum+1].first(),
+        Post.available().order_by('publish_at').reverse()[picknum:picknum + 1].first(),
         lang,
         require_body=False,
     )

@@ -6,11 +6,10 @@ import os
 from django.conf import settings
 from app.usrlib import image_utils, common
 import shutil
-from app.models import *
+from app.models import Post, Tag, Year
 import datetime
 import re
 from app.bizlogic import image_bizlogic
-from django.utils import timezone
 
 
 def register_all_archive_posts() -> None:
@@ -76,16 +75,16 @@ def __create_archive_post_obj(dirpath) -> Post:
     # Create Post object.
     return Post(
         # Here set time with Japan timezone, then it will be registered with UTC in DB, minus 9 hours.
-        publish_at=datetime.datetime.strptime(archive_data['publishdate']+'+0900', '%Y-%m-%d%z') ,
-        code      =archive_data['code']                                                          ,
-        title_ja  =archive_data['title_ja']                                                      ,
-        title_en  =archive_data['title_en']                                                      ,
-        tag       =Tag.objects.filter(name_ja=archive_data['tag']).first()                       ,
-        year      =Year.objects.filter(code=archive_data['publishdate'][:4]).first()             ,
-        thumbnail =thumbnail_basename                                                            ,
-        body_ja   =__manipulate_body_content(archive_data['ja_md']  , image_correspondence_table),
-        body_en   =__manipulate_body_content(archive_data['en_md']  , image_correspondence_table),
-        html      =__manipulate_body_content(archive_data['ja_html'], image_correspondence_table),
+        publish_at=datetime.datetime.strptime(archive_data['publishdate'] + '+0900', '%Y-%m-%d%z'),
+        code=archive_data['code'],
+        title_ja=archive_data['title_ja'],
+        title_en=archive_data['title_en'],
+        tag=Tag.objects.filter(name_ja=archive_data['tag']).first(),
+        year=Year.objects.filter(code=archive_data['publishdate'][:4]).first(),
+        thumbnail=thumbnail_basename,
+        body_ja=__manipulate_body_content(archive_data['ja_md'], image_correspondence_table),
+        body_en=__manipulate_body_content(archive_data['en_md'], image_correspondence_table),
+        html=__manipulate_body_content(archive_data['ja_html'], image_correspondence_table),
     )
 
 
@@ -105,14 +104,14 @@ def __extract_archive_data(dirpath) -> dict:
     has_html = os.path.isfile(JA_HTML)
     return {
         'publishdate': meta['publishdate'][0],
-        'code'       : meta['code'       ][0],
-        'title_ja'   : meta['title_ja'   ][0],
-        'title_en'   : meta['title_en'   ][0],
-        'tag'        : meta['tag'        ][0],
-        'mainimage'  : meta['mainimage'  ][0],
-        'ja_md'      : '' if has_html else common.read_file(JA_MD)  ,
-        'en_md'      : '' if has_html else common.read_file(EN_MD)  ,
-        'ja_html'    : common.read_file(JA_HTML) if has_html else '',
+        'code': meta['code'][0],
+        'title_ja': meta['title_ja'][0],
+        'title_en': meta['title_en'][0],
+        'tag': meta['tag'][0],
+        'mainimage': meta['mainimage'][0],
+        'ja_md': '' if has_html else common.read_file(JA_MD),
+        'en_md': '' if has_html else common.read_file(EN_MD),
+        'ja_html': common.read_file(JA_HTML) if has_html else '',
     }
 
 
@@ -122,22 +121,22 @@ def __manipulate_body_content(string, image_correspondence_table):
     # Replace image paths.
     for key, value in image_correspondence_table.items():
         string = (string
-                    .replace(f'![]({key})', f'![](/media/markdownx/{value})')
-                    .replace(f'src="{key}"', f'src="/media/markdownx/{value}"')
-        )
+                  .replace(f'![]({key})', f'![](/media/markdownx/{value})')
+                  .replace(f'src="{key}"', f'src="/media/markdownx/{value}"')
+                  )
 
     # Remove meta description in markdown file. Looks very bizlogic.
     for r in [
-        r'publishdate: .*?\n' ,
-        r'publish: .*?\n'     ,
-        r'code: .*?\n'        ,
-        r'title_ja: .*?\n'    ,
-        r'title_en: .*?\n'    ,
-        r'tag: .*?\n'         ,
-        r'author: .*?\n'      ,
-        r'hash: .*?\n'        ,
-        r'originaleid: .*?\n' ,
-        r'mainimage: .*?\n'   ,
+        r'publishdate: .*?\n',
+        r'publish: .*?\n',
+        r'code: .*?\n',
+        r'title_ja: .*?\n',
+        r'title_en: .*?\n',
+        r'tag: .*?\n',
+        r'author: .*?\n',
+        r'hash: .*?\n',
+        r'originaleid: .*?\n',
+        r'mainimage: .*?\n',
         r'convert2html: .*?\n',
     ]:
         string = re.sub(r, '', string)
