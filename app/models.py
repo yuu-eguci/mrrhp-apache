@@ -78,6 +78,7 @@ class Year(models.Model):
         null=True,
     )
 
+
 class Post(models.Model):
 
     @classmethod
