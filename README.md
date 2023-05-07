@@ -5,9 +5,7 @@ Mrrhp Apache
 
 ## Installation
 
-```bash
-git clone https://gitlab.com/midori-mate/mrrhpapache.git
-```
+https://github.com/yuu-eguci/mrrhp-docker
 
 
 ## Open on virtual environment THROUGH Apache
